@@ -1,0 +1,8 @@
+name: Mobsters
+version: 0.1.0
+api: [1.6.0]
+load: STARTUP
+main: aliuly\mobsters\Main
+
+author: aliuly
+description: A simple Entity implementation
