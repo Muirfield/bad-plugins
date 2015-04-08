@@ -23,7 +23,12 @@ use aliuly\mobsters\idiots\Silverfish;
 use aliuly\mobsters\idiots\Zombie;
 use aliuly\mobsters\idiots\Villager;
 
+use pocketmine\event\player\PlayerInteractEvent;
+use pocketmine\math\Vector3;
+
 class Main extends PluginBase implements Listener{
+	public $spawner = [];
+
 	public function onEnable(){
 		foreach([
 			Chicken::NETWORK_ID, Pig::NETWORK_ID, Sheep::NETWORK_ID,
@@ -49,5 +54,27 @@ class Main extends PluginBase implements Listener{
 		Entity::registerEntity(Silverfish::class);
 		Entity::registerEntity(Villager::class);
 		Entity::registerEntity(Zombie::class);
+		$this->getServer()->getPluginManager()->registerEvents($this, $this);
+	}
+	public function onPlayerInteract(PlayerInteractEvent $e) {
+		$pl = $e->getPlayer();
+		$hand = $pl->getInventory()->getItemInHand();
+		if ($hand->getId() != Item::SPAWN_EGG) return;
+		$bl = $e->getBlock();
+		if (!$bl->isSolid()) return;
+		$bl = $bl->getSide($e->getFace());
+		if ($hand->getDamage() == Wolf::NETWORK_ID) {
+			$this->spawner[implode(",",[$bl->getX(),$bl->getY(),$bl->getZ()])] = [ $pl->getName() , $hand->getDamage(), time() ];
+		}
+	}
+	public function getSpawner($x,$y,$z) {
+		$k = implode(",",[$x,$y,$z]);
+		if (isset($this->spawner[$k])) {
+			list($owner,$id,$tm) = $this->spawner[$k];
+			if (time() - $tm < 5) {
+				return [$owner,$id];
+			}
+		}
+		return ["",0];
 	}
 }
