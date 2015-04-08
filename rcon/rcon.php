@@ -5,7 +5,7 @@
  **
  ** * * *
  **
- **     Copyright (C) 2013 Alejandro Liu  
+ **     Copyright (C) 2013 Alejandro Liu
  **     All Rights Reserved.
  **
  **     This program is free software: you can redistribute it and/or modify
@@ -31,6 +31,7 @@
  **
  ** # Changes
  **
+ ** * 0.2 : Bug fixes
  ** * 0.1 : Initial release
  **
  ** # TODO
@@ -46,84 +47,86 @@ define("RCTYPE_COMMAND",2);
 define("RCTYPE_AUTH",3);
 
 class RCon {
-  private $sock;
-  private $id;
+	private $sock;
+	private $id;
 
-  public function __construct($host,$port) {
-    $this->sock = @fsockopen($host,$port, $errno, $errstr, 30) or
-      die("Unable to open socket: $errstr ($errno)\n");
-    stream_set_timeout($this->sock,3,0);
-    $this->id = 0;
-  }
-  function auth($passwd) {
-    $pktid = $this->writePkt(RCTYPE_AUTH,$passwd);
-    $ret = $this->readPkt();
-    if (is_null($ret)) die("Protocol Error\n");
-    if ($ret[0] == -1) die("Authentication failure\n");
-  }
-  private function writePkt($cmd,$payload = "") {
-    $id = ++$this->id;
-    $data = pack("VVV",strlen($payload),$id,$cmd).
-      ($payload === "" ? "\x00" : $payload)."\x00";
-    fwrite($this->sock,$data);
-    return $id;
-  }
-  private function readPkt() {
-    $d = fread($this->sock, 4);
-    if ($d === false || $d === ""  || strlen($d) < 4) return NULL;
-    list($size) = array_values(unpack("V1",$d));
-    if ($size < 0 or $size > 65535) return NULL;
-    list($id) = array_values(unpack("V1", fread($this->sock, 4)));
-    list($type) = array_values(unpack("V1", fread($this->sock, 4)));
-    $payload = rtrim(fread($this->sock,$size+2));
-    return array($id,$type,$payload);
-  }
-  public function cmd($cmd) {
-    $id = $this->writePkt(RCTYPE_COMMAND,$cmd);
-    $ret = $this->readPkt();
-    if (is_null($ret)) die("Protocol Error\n");
-    list ($rid,$type,$payload) = $ret;
-    if ($rid !== $id) die("Sequencing Error\n");
-    return $payload;
-  }
+	public function __construct($host,$port) {
+		$this->sock = @fsockopen($host,$port, $errno, $errstr, 30) or
+						die("Unable to open socket: $errstr ($errno)\n");
+		stream_set_timeout($this->sock,3,0);
+		$this->id = 0;
+	}
+	function auth($passwd) {
+		$pktid = $this->writePkt(RCTYPE_AUTH,$passwd);
+		$ret = $this->readPkt();
+		if (is_null($ret)) die("Protocol Error\n");
+		if ($ret[0] == -1) die("Authentication failure\n");
+	}
+	private function writePkt($cmd,$payload = "") {
+		$id = ++$this->id;
+		$data = pack("VVV",strlen($payload),$id,$cmd).
+				($payload === "" ? "\x00" : $payload)."\x00";
+		fwrite($this->sock,$data);
+		return $id;
+	}
+	private function readPkt() {
+		$d = fread($this->sock, 4);
+		if ($d === false || $d === ""  || strlen($d) < 4) return NULL;
+		list($size) = array_values(unpack("V1",$d));
+		if ($size < 0 or $size > 65535) return NULL;
+		list($id) = array_values(unpack("V1", fread($this->sock, 4)));
+		list($type) = array_values(unpack("V1", fread($this->sock, 4)));
+		$payload = rtrim(fread($this->sock,$size+2));
+		return array($id,$type,$payload);
+	}
+	public function cmd($cmd) {
+		$id = $this->writePkt(RCTYPE_COMMAND,$cmd);
+		$ret = $this->readPkt();
+		if (is_null($ret)) die("Protocol Error\n");
+		list ($rid,$type,$payload) = $ret;
+		if ($rid !== $id) die("Sequencing Error\n");
+		return $payload;
+	}
 }
 
 //////////////////////////////////////////////////////////////////////
 
 function argchk($a,$b,&$c) {
-  if (substr($a,0,strlen($b)) == $b) {
-    $c = substr($a,strlen($b));
-    return true;
-  }
-  return false;
+	if (substr($a,0,strlen($b)) == $b) {
+		$c = substr($a,strlen($b));
+		return true;
+	}
+	return false;
 }
 
 function is_interactive() {
-  if (!extension_loaded("posix")) return false;
-  if (!extension_loaded("readline")) return false;
-  return posix_isatty(STDIN);
+	if (!extension_loaded("posix")) return false;
+	if (!extension_loaded("readline")) return false;
+	return posix_isatty(STDIN);
 }
 
 function read_properties($f,&$s,&$pn,&$pw) {
-  if (!is_file($f)) return;
+	if (!is_file($f)) return;
 
-  $lines = file($f,FILE_IGNORE_NEWLINES|FILE_SKIP_EMPTY_LINES);
-  if ($lines === false) return;
+	$lines = file($f);
+	if ($lines === false) return;
 
-  foreach ($lines as $ln) {
-    list($k,$v) = preg_split('/\s*=\s*/',trim($ln),2);
-    switch ($k) {
-    case "server-ip":
-      if ($v != "") $s = $v;
-      break;
-    case "rcon.port":
-      $pn = $v;
-      break;
-    case "rcon.password":
-      $pw = $v;
-      break;
-    }
-  }
+	foreach ($lines as $ln) {
+		$ln = preg_split('/\s*=\s*/',trim($ln),2);
+		if (count($ln) != 2) continue;
+		list($k,$v) = $ln;
+		switch ($k) {
+			case "server-ip":
+				if ($v != "") $s = $v;
+				break;
+			case "rcon.port":
+				$pn = $v;
+				break;
+			case "rcon.password":
+				$pw = $v;
+				break;
+		}
+	}
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -137,30 +140,30 @@ $passwd = NULL;
 read_properties("server.properties",$server,$port,$passwd);
 
 while (count($argv)) {
-  if ($argv[0] == "-s") {
-    array_shift($argv);
-    $server = array_shift($argv);
-  } elseif (argchk($argv[0],"--server=",$server)) {
-    array_shift($argv);
-  } elseif ($argv[0] == "-p") {
-    array_shift($argv);
-    $port = array_shift($argv);
-  } elseif (argchk($argv[0],"--port=",$port)) {
-    array_shift($argv);
-  } elseif ($argv[0] == "-P") {
-    array_shift($argv);
-    $passwd = array_shift($argv);
-  } elseif (argchk($argv[0],"--passwd=",$passwd)) {
-    array_shift($argv);
-  } elseif ($argv[0] == "-C") {
-    array_shift($argv);
-    read_properties(array_shift($argv),$server,$port,$passwd);
-  } elseif ($argv[0] == "--") {
-    array_shift($argv);
-    break;
-  } else {
-    break;
-  }
+	if ($argv[0] == "-s") {
+		array_shift($argv);
+		$server = array_shift($argv);
+	} elseif (argchk($argv[0],"--server=",$server)) {
+		array_shift($argv);
+	} elseif ($argv[0] == "-p") {
+		array_shift($argv);
+		$port = array_shift($argv);
+	} elseif (argchk($argv[0],"--port=",$port)) {
+		array_shift($argv);
+	} elseif ($argv[0] == "-P") {
+		array_shift($argv);
+		$passwd = array_shift($argv);
+	} elseif (argchk($argv[0],"--passwd=",$passwd)) {
+		array_shift($argv);
+	} elseif ($argv[0] == "-C") {
+		array_shift($argv);
+		read_properties(array_shift($argv),$server,$port,$passwd);
+	} elseif ($argv[0] == "--") {
+		array_shift($argv);
+		break;
+	} else {
+		break;
+	}
 }
 if (is_null($passwd)) die("No password specified\n");
 
@@ -169,25 +172,25 @@ $rcon = new rcon($server,$port);
 $rcon->auth($passwd);
 
 if (count($argv)) {
-  echo $rcon->cmd(implode(" ",$argv))."\n";
+	echo $rcon->cmd(implode(" ",$argv))."\n";
 } else {
-  if (is_interactive()) {
-    echo "Enter /quit to finish\n";
-    while (true) {
-      $line = readline("RCON> ");
-      if (trim($line) != "") {
-	$t = trim($line);
-	if ($line == "/quit") exit;
-	readline_add_history($line);
-	echo $rcon->cmd($line)."\n";
-      }
-    }
-  } else {
-    while (($line = stream_get_line(STDIN,1024,PHP_EOL)) !== false) {
-      $line = trim($line);
-      if ($line != "") {
-	echo $rcon->cmd($line)."\n";
-      }
-    }
-  }
+	if (is_interactive()) {
+		echo "Enter /quit to finish\n";
+		while (true) {
+			$line = readline("RCON> ");
+			if (trim($line) != "") {
+				$t = trim($line);
+				if ($line == "/quit") exit;
+				readline_add_history($line);
+				echo $rcon->cmd($line)."\n";
+			}
+		}
+	} else {
+		while (($line = stream_get_line(STDIN,1024,PHP_EOL)) !== false) {
+			$line = trim($line);
+			if ($line != "") {
+				echo $rcon->cmd($line)."\n";
+			}
+		}
+	}
 }
