@@ -23,6 +23,7 @@ namespace aliuly\mobsters\idiots;
 
 
 use pocketmine\event\entity\EntityDamageByEntityEvent;
+use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\item\Item as Item;
 use pocketmine\network\protocol\AddMobPacket;
 use pocketmine\network\protocol\MovePlayerPacket;
@@ -37,8 +38,8 @@ class Zombie extends Monster{
 	const NETWORK_ID = 32;
 
 	public static $range = 32;
-	public static $speed = 0.5;
-	public static $jump = 0.9;
+	public static $speed = 0.2;
+	public static $jump = 2;
 	public static $attack = 1.5;
 
 	public $width = 0.6;
@@ -47,7 +48,7 @@ class Zombie extends Monster{
 	public $stepHeight = 0.5;
 
 	public function getName(){
-		return "Zombie";
+		return "ZombieIdiot";
 	}
 
 	public function spawnTo(Player $player){
@@ -191,7 +192,7 @@ class Zombie extends Monster{
 			$this->x += $this->motionX * $tickDiff;
 			$this->y += $this->motionY * $tickDiff;
 			$this->z += $this->motionZ * $tickDiff;
-			echo ("Falling...\n");
+			//echo ("Falling...\n");
 		}else{
 			$this->motionX = 0; // No longer jumping/falling
 			$this->motionY = 0;
@@ -216,65 +217,29 @@ class Zombie extends Monster{
 
 					if(count($this->level->getCollisionBlocks($bb->offset(0, 0.1, $z))) > 0){
 						if ($isJump) {
-							$y = 2;
+							$y = self::$jump;
 							$this->motionZ = $z;
 						}
 						$z = 0;
 					}
 					if(count($this->level->getCollisionBlocks($bb->offset($x, 0.1, 0))) > 0){
 						if ($isJump) {
-							$y = 2;
+							$y = self::$jump;
 							$this->motionX = $x;
 						}
 						$x = 0;
 					}
-					if ($y) {
-						echo "Jumping\n";
-					}
+					//if ($y) echo "Jumping\n";
 					$this->x += $x;
 					$this->y += $y;
 					$this->z += $z;
-					//echo "DIST=$dist\n";
-					/*
-					//$bb->offset(0, $this->gravity, 0);
-					if ($isJump) {
-						// Leap of faith!
-						$this->x += $x;
-						$this->y += self::$speed;
-						$this->z += $z;
-						$this->motionX = $x;
-						$this->motionY = self::$speed;
-						$this->motionZ = $z;
-					}else{
-						// Normal move...
-						}*/
+				}else {
+					$attack = mt_rand(0,4);
+					if ($attack < 2 && $attack > 0) {
+						$source = new EntityDamageByEntityEvent($this,$target,EntityDamageEvent::CAUSE_ENTITY_ATTACK,$attack);
 
-					/*
-			if(!$isJump){
-				if($this->jumpTick <= 0) $this->jumpTick = 40;
-				elseif($this->jumpTick > 36) $y = $this->gravity;
-			}
-			if($this->jumpTick > 0) $this->jumpTick--;
-			if(($n = floor($this->y) - $this->y) < $this->gravity && $n > 0) $y = -$n;
-			if($y == 0 && !$onGround) $y = -$this->gravity;
-			$block = $this->level->getBlock($this->add($vec = new Vector3($x, $y, $z)));
-			if($block->hasEntityCollision()){
-				$block->addVelocityToEntity($this, $vec2 = $vec->add(0, $this->gravity, 0));
-				$vec->x = ($vec->x + $vec2->x/2) / 5;
-				$vec->y = ($vec->y + $vec2->y/2);
-				$vec->z = ($vec->z + $vec2->z/2) / 5;
-			}
-			if(count($this->level->getCollisionBlocks($bb->offset(0, -0.01, 0))) <= 0) $y -= 0.01;
-
-			$this->x = ($this->boundingBox->minX + $this->boundingBox->maxX - $this->drag) / 2;
-			$this->y = ($this->boundingBox->minY + $this->boundingBox->maxY) / 2;
-			$this->z = ($this->boundingBox->minZ + $this->boundingBox->maxZ - $this->drag) / 2;
-			$this->onGround = $onGround;
-			}else{
-				// Close enough to attack!
-			}
-			$this->onGround = $onGround;
-			*/
+						$target->attack($attack,$source);
+					}
 				}
 			}
 		}
