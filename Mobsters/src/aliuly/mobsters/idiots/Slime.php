@@ -20,7 +20,7 @@ class Slime extends Monster{
 	}
 
 	public function spawnTo(Player $player){
-		echo __METHOD__.",".__LINE__."\n";
+		//echo __METHOD__.",".__LINE__."\n";
 
 		$pk = new AddMobPacket();
 		$pk->eid = $this->getId();
