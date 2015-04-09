@@ -1,7 +1,12 @@
 # bad-plugins
-PocketMine Plugins that are not good enough to be hosted in plugins.pocketmine.net
 
-This git repository contains my plugins that were rejected from the official pocket mine web site.
+PocketMine Plugins that are not good enough to be hosted in
+plugins.pocketmine.net
+
+
+This git repository contains my plugins that were rejected from the
+official pocket mine web site.
+
 
 # Todo/Ideas
 
@@ -66,7 +71,7 @@ do that.
 # Copyright
 
     bad-plugins
-    Copyright (C) 2013 Alejandro Liu  
+    Copyright (C) 2015 Alejandro Liu
     All Rights Reserved.
 
     This program is free software: you can redistribute it and/or modify
