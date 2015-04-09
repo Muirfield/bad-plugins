@@ -47,6 +47,9 @@ This git repository contains my plugins that were rejected from the official poc
 - per-level plugins.  Plugins only active on a per level basis
 - async-task plugin?
 - fork per-level
+- creative restrict
+  - do not allow PvP in creative, warning or stop
+  - if somebody kills in creative, we switch gamemode
 
 # MINI GAMES
 
