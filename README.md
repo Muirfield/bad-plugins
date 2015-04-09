@@ -7,6 +7,17 @@ plugins.pocketmine.net
 This git repository contains my plugins that were rejected from the
 official pocket mine web site.
 
+## Notes
+
+	specter spawn Playername # The full command to spawn a new dummy
+	s s playername # Luckily there is shorthand
+	s c playername /spawn # Execute /spawn as player
+
+Give/Get items:
+
+* zombie : spawn_egg:32
+* villager : spawn_egg:15
+
 
 # Todo/Ideas
 
