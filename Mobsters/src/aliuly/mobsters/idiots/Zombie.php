@@ -39,7 +39,7 @@ class Zombie extends Monster{
 
 	public static $range = 32;
 	public static $speed = 0.2;
-	public static $jump = 2;
+	public static $jump = 2.5;
 	public static $attack = 1.5;
 
 	public $width = 0.6;
@@ -168,7 +168,7 @@ class Zombie extends Monster{
 				continue;
 			}
 			$cd = $this->distance($pl);
-			if(($cd > self::$range)||($dist && $cd < $dist)){
+			if(($cd > self::$range)||($dist && $cd > $dist)||$pl->getHealth()<1){
 				continue;
 			}
 			$dist = $cd;
