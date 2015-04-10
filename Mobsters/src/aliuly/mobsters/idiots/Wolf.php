@@ -27,7 +27,8 @@ class Wolf extends Animal implements Tameable{
 		return "Wolf";
 	}
 
-	protected function initEntity() {
+	public function initEntity() {
+		//^ changed from protected->public for 1.5
 		parent::initEntity();
 		if(isset($this->namedtag->Owner)){
 			$this->owner = $this->namedtag["Owner"];

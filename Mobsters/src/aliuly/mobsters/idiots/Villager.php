@@ -46,6 +46,7 @@ class Villager extends Creature implements NPC, Ageable{
 	public function getName(){
 		return "Villager";
 	}
+	public function isBaby() { return false;} // Needed for 1.5
 
 	protected function initEntity(){
 		parent::initEntity();
