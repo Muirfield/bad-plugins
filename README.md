@@ -57,15 +57,29 @@ Give/Get items:
 	>>>HandlerList::unregisterAll($plugin);
 	?removePermissions
 
+Context variables
+
+* $Sender
+* $Console
+* $Server
+* $Player (if sender is a player otherwise null)
+* $Logger
+ON EVENT HANDLER
+* $Event
+
+
 # NEW PLUGIN IDEAS:
 
 - plots: place a sign claim a plot.  Place a sign restrict the plot.
 - per-level plugins.  Plugins only active on a per level basis
 - async-task plugin?
 - fork per-level
-- creative restrict
+- creative restrict -
   - do not allow PvP in creative, warning or stop
   - if somebody kills in creative, we switch gamemode
+- creative pvp
+  - track health
+
 
 # MINI GAMES
 
