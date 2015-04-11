@@ -44,14 +44,15 @@ class Villager extends Creature implements NPC, Ageable{
 	public $height = 1.8;
 
 	public function getName(){
-		return "Villager";
+		return "VillagerIdiot";
 	}
 	public function isBaby() { return false;} // Needed for 1.5
 
 	protected function initEntity(){
 		parent::initEntity();
 		if(!isset($this->namedtag->Profession)){
-			$this->setProfession(self::PROFESSION_GENERIC);
+			$this->setProfession(mt_rand(0,5));
+			//$this->setProfession(self::PROFESSION_GENERIC);
 		}
 	}
 

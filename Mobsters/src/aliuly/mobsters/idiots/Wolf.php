@@ -24,7 +24,7 @@ class Wolf extends Animal implements Tameable{
 	public $owner = null;
 
 	public function getName(){
-		return "Wolf";
+		return "LameWolf";
 	}
 
 	public function initEntity() {
@@ -46,7 +46,7 @@ class Wolf extends Animal implements Tameable{
 				$this->namedtag->Owner = new String("Owner",$this->owner);
 			}
 		}
-		if ($this->owner) echo "Perrito de ".$this->owner."\n";
+		if ($this->owner) echo "Perrito de ".$this->owner."\n"; //##DEBUG
 	}
 
 	public function spawnTo(Player $player){
