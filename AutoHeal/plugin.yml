@@ -1,0 +1,13 @@
+main: aliuly\autoheal\Main
+api: 1.10.0
+load: POSTWORLD
+
+name: AutoHeal
+description: Basic Auto-Healing Plugin
+version: 1.0.0
+author: aliuly
+
+permissions:
+    autoheal:
+        default: false
+        description: "Players with this permission can auto-heal"
