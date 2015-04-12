@@ -5,6 +5,7 @@ use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
 use pocketmine\scheduler\CallbackTask;
 use pocketmine\utils\TextFormat;
+use pocketmine\permission\Permission;
 
 //use pocketmine\Player;
 //use pocketmine\Server;
@@ -12,57 +13,52 @@ use pocketmine\utils\TextFormat;
 //use pocketmine\network\protocol\SetHealthPacket;
 
 class Main extends PluginBase{
-	protected $players;
-
 	public function onEnable(){
 		if (!is_dir($this->getDataFolder())) mkdir($this->getDataFolder());
 		$defaults = [
 			"ranks" => [
-				"vip1" => [40, 1],
-				"vip2" => [80, 2],
-				"vip3" => [800, 1],
-			],
-			"players" => [
-				"joe" => "vip1",
-				"tom" => "vip2",
-				"smith" => "vip3",
+				"vip1" => [40, 1, false],
+				"vip2" => [80, 2, false],
+				"vip3" => [800, 1, false],
 			],
 		];
 		if (file_exists($this->getDataFolder()."config.yml")) {
 			unset($defaults["ranks"]);
-			unset($defaults["players"]);
 		}
 		$cfg = (new Config($this->getDataFolder()."config.yml",
 								 Config::YAML,$defaults))->getAll();
-		if (!isset($cfg["ranks"])) $cfg["ranks"] = 0;
+		if (!isset($cfg["ranks"])) $cfg["ranks"] = [];
+
 		$cnt = 0;
-		$this->players = [];
-		if (isset($cfg["players"])) {
-			foreach ($cfg["players"] as $name => $rank) {
-				if (!isset($cfg["ranks"][$rank])) continue;
-				++$cnt;
-				$this->players[$rank][$name] = $name;
+		foreach ($cfg["ranks"] as $rank=>$dat) {
+			if (count($dat) == 3) {
+				list($rate,$amount,$perms) = $dat;
+			} elseif (count($dat) == 2) {
+				list($rate,$amount) = $dat;
+				$perms = false;
+			} else {
+				$this->getLogger()->info(TextFormat::RED.
+												 "Skipping rank: ".$rank);
+				continue;
 			}
+			$p = new Permission("autoheal.".$rank,"Enables auto heal for ".$rank,
+									  $perms);
+			$this->getServer()->getPluginManager()->addPermission($p);
+			$this->getServer()->getScheduler()->scheduleRepeatingTask(new CallbackTask([$this,"healTimer"],[$rank,$amount]),$rate);
+			++$cnt;
 		}
 		if ($cnt == 0) {
 			$this->getLogger()->info(TextFormat::RED.
-											 "No ranks or players defined, disabling...");
+											 "No ranks defined, disabling...");
 			return;
 		}
-		$rcnt = 0;
-		foreach ($cfg["ranks"] as $rank=>$det) {
-			if (!isset($this->players[$rank])) continue;
-			++$rcnt;
-			list($rate,$amount) = $det;
-			$this->getServer()->getScheduler()->scheduleRepeatingTask(new CallbackTask([$this,"healTimer"],[$rank,$amount]),$rate);
-		}
-		$this->getLogger()->info($rcnt." ranks defined");
-		$this->getLogger()->info($cnt." players registered");
+		$this->getLogger()->info($cnt." ranks configured");
 	}
 	public function healTimer($rank,$amount) {
 		$pls = $this->getServer()->getOnlinePlayers();
 		foreach($pls as $pl) {
-			if (!isset($this->players[$rank][$pl->getName()])) continue;
+			if (!$pl->hasPermission("autoheal")) continue;
+			if (!$pl->hasPermission("autoheal.".$rank)) continue;
 			// Yes, this is a vip!
 			$new = $pl->getHealth() + $amount;
 			if ($new > $pl->getMaxHealth()) $new = $pl->getMaxHealth();
