@@ -32,6 +32,7 @@ use pocketmine\math\AxisAlignedBB;
 
 use pocketmine\Player;
 use pocketmine\entity\Monster;
+use pocketmine\entity\Entity;
 use pocketmine\math\Vector3;
 
 class Zombie extends Monster{
@@ -249,6 +250,10 @@ class Zombie extends Monster{
 		$this->timings->stopTiming();
 		$hasUpdate = parent::onUpdate($currentTick) || $hasUpdate;
 		return $hasUpdate;
+	}
+	public function knockBack(Entity $attacker, $damage, $x, $z, $base = 0.4){
+		//echo __METHOD__.",".__LINE__."\n"; //##DEBUG
+		parent::knockBack($attacker,$damage,$x,$z,2.5);
 	}
 
 }
