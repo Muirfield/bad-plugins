@@ -22,3 +22,4 @@ function req($url) {
 
 //echo req("https://api.github.com/repos/alejandroliu/bad-plugins/releases");
 //print_r( req("https://api.github.com/repos/alejandroliu/pocketmine-plugins/releases"));
+print_r( req("https://api.github.com/repos/alejandroliu/bad-plugins/releases"));
