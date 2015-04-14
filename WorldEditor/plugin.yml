@@ -1,0 +1,71 @@
+name: WorldEditor
+main: WorldEditor\WorldEditor
+version: 1.0.3
+api: 1.2.0
+author: Kagehis4
+website: https://github.com/ryuzaki01/pocketmine-WorldEditor
+commands:
+ toggleeditwand:
+  description: Toggles the edit wand mode, to use edit wand item normally.
+  usage: "/toggleeditwand"
+  permission: worldeditor
+ /cut:
+  description: Cuts the currently selected region.
+  usage: "//cut"
+  permission: worldeditor.command
+ /copy:
+  description: Copies the currently selected region.
+  usage: "//copy"
+  permission: worldeditor.command
+ /paste:
+  description: Pastes the clipboard.
+  usage: "//paste"
+  permission: worldeditor.command
+ /sphere:
+  description: Create a sphere.
+  usage: "//sphere <block> <radius>"
+  permission: worldeditor.command
+ /hsphere:
+  description: Create a hollow sphere.
+  usage: "//hsphere <block> <radius>"
+  permission: worldeditor.command
+ /desel:
+  description: Deselects the current selection.
+  usage: "//desel"
+  permission: worldeditor.command
+ /limit:
+  description: Set your maximum number of blocks to change at most for all operations.
+  usage: "//limit <limit>"
+  permission: worldeditor.command
+ /pos1:
+  description: Set selection position #1 to the block above the one that you are standing on.
+  usage: "//pos1"
+  permission: worldeditor.command
+ /pos2:
+  description: Set selection position #2 to the block above the one that you are standing on.
+  usage: "//pos2"
+  permission: worldeditor.command
+ /set:
+  description: Set all blocks inside the selection region to a specified block(s)
+  usage: "//set <blockID>"
+  permission: worldeditor.command
+ /replace:
+  description: Replace all blocks of the specified block with another block(s) inside the region.
+  usage: "//replace <fromBlock> <toBlock>"
+  permission: worldeditor.command
+ /help:
+  description: Show list of commands
+  usage: "//help"
+  permission: worldeditor.command
+ /wand:
+  description: Gives you the "edit wand".
+  usage: "//wand"
+  permission: worldeditor.command
+permissions:
+    worldeditor:
+        default: op
+        description: "All the permissions to use the World Editor"
+        children:
+            worldeditor.command:
+                default: op
+                description: "Allow the usage of the WorldEditor command"
