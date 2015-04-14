@@ -29,11 +29,11 @@ commands:
   description: Create a hollow sphere.
   usage: "//hsphere <block> <radius>"
   permission: worldeditor.command
- /cube
+ /cube:
   description: Create a cube.
   usage: "//cube <block> <radius>"
   permission: worldeditor.command
- /hcube
+ /hcube:
   description: Create a hollow cube.
   usage: "//hcube <block> <radius>"
   permission: worldeditor.command
