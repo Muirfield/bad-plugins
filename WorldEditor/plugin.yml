@@ -1,8 +1,8 @@
 name: WorldEditor
 main: WorldEditor\WorldEditor
-version: 1.0.3
+version: 1.0.3-0.1
 api: 1.2.0
-author: Kagehis4
+author: [Kagehis4,aliuly]
 website: https://github.com/ryuzaki01/pocketmine-WorldEditor
 commands:
  toggleeditwand:
@@ -28,6 +28,14 @@ commands:
  /hsphere:
   description: Create a hollow sphere.
   usage: "//hsphere <block> <radius>"
+  permission: worldeditor.command
+ /cube
+  description: Create a cube.
+  usage: "//cube <block> <radius>"
+  permission: worldeditor.command
+ /hcube
+  description: Create a hollow cube.
+  usage: "//hcube <block> <radius>"
   permission: worldeditor.command
  /desel:
   description: Deselects the current selection.

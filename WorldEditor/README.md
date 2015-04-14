@@ -1,7 +1,10 @@
-# pocketmine-WorldEditor <em>for PocketMine-MP (New API)</em>
+# pocketmine-WorldEditor *for PocketMine-MP (New API)*
 
-WorldEditor Plugin is a port of the WorldEdit, done for [PocketMine-MP](https://github.com/shoghicp/PocketMine-MP)
-
+WorldEditor Plugin is a port of the WorldEdit, done for
+[PocketMine-MP](https://github.com/shoghicp/PocketMine-MP).  This was
+originally from
+[ryuzaki01](https://github.com/ryuzaki01/pocketmine-WorldEditor) but
+hacked until it worked...
 
 ## Installation
 - Drop the correct WorldEditor version into the PocketMine's `plugins/` folder.
@@ -23,4 +26,4 @@ WorldEditor Plugin is a port of the WorldEdit, done for [PocketMine-MP](https://
 | __//sphere__ | `<blocks> <radius>` | Create a sphere. |
 | __//hsphere__ | `<blocks> <radius>` | Create a hollow sphere. |
 | __//desel__ | | Deselects the current selection. |
-| __/toggleeditwand__ | | Toggles the edit wand selection mode, allowing you to use the edit wand item normally. |
+| __//toggleeditwand__ | | Toggles the edit wand selection mode, allowing you to use the edit wand item normally. |

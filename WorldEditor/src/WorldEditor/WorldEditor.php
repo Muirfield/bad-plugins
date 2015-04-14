@@ -19,36 +19,62 @@ use pocketmine\utils\TextFormat;
 use pocketmine\utils\Config;
 
 class WorldEditor extends PluginBase implements Listener{
-	private $output = "";
-	private static $config = false;
-	private static $dataDir = false;
+	private $cfg;
+	private $data;
 
-	public function onLoad(){
-		$this->getLogger()->info(TextFormat::WHITE . "WorldEditor has been loaded!");
+	public function getData($player) {
+		if ($player instanceof Player) {
+			$iusername = $player->getName();
+		} elseif (is_string($player)) {
+			$iusername = $player;
+		} else {
+			return false;
+		}
+		if (!isset($this->data[$iusername])) {
+			$this->data[$iusername] = [
+				"block-limit" => $this->cfg["block-limit"],
+				"selection" => [false, false],
+				"clipboard" => null,
+				"wand-usage" => true ];
+		}
+		return $this->data[$iusername];
+	}
+	public function setData($player,$data) {
+		if ($player instanceof Player) {
+			$iusername = $player->getName();
+		} elseif (is_string($player)) {
+			$iusername = $player;
+		} else {
+			return false;
+		}
+		$this->data[$iusername] = $data;
 	}
 
 	public function onEnable(){
-		@mkdir("plugins/WorldEditor");
-		self::$dataDir = $this->getServer()->getPluginPath() . "WorldEditor/";
-		$this->checkConfig();
+		if (!is_dir($this->getDataFolder())) mkdir($this->getDataFolder());
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
-		$this->getLogger()->info("WorldEditor has been enabled!");
+		$defaults = [
+			"block-limit" => -1,
+			"wand-item" => "IRON_HOE",
+		];
+		$this->cfg=(new Config($this->getDataFolder()."config.yml",
+									  Config::YAML,$defaults))->getAll();
+		if(!isset($this->cfg["block-limit"])) $this->cfg["block-limit"]=-1;
+		if(!isset($this->cfg["wand-item"])) $this->cfg["wand-item"]="IRON_HOE";
+		if(!is_numeric($this->cfg["block-limit"])){
+			$this->getLogger()->alert(TextFormat::RED . "Wrong format for block-limit.");
+			$this->cfg["block-limit"] = -1;
+		}
 	}
 
 	public function onCommand(CommandSender $sender, Command $command, $label, array $args){
 		$cmd = strtolower($command->getName());
-		$params = $args;
 
 		if(!($sender instanceof Player)){
 			$sender->sendMessage(TextFormat::RED . "Please run this command in-game.\n");
 			return false;
 		}
-
 		$data = $this->getData($sender);
-
-		if(!$sender->isOp()){
-			return false;
-		}
 
 		if($cmd{0} === "/"){
 			$cmd = substr($cmd, 1);
@@ -56,184 +82,193 @@ class WorldEditor extends PluginBase implements Listener{
 
 		switch($cmd){
 			case "paste":
-				$this->W_paste($data->get("clipboard"), new Position($sender->getX() - 0.5, $sender->getY(), $sender->getZ() - 0.5, $sender->getLevel()));
+				$m = $this->W_paste($data["clipboard"], new Position($sender->getX() - 0.5, $sender->getY(), $sender->getZ() - 0.5, $sender->getLevel()));
+				if ($m) $sender->sendMessage($m);
 				break;
 			case "copy":
-				$count = $this->countBlocks($data->get("selection"), $startX, $startY, $startZ);
-				if($count > $data->get("block-limit") and $data->get("block-limit") > 0){
-					$this->output .= "Block limit of ".$data->get("block-limit")." exceeded, tried to copy $count block(s).\n";
+				$count = $this->countBlocks($data["selection"],
+													 $starX,$starY,$starZ);
+				if ($data["block-limit"] > 0 && $count > $data["block-limit"]) {
+					$sender->sendMessage("Block limit of ".$data["block-limit"]
+												." exceeded, tried to copy ".
+												$count." block(s).");
 					break;
 				}
-
-				$blocks = $this->W_copy($data->get("selection"));
+				$blocks = $this->W_copy($data["selection"],$m);
+				if ($m) $sender->sendMessage($m);
 				if(count($blocks) > 0){
 					$offset = array($startX - $sender->getX() - 0.5, $startY - $sender->getY(), $startZ - $sender->getZ() - 0.5);
-					$data->set("clipboard", array($offset, $blocks));
-					$data->save();
+					$offset = [ $startX - $sender->getX() - 0.5,
+									$startY - $sender->getY(),
+									$startZ - $sender->getZ() - 0.5 ];
+					$data["clipboard"] =  [ $offset, $blocks ];
+					$this->setData($sender,$data);
 				}
 				break;
 			case "cut":
-				$count = $this->countBlocks($data->get("selection"), $startX, $startY, $startZ);
-				if($count > $data->get("block-limit") and $data->get("block-limit") > 0){
-					$this->output .= "Block limit of ".$data->get("block-limit")." exceeded, tried to cut $count block(s).\n";
+				$count = $this->countBlocks($data["selection"],
+													 $starX,$starY,$starZ);
+				if ($data["block-limit"] > 0 && $count > $data["block-limit"]) {
+					$sender->sendMessage("Block limit of ".$data["block-limit"]
+												." exceeded, tried to cut ".
+												$count." block(s).");
 					break;
 				}
-
-				$blocks = $this->W_cut($data->get("selection"));
+				$blocks = $this->W_cut($data["selection"],$m);
+				if ($m) $sender->sendMessage($m);
 				if(count($blocks) > 0){
-					$offset = array($startX - $sender->getX() - 0.5, $startY - $sender->getY(), $startZ - $sender->getZ() - 0.5);
-					$data->set("clipboard", array($offset, $blocks));
-					$data->save();
+					$offset = [ $startX - $sender->getX() - 0.5,
+									$startY - $sender->getY(),
+									$startZ - $sender->getZ() - 0.5];
+					$data["clipboard"] =  [ $offset, $blocks ];
+					$this->setData($sender,$data);
 				}
 				break;
 			case "toggleeditwand":
-				$data->set("wand-usage", ($data->get("wand-usage") == true ? false:true));
-				$data->save();
-				$this->output .= "Wand Item is now ".($data->get("wand-usage") === true ? "enabled":"disabled").".\n";
+				$data["wand-usage"] = !$data["wand-usage"];
+				$this->setData($sender,$data);
+				$sender->sendMessage("Wand Item is now ".
+											($data["wand-usage"]? "enabled":"disabled"));
 				break;
 			case "wand":
-				if($sender->getInventory()->contains(Item::fromString($this->getConfig()->get("wand-item")))){
-					$this->output .= "You already have the wand item.\n";
+				if($sender->isCreative()){
+					$sender->sendMessage("You are on creative mode");
+				} elseif($sender->getInventory()->contains(Item::fromString($this->cfg["wand-item"]))) {
+					$sender->sendMessage("You already have the wand item.");
 					break;
-				} elseif($sender->getGamemode() === 1){
-					$this->output .= "You are on creative mode.\n";
 				} else{
-					$sender->getInventory()->addItem(Item::fromString($this->getConfig()->get("wand-item")));
+					$sender->getInventory()->addItem(Item::fromString($this->cfg["wand-item"]));
 				}
-				$this->output .= "Break block to set pos #1 and Tap to set Pos #2.\n";
+				$sender->sendMessage("Break block to set pos #1 and Tap to set Pos #2.");
 				break;
 			case "desel":
-				$data->set("selection", array(false, false));
-				$data->save();
-				$this->output = "Selection cleared.\n";
+				$data["selection"] = [false,false];
+				$this->setData($sender,$data);
+				$sender->sendMessage("Selection cleared.");
 				break;
 			case "limit":
-				if(!isset($params[0]) or trim($params[0]) === ""){
-					$this->output .= "Usage: //limit <limit>\n";
-					break;
-				}
-				$limit = intval($params[0]);
+				if(!isset($args[0]) or trim($args[0]) === "") return false;
+				$limit = intval($args[0]);
 				if($limit < 0){
-					$limit = -1;
+					if($this->cfg["block-limit"] > 0){
+						$limit = $this->cfg["block-limit"];
+					} else {
+						$limit = -1;
+					}
+				} elseif ($this->cfg["block-limit"] > 0) {
+					$limit = min($this->cfg["block-limit"],$limit);
 				}
-				if($this->getConfig()->get("block-limit") > 0){
-					$limit = $limit === -1 ? $this->getConfig()->get("block-limit"):min($this->getConfig()->get("block-limit"), $limit);
-				}
-				$data->set("block-limit", $limit);
-				$data->save();
-				$this->output .= "Block limit set to ".($limit === -1 ? "infinite":$limit)." block(s).\n";
+				$data["block-limit"] = $limit;
+				$this->setData($sender,$data);
+				$sender->sendMessage("Block limit set to ".
+											($limit === -1 ? "none":$limit)." block(s).");
 				break;
 			case "pos1":
-				$this->setPosition1($sender, new Position($sender->getX() - 0.5, $sender->getY(), $sender->getZ() - 0.5, $sender->getLevel()));
+				$m = $this->setPosition1($sender, new Position($sender->getX() - 0.5, $sender->getY(), $sender->getZ() - 0.5, $sender->getLevel()));
+				if ($m) $sender->sendMessage($m);
+				print_r($this->data); //##DEBUG
 				break;
 			case "pos2":
-				$this->setPosition2($sender, new Position($sender->getX() - 0.5, $sender->getY(), $sender->getZ() - 0.5, $sender->getLevel()));
+				$m = $this->setPosition2($sender, new Position($sender->getX() - 0.5, $sender->getY(), $sender->getZ() - 0.5, $sender->getLevel()));
+				if ($m) $sender->sendMessage($m);
+				print_r($this->data); //##DEBUG
 				break;
-
 			case "hsphere":
-				$filled = false;
 			case "sphere":
-				if(!isset($filled)){
-					$filled = true;
-				}
-				if(!isset($params[1]) or $params[1] == ""){
-					$this->output .= "Usage: //$cmd <block> <radius>.\n";
-					break;
-				}
-				$radius = abs(floatval($params[1]));
-
-				$items = Item::fromString($params[0], true);
+				if (count($args) != 2) return false;
+				$filled =  $cmd == "sphere";
+				$radius = abs(floatval($args[1]));
+				$items = Item::fromString($args[0], true);
 				if($items){
 					foreach($items as $item){
 						if($item->getID() > 0xff){
-							$this->output .= "Incorrect block.\n";
-							return;
+							$sender->sendMessage("Incorrect block");
+							return true;
 						}
 					}
-					$this->W_sphere(new Position($sender->getX() - 0.5, $sender->getY(), $sender->getZ() - 0.5, $sender->getLevel()), $items, $radius, $radius, $radius, $filled);
+					$m = $this->W_sphere(new Position($sender->getX() - 0.5, $sender->getY(), $sender->getZ() - 0.5, $sender->getLevel()), $items, $radius, $radius, $radius, $filled);
+					if ($m) $sender->sendMessage($m);
 				} else {
-					$this->output .= "Incorrect block, use ID.\n";
+					$this->sendMessage("Incorrect block, use ID.");
 				}
 				break;
+			case "hcube":
 			case "cube":
-				if(!isset($filled)){
-					$filled = true;
-				}
-				if(!isset($params[1]) or $params[1] == ""){
-					$this->output .= "Usage: //$cmd <block> <radius>.\n";
-					break;
-				}
-				$radius = abs(floatval($params[1]));
-
-				$items = Item::fromString($params[0], true);
+				if (count($args) != 2) return false;
+				$filled =  $cmd == "cube";
+				$radius = abs(floatval($args[1]));
+				$items = Item::fromString($args[0], true);
 				if($items){
 					foreach($items as $item){
 						if($item->getID() > 0xff){
-							$this->output .= "Incorrect block.\n";
-							return;
+							$sender->sendMessage("Incorrect block");
+							return true;
 						}
 					}
-					$this->W_cube(new Position($sender->getX() - 0.5, $sender->getY(), $sender->getZ() - 0.5, $sender->getLevel()), $items, $radius, $radius, $radius, $filled);
+					$m = $this->W_cube(new Position($sender->getX() - 0.5, $sender->getY(), $sender->getZ() - 0.5, $sender->getLevel()), $items, $radius, $radius, $radius, $filled);
+					if ($m) $sender->sendMessage($m);
 				} else {
-					$this->output .= "Incorrect block, use ID.\n";
+					$this->sendMessage("Incorrect block, use ID.");
 				}
 				break;
 			case "set":
-				$count = $this->countBlocks($data->get("selection"));
-				if($count > $data->get("block-limit") and $data->get("block-limit") > 0){
-					$this->output .= "Block limit of ".$data->get("block-limit")." exceeded, tried to change $count block(s).\n";
+				if (count($args) != 1) return false;
+				$count = $this->countBlocks($data["selection"]);
+				if($count > $data["block-limit"] and $data["block-limit"] > 0){
+					$sender->sendMessage("Block limit of ".$data["block-limit"].
+												" exceeded, tried to change $count blocks");
 					break;
 				}
-				$items = Item::fromString($params[0], true);
+				$items = Item::fromString($args[0], true);
 				if($items){
 					foreach($items as $item){
 						if($item->getID() > 0xff){
-							$this->output .= "Incorrect block.\n";
-							return;
+							$sender->sendMessage("Incorrect block.");
+							return true;
 						}
 					}
-					$this->W_set($data->get("selection"), $items);
+					$m = $this->W_set($data["selection"], $items);
+					if ($m) $sender->sendMessage($m);
 				} else {
-					$this->output .= "Incorrect block, use ID.\n";
+					$this->sendMessage("Incorrect block, use ID.");
 				}
 				break;
 			case "replace":
-				$count = $this->countBlocks($data->get("selection"));
-				if($count > $data->get("block-limit") and $data->get("block-limit") > 0){
-					$this->output .= "Block limit of ".$data->get("block-limit")." exceeded, tried to change $count block(s).\n";
+				if (count($args) != 2) return false;
+				$count = $this->countBlocks($data["selection"]);
+				if($count > $data["block-limit"] and $data["block-limit"] > 0){
+					$sender->sendMessage("Block limit of ".$data["block-limit"].
+												" exceeded, tried to change $count blocks");
 					break;
 				}
-				$item1 = Item::fromString($params[0]);
+				$item1 = Item::fromString($args[0]);
 				if($item1->getID() > 0xff){
-					$this->output .= "Incorrect target block.\n";
+					$this->output .= "Incorrect block.";
 					break;
 				}
-				$items2 = Item::fromString($params[1], true);
-				if($items){
+
+				$items2 = Item::fromString($args[2], true);
+				if($items2){
 					foreach($items2 as $item){
 						if($item->getID() > 0xff){
-							$this->output .= "Incorrect replacement block.\n";
-							return;
+							$sender->sendMessage("Incorrect block.");
+							return true;
 						}
 					}
-
-					$this->W_replace($data->get("selection"), $item1, $items2);
+					$m = $this->W_replace($data->get("selection"), $item1, $items2);
+					if ($m) $sender->sendMessage($m);
 				} else {
-					$this->output .= "Incorrect block, use ID.\n";
+					$sender->sendMessage("Incorrect block, use ID.");
 				}
 				break;
 			default:
 			case "help":
-				$this->output .= "Commands: //cut, //copy, //paste, //sphere, //hsphere, //desel, //limit, //pos1, //pos2, //set, //replace, //help, //wand, /toggleeditwand\n";
+				$sender->sendMessage("Commands: //cut, //copy, //paste, //sphere, //hsphere, //desel, //limit, //pos1, //pos2, //set, //replace, //help, //wand, /toggleeditwand");
 				break;
+			default:
+				return false;
 		}
-
-		if($this->output != ""){
-			$sender->sendMessage($this->output);
-			$this->output = "";
-			return true;
-		}
-		return false;
+		return true;
 	}
 
 	public function onPlayerInteract(PlayerInteractEvent $event){
@@ -243,11 +278,9 @@ class WorldEditor extends PluginBase implements Listener{
 
 		$data = $this->getData($player);
 
-		if($data->get('wand-usage') && $item->getID() == Item::fromString($this->getConfig()->get("wand-item"))->getID()){
-			$this->setPosition2($player, $target);
-			$player->sendMessage($this->output);
-			$this->output = "";
-			$event->setCancelled();
+		if($data['wand-usage'] && $item->getID() == Item::fromString($this->cfg["wand-item"])->getID()){
+			$m = $this->setPosition2($player, $target);
+			if ($m) $player->sendMessage($m);
 		}
 	}
 
@@ -261,97 +294,45 @@ class WorldEditor extends PluginBase implements Listener{
 
 		$data = $this->getData($player);
 
-		if($data->get('wand-usage') && $item->getID() == Item::fromString($this->getConfig()->get("wand-item"))->getID()){
-			$this->setPosition1($player, $target);
-			$player->sendMessage($this->output);
-			$this->output = "";
+		if($data['wand-usage'] && $item->getID() == Item::fromString($this->cfg["wand-item"])->getID()){
+			$m = $this->setPosition1($player, $target);
+			if ($m) $player->sendMessage($m);
 			$event->setCancelled();
 		}
 	}
 
-	private function checkConfig(){
-		$this->getConfig()->save();
-
-		if(!$this->getConfig()->exists("block-limit")){
-			$this->getConfig()->set("block-limit", -1);
-		}elseif(!$this->getConfig()->exists("wand-item")){
-			$this->getConfig()->set("wand-item", "IRON_HOE");
-		}
-
-		if(!is_numeric($this->getConfig()->get("block-limit"))){
-			$this->getLogger()->alert(TextFormat::RED . "Wrong format for block-limit.");
-			$this->getConfig()->set("block-limit", -1);
-		}
-
-		$this->getConfig()->save();
-		return true;
-	}
-
-	public static function getData($player) {
-		if ($player instanceof Player) {
-			$iusername = $player->getName();
-		} elseif (is_string($player)) {
-			$iusername = $player;
-		} else {
-			return false;
-		}
-		self::$config = new Config(self::$dataDir . "config.yml", Config::YAML, array());
-
-		$iusername = strtolower($iusername);
-		if (!file_exists(self::$dataDir . "players/" . $iusername{0} . "/$iusername.yml")) {
-			@mkdir(self::$dataDir . "players/" . $iusername{0} . "/", 0777, true);
-			$d = new Config(self::$dataDir . "players/" . $iusername{0} . "/" . $iusername . ".yml", Config::YAML, array(
-				"selection" => array(false, false),
-				"clipboard" => false,
-				"wand-usage" => true,
-				"block-limit" => self::$config->get("block-limit")
-			));
-
-			$d->save();
-			return $d;
-		}
-		return new Config(self::$dataDir . "players/" . $iusername{0} . "/" . $iusername . ".yml", Config::YAML, array(
-			"selection" => array(false, false),
-			"clipboard" => false,
-			"wand-usage" => true,
-			"block-limit" => self::$config->get("block-limit")
-		));
-	}
-
-	public function onDisable(){
-		$this->getLogger()->info("WorldEditor has been disabled!");
-	}
-
 	public function setPosition1($username, Position $position){
 		$data = $this->getData($username);
-		$selection = $data->get("selection");
-		$selection[0] = array(round($position->x), round($position->y), round($position->z), $position->getLevel()->getName());
-		$data->set("selection", $selection);
-		$data->save();
-		$count = $this->countBlocks($selection);
+		$data["selection"][0] = [ round($position->x),
+										  round($position->y),
+										  round($position->z),
+										  $position->getLevel()->getName() ];
+		$this->setData($username,$data);
+		$count = $this->countBlocks($data["selection"]);
 		if($count === false){
 			$count = "";
 		}else{
 			$count = " ($count)";
 		}
-		$this->output .= "First position set to (".$selection[0][0].", ".$selection[0][1].", ".$selection[0][2].")$count.\n";
-		return true;
+		return "First position set to (".implode(",",$data["selection"][0]).
+												  ")$count.";
 	}
 
 	public function setPosition2($username, Position $position){
 		$data = $this->getData($username);
-		$selection = $data->get("selection");
-		$selection[1] = array(round($position->x), round($position->y), round($position->z), $position->getLevel()->getName());
-		$data->set("selection", $selection);
-		$data->save();
-		$count = $this->countBlocks($selection);
+		$data["selection"][1] = [ round($position->x),
+										  round($position->y),
+										  round($position->z),
+										  $position->getLevel()->getName() ];
+		$this->setData($username,$data);
+		$count = $this->countBlocks($data["selection"]);
 		if($count === false){
 			$count = "";
 		}else{
 			$count = " ($count)";
 		}
-		$this->output .= "Second position set to (".$selection[1][0].", ".$selection[1][1].", ".$selection[1][2].")$count.\n";
-		return true;
+		return "Second position set to (".implode(",",$data["selection"][1]).
+												  ")$count.";
 	}
 
 	private function countBlocks($selection, &$startX = null, &$startY = null, &$startZ = null){
@@ -368,10 +349,7 @@ class WorldEditor extends PluginBase implements Listener{
 	}
 
 	private function W_paste($clipboard, Position $pos){
-		if(count($clipboard) !== 2){
-			$this->output .= "Copy something first.\n";
-			return false;
-		}
+		if(count($clipboard) !== 2) return "Copy something first.";
 		$clipboard[0][0] += $pos->x - 0.5;
 		$clipboard[0][1] += $pos->y;
 		$clipboard[0][2] += $pos->z - 0.5;
@@ -387,14 +365,13 @@ class WorldEditor extends PluginBase implements Listener{
 				}
 			}
 		}
-		$this->output .= "$count block(s) have been changed.\n";
-		return true;
+		return "$count block(s) have been changed.";
 	}
 
-	private function W_copy($selection){
+	private function W_copy($selection,&$m){
 		if(!is_array($selection) or $selection[0] === false or $selection[1] === false or $selection[0][3] !== $selection[1][3]){
-			$this->output .= "Make a selection first.\n";
-			return array();
+			$m = "Make a selection first.";
+			return [];
 		}
 		$level = $this->getServer()->getLevelByName($selection[0][3]);
 
@@ -417,14 +394,14 @@ class WorldEditor extends PluginBase implements Listener{
 				}
 			}
 		}
-		$this->output .= "$count block(s) have been copied.\n";
+		$m = "$count block(s) have been copied.";
 		return $blocks;
 	}
 
-	private function W_cut($selection){
+	private function W_cut($selection,&$m){
 		if(!is_array($selection) or $selection[0] === false or $selection[1] === false or $selection[0][3] !== $selection[1][3]){
-			$this->output .= "Make a selection first.\n";
-			return array();
+			$m = "Make a selection first.";
+			return [];
 		}
 		$totalCount = $this->countBlocks($selection);
 		if($totalCount > 524288){
@@ -468,14 +445,13 @@ class WorldEditor extends PluginBase implements Listener{
 				}
 			}
 		}
-		$this->output .= "$count block(s) have been cut.\n";
+		$m = "$count block(s) have been cut.";
 		return $blocks;
 	}
 
 	private function W_set($selection, $blocks){
 		if(!is_array($selection) or $selection[0] === false or $selection[1] === false or $selection[0][3] !== $selection[1][3]){
-			$this->output .= "Make a selection first.\n";
-			return false;
+			return "Make a selection first.";
 		}
 		$totalCount = $this->countBlocks($selection);
 		if($totalCount > 524288){
@@ -486,8 +462,7 @@ class WorldEditor extends PluginBase implements Listener{
 		$level = $this->getServer()->getLevelByName($selection[0][3]);
 		$bcnt = count($blocks) - 1;
 		if($bcnt < 0){
-			$this->output .= "Incorrect blocks.\n";
-			return false;
+			return "Incorrect blocks.";
 		}
 		$startX = min($selection[0][0], $selection[1][0]);
 		$endX = max($selection[0][0], $selection[1][0]);
@@ -520,14 +495,12 @@ class WorldEditor extends PluginBase implements Listener{
 				}
 			}
 		}
-		$this->output .= "$count block(s) have been changed.\n";
-		return true;
+		return "$count block(s) have been changed.";
 	}
 
 	private function W_replace($selection, Item $block1, $blocks2){
 		if(!is_array($selection) or $selection[0] === false or $selection[1] === false or $selection[0][3] !== $selection[1][3]){
-			$this->output .= "Make a selection first.\n";
-			return false;
+			return "Make a selection first.";
 		}
 
 		$totalCount = $this->countBlocks($selection);
@@ -542,8 +515,7 @@ class WorldEditor extends PluginBase implements Listener{
 
 		$bcnt2 = count($blocks2) - 1;
 		if($bcnt2 < 0){
-			$this->output .= "Incorrect blocks.\n";
-			return false;
+			return "Incorrect blocks.";
 		}
 
 		$startX = min($selection[0][0], $selection[1][0]);
@@ -577,8 +549,7 @@ class WorldEditor extends PluginBase implements Listener{
 				}
 			}
 		}
-		$this->output .= "$count block(s) have been changed.\n";
-		return true;
+		return "$count block(s) have been changed.";
 	}
 
 	public static function lengthSq($x, $y, $z){
@@ -650,8 +621,7 @@ class WorldEditor extends PluginBase implements Listener{
 			}
 		}
 
-		$this->output .= $count." block(s) have been changed.\n";
-		return true;
+		return $count." block(s) have been changed.";
 	}
 
 	private function W_cube(Position $pos, $blocks, $radiusX, $radiusY, $radiusZ, $filled = true){
@@ -719,7 +689,6 @@ class WorldEditor extends PluginBase implements Listener{
 			}
 		}
 
-		$this->output .= $count." block(s) have been changed.\n";
-		return true;
+		return $count." block(s) have been changed.";
 	}
 }
