@@ -1,0 +1,27 @@
+#name, main, version and api are required
+name: EntityManager
+main: plugin\EntityManager
+version: 2.0.0
+api: 1.7.0
+
+load: POSTWORLD
+author: 우유맛비누
+commands:
+ 제거:
+  usage: false
+  permission: entitymanager.command.removeentity
+  description: 모든 엔티티를 제거합니다
+ 스폰:
+  usage: false
+  permission: entitymanager.command.spawnentity
+  description: 원하는 위치에 엔티티를 스폰해줍니다
+ 체크:
+  usage: false
+  permission: entitymanager.command.checkentity
+  description: 현재 소환된 몬스터 수를 알려줍니다
+ 
+
+permissions:
+ entitymanager.command.*:
+  default: op
+  description: false
