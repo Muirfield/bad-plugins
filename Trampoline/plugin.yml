@@ -1,0 +1,9 @@
+main: aliuly\trampoline\Main
+api: 1.10.0
+load: POSTWORLD
+
+name: Trampoline
+description: Make a block act like a trampoline
+version: 1.0.0
+author: aliuly
+
