@@ -31,9 +31,45 @@ Player connects agian.  They are prompted to enter their login
 password.  They type their login password directly (without
 */login*).  And they are in.
 
+Documentation
+-------------
+
+As a bonus, it can start a player with initial inventory upon
+registration.  This is configured through the `nest-egg` setting.
+
+### Configuration
+
+	---
+	messages:
+	  re-enter pwd: 'Please re-enter password to confirm:'
+	  passwords dont match: |-
+	    Passwords do not match.
+	    Please try again!
+	    Enter a new password:
+	  register ok: You have been registered!
+	  no spaces: |-
+	    Password should not contain spaces
+	    or tabs
+	  not name: Password should not be your name
+	nest-egg:
+	- "272:0:1"
+	- "17:0:16"
+	- "364:0:5"
+	- "266:0:10"
+	...
+
+The section `messages` can be used to configure displayed texts.
+
+`nest-egg` section contains list of items that will be given to the
+player upon registration.
+
+
 Changes
 -------
 
+* 1.1.0: Small update
+  * Added `nest-egg`
+  * Messages can be configured.
 * 1.0.0: First release
 
 Copyright
