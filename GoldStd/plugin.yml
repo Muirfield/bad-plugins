@@ -1,0 +1,26 @@
+name: GoldStd
+version: 1.0.0
+main: aliuly\goldstd\Main
+api: 1.10.0
+load: POSTWORLD
+
+description: Gold based economy plugin
+author: aliuly
+
+commands:
+    pay:
+        description: Will change the pay rate once
+        usage: "/pay [qty]"
+        permission: goldstd.cmd.pay
+    balance:
+        description: Display the amount of money you have
+        usage: "/balance"
+        permission: goldstd.cmd.balance
+
+permissions:
+ goldstd.cmd.pay:
+   default: true
+   description: "Access to pay command"
+ goldstd.cmd.balance:
+   default: true
+   description: "Show your current balance"
