@@ -1,12 +1,13 @@
-# pocketmine-WorldEditor *for PocketMine-MP (New API)*
+# WorldEditor *for PocketMine-MP (New API)*
 
 WorldEditor Plugin is a port of the WorldEdit, done for
 [PocketMine-MP](https://github.com/shoghicp/PocketMine-MP).  This was
 originally from
 [ryuzaki01](https://github.com/ryuzaki01/pocketmine-WorldEditor) but
-hacked until it worked...
+hacked until it worked for me...
 
 ## Installation
+
 - Drop the correct WorldEditor version into the PocketMine's `plugins/` folder.
 - Restart the server. The plugin will be loaded
 
@@ -19,6 +20,8 @@ hacked until it worked...
 | __//pos1__ | | Set selection position #1 to the block above the one that you are standing on. |
 | __//pos2__ | | Set selection position #2 to the block above the one that you are standing on. |
 | __//set__ | `<blocks>` | Set all blocks inside the selection region to a specified block(s). |
+| __//fill__ | `<blocks>` | Fill the selection region with the specified block(s). |
+| __//hregion__ | `<blocks>` | Create a hollow cuboid for selection region with the specified block(s). |
 | __//replace__ | `<from-block> <to-block>` | Replace all blocks of the specified block with another block(s) inside the region. |
 | __//copy__ | | Copies the currently selected region. Be aware that it stores your position relative to the selection when copying. |
 | __//cut__ | | Cuts the currently selected region. |
@@ -26,4 +29,11 @@ hacked until it worked...
 | __//sphere__ | `<blocks> <radius>` | Create a sphere. |
 | __//hsphere__ | `<blocks> <radius>` | Create a hollow sphere. |
 | __//desel__ | | Deselects the current selection. |
+| __//selection__ | | Shows the current selection. |
 | __//toggleeditwand__ | | Toggles the edit wand selection mode, allowing you to use the edit wand item normally. |
+
+### TODO
+
+1. save clip
+2. load clip
+3. rotate clip

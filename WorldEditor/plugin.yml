@@ -3,7 +3,7 @@ main: WorldEditor\WorldEditor
 version: 1.0.3-0.1
 api: 1.2.0
 author: [Kagehis4,aliuly]
-website: https://github.com/ryuzaki01/pocketmine-WorldEditor
+website: https://github.com/alejandroliu/bad-plugins/
 commands:
  toggleeditwand:
   description: Toggles the edit wand mode, to use edit wand item normally.
@@ -28,14 +28,6 @@ commands:
  /hsphere:
   description: Create a hollow sphere.
   usage: "//hsphere <block> <radius>"
-  permission: worldeditor.command
- /cube:
-  description: Create a cube.
-  usage: "//cube <block> <radius>"
-  permission: worldeditor.command
- /hcube:
-  description: Create a hollow cube.
-  usage: "//hcube <block> <radius>"
   permission: worldeditor.command
  /desel:
   description: Deselects the current selection.
@@ -69,6 +61,19 @@ commands:
   description: Gives you the "edit wand".
   usage: "//wand"
   permission: worldeditor.command
+ /selection:
+  description: Display current selection
+  usage: "//selection"
+  permission: worldeditor.command
+ /hregion:
+  description: Creates a hollow region
+  usage: "//hcuboid <blockId>"
+  permission: worldeditor.command
+ /fill:
+  description: Fills the region
+  usage: "//fill <blockId>"
+  permission: worldeditor.command
+  aliases: ["/cuboid"]
 permissions:
     worldeditor:
         default: op
