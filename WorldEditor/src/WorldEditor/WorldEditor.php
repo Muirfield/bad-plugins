@@ -20,8 +20,14 @@ use pocketmine\utils\Config;
 use pocketmine\event\player\PlayerQuitEvent;
 
 class WorldEditor extends PluginBase implements Listener{
+	static public $magic = "WorlEditor Clip v1\n";
 	private $cfg;
 	private $data;
+
+	public static function checkExt($name,$ext) {
+		if (substr($name,-strlen($ext),strlen($ext)) == $ext) return $name;
+		return $name.$ext;
+	}
 
 	public function getData($player) {
 		if ($player instanceof Player) {
@@ -85,6 +91,39 @@ class WorldEditor extends PluginBase implements Listener{
 			case "paste":
 				$m = $this->W_paste($data["clipboard"], new Position($sender->getX() - 0.5, $sender->getY(), $sender->getZ() - 0.5, $sender->getLevel()));
 				if ($m) $sender->sendMessage($m);
+				break;
+			case "load":
+				if (count($args) == 0) return false;
+				$f = self::checkExt(implode(" ",$args),".pmc");
+				if (!file_exists($this->getDataFolder().$f)) {
+					$sender->sendMessage("File $f not found!");
+					return true;
+				}
+				$txt = file_get_contents($this->getDataFolder().$f);
+				if ($txt === false) {
+					$sender->sendMessage("Error reading $f");
+					return true;
+				}
+				if (substr($txt,0,strlen(self::$magic)) != self::$magic) {
+					$sender->sendMessage("$f is not in the right format!");
+					return true;
+				}
+				$data["clipboard"] = unserialize(substr($txt,strlen(self::$magic)));
+				$this->setData($sender,$data);
+				$sender->sendMessage("$f loaded into the clipboard");
+				break;
+			case "save":
+				if (count($data["clipboard"]) !== 2) {
+					$sender->sendMessage("Copy something first.");
+					return false;
+				}
+				if (count($args) == 0) return false;
+				$f = self::checkExt(implode(" ",$args),".pmc");
+				if (!file_put_contents($this->getDataFolder().$f,
+											  self::$magic.serialize($data["clipboard"]))){
+					$sender->sendMessage("Error writing $f");
+				}
+				$sender->sendMessage("Clipboard saved as $f");
 				break;
 			case "copy":
 				$count = $this->countBlocks($data["selection"],

@@ -31,9 +31,25 @@ hacked until it worked for me...
 | __//desel__ | | Deselects the current selection. |
 | __//selection__ | | Shows the current selection. |
 | __//toggleeditwand__ | | Toggles the edit wand selection mode, allowing you to use the edit wand item normally. |
+| __//save__ | `<file>` | Save the clipboard to a file. |
+| __//load__ | `<file>` | Load the clipboard from a file. |
+
+### Permission nodes
+
+* worldeditor:
+ * description: "All the permissions to use the World Editor"
+* worldeditor.command:
+ * description: "Allow the usage of the WorldEditor command"
 
 ### TODO
 
-1. save clip
-2. load clip
-3. rotate clip
+1. rotate clip
+
+Changes
+-------
+
+* 1.0.3-0.1 : Hacked Version
+  * Works for me now
+  * Added new commands: //fill, //hregion, //selection, //save, //load
+* 1.0.3 : Original version from
+  [ryuzaki01](https://github.com/ryuzaki01/pocketmine-WorldEditor)

@@ -74,6 +74,15 @@ commands:
   usage: "//fill <blockId>"
   permission: worldeditor.command
   aliases: ["/cuboid"]
+ /save:
+  description: Save clipboard to a file
+  usage: "//save <file>"
+  permission: worldeditor.command
+ /load:
+  description: Load clipboard from a file
+  usage: "//load <file>"
+  permission: worldeditor.command
+
 permissions:
     worldeditor:
         default: op
