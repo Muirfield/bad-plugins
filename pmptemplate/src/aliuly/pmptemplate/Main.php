@@ -14,9 +14,15 @@ use pocketmine\utils\Config;
 
 
 use pocketmine\item\Item;
-use pocketmine\network\protocol\SetHealthPacket;
 
-class Main extends PluginBase implements CommandExecutor {
+
+use pocketmine\event\player\PlayerMoveEvent;
+use pocketmine\event\Listener;
+use pocketmine\math\Vector3;
+use pocketmine\scheduler\CallbackTask;
+
+
+class Main extends PluginBase implements CommandExecutor,Listener {
 	// Access and other permission related checks
 	private function access(CommandSender $sender, $permission) {
 		if($sender->hasPermission($permission)) return true;
@@ -77,10 +83,31 @@ class Main extends PluginBase implements CommandExecutor {
 	// Standard call-backs
 	public function onDisable() {
 		$this->getLogger()->info("Commander Unloaded!");
+
 	}
 	public function onEnable(){
 		$this->getLogger()->info("* Commander Enabled!");
+		$this->getServer()->getPluginManager()->registerEvents($this, $this);
+		$data = new \volt\api\MonitoredWebsiteData($this);
+		$page = new \volt\api\DynamicPage("/page", $this);
+		$data["pmptemplate"] = ["one","two","Three"];
+		print_r($data["pmptemplate"]);
+		$page("This is content\n".
+				"pmtemplate<br/>".
+				"{{#each pmptemplate}}<h6>{{this}}</h6>{{/each}}");
 	}
+	public function onMove(PlayerMoveEvent $ev) {
+		return;
+		$from = $ev->getFrom();
+		$to = clone $ev->getTo();
+		$dx = $to->getX()-$from->getX();
+		$dy =$to->getY()-$from->getY();
+		$dz =$to->getZ()-$from->getZ();
+		$to->setComponents($from->getX() - $dx*2, $to->getY(), $from->getZ() - $dz*2);
+	//$ev->getPlayer()->teleport(new Vector3($from->getX() - $dx, $to->getY(), $from->getZ() - $dz));
+		$ev->setTo($to);
+	}
+
 	public function onCommand(CommandSender $sender, Command $cmd, $label, array $args) {
 		switch($cmd->getName()) {
 			case "m":
@@ -92,13 +119,14 @@ class Main extends PluginBase implements CommandExecutor {
 	// Command implementations
 
 	private function cmdMain(CommandSender $c,$args) {
-		//$c->sendMessage("ARGS: ".implode(',',$args));
-		if (count($args) == 0) return false;
-		$p = $this->getServer()->getPlayer($args[0]);
-		if ($p == null) return false;
-		$pk = new SetHealthPacket;
-		$pk->health = $p->getHealth()-1;
-		$p->dataPacket($pk);
+		$c->sendMessage("ARGS: ".implode(',',$args));
+		$c->setMotion(new \pocketmine\math\Vector3(0,20,0));
+		//if (count($args) == 0) return false;
+		//$p = $this->getServer()->getPlayer($args[0]);
+		//if ($p == null) return false;
+		//$pk = new SetHealthPacket;
+		//$pk->health = $p->getHealth()-1;
+		//$p->dataPacket($pk);
 		return true;
 	}
 }
