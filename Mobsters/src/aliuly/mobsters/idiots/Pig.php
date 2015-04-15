@@ -10,6 +10,8 @@ use pocketmine\entity\Animal;
 
 use pocketmine\network\protocol\MovePlayerPacket;
 use pocketmine\math\AxisAlignedBB;
+use pocketmine\math\Vector3;
+
 
 class Pig extends Animal implements Rideable{
 	const NETWORK_ID=12;
@@ -194,6 +196,10 @@ class Pig extends Animal implements Rideable{
 				$x = 0;
 			}
 			//if ($y) echo "Jumping\n";
+			//echo __METHOD__.",".__LINE__."-".$this->getName()."\n";//##DEBUG
+			$ev = new \pocketmine\event\entity\EntityMotionEvent($this,new \pocketmine\math\Vector3($x,$y,$z));
+			$this->server->getPluginManager()->callEvent($ev);
+			if ($ev->isCancelled()) return false;
 
 			$this->x += $x;
 			$this->y += $y;

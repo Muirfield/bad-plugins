@@ -101,6 +101,10 @@ class Wolf extends Animal implements Tameable{
 	}
 	public function updateMovement(){
 		if($this->x !== $this->lastX or $this->y !== $this->lastY or $this->z !== $this->lastZ or $this->yaw !== $this->lastYaw or $this->pitch !== $this->lastPitch){
+			$event = new \pocketmine\event\entity\EntityMoveEvent($this,new \pocketmine\math\Vector3($this->x - $this->lastX,$this->y - $this->lastY,$this->z - $this->lastZ));
+			$this->server->getPluginManager()->callEvent($event);
+			if ($event->isCancelled()) return;
+
 			$this->lastX = $this->x;
 			$this->lastY = $this->y;
 			$this->lastZ = $this->z;
@@ -197,6 +201,10 @@ class Wolf extends Animal implements Tameable{
 						$x = 0;
 					}
 					//if ($y) echo "Jumping\n";
+					$ev = new \pocketmine\event\entity\EntityMotionEvent($this,new \pocketmine\math\Vector3($x,$y,$z));
+					$this->server->getPluginManager()->callEvent($ev);
+					if ($ev->isCancelled()) return false;
+
 					$this->x += $x;
 					$this->y += $y;
 					$this->z += $z;

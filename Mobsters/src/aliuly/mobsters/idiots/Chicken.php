@@ -203,6 +203,10 @@ class Chicken extends Animal{
 				$x = 0;
 			}
 			//if ($y) echo "Jumping\n";
+			$ev = new \pocketmine\event\entity\EntityMotionEvent($this,new \pocketmine\math\Vector3($x,$y,$z));
+			$this->server->getPluginManager()->callEvent($ev);
+			if ($ev->isCancelled()) return false;
+
 			$this->x += $x;
 			$this->y += $y;
 			$this->z += $z;

@@ -112,6 +112,7 @@ class Zombie extends Monster{
 
 	public function updateMovement(){
 		if($this->x !== $this->lastX or $this->y !== $this->lastY or $this->z !== $this->lastZ or $this->yaw !== $this->lastYaw or $this->pitch !== $this->lastPitch){
+
 			$this->lastX = $this->x;
 			$this->lastY = $this->y;
 			$this->lastZ = $this->z;
@@ -231,6 +232,10 @@ class Zombie extends Monster{
 						$x = 0;
 					}
 					//if ($y) echo "Jumping\n";
+					$ev = new \pocketmine\event\entity\EntityMotionEvent($this,new \pocketmine\math\Vector3($x,$y,$z));
+					$this->server->getPluginManager()->callEvent($ev);
+					if ($ev->isCancelled()) return false;
+
 					$this->x += $x;
 					$this->y += $y;
 					$this->z += $z;
