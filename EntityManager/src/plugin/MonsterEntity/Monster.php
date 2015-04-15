@@ -69,8 +69,22 @@ abstract class Monster extends MonsterEntity{
 
         foreach($this->hasSpawned as $player) $player->addEntityMovement($this->id, $this->x, $this->y, $this->z, $this->yaw, $this->pitch, $this->yaw);
     }
+	public function getData(){ //TODO
+		$flags = 0;
+		$flags |= $this->fireTicks > 0 ? 1 : 0;
+		//$flags |= ($this->crouched === true ? 0b10:0) << 1;
+		//$flags |= ($this->inAction === true ? 0b10000:0);
+		$d = [
+			0 => ["type" => 0, "value" => $flags],
+			1 => ["type" => 1, "value" => $this->airTicks],
+			16 => ["type" => 0, "value" => 0],
+			17 => ["type" => 6, "value" => [0, 0, 0]],
+		];
 
-    public function attack($damage, EntityDamageEvent $source){
+		return $d;
+	}
+
+    public function attack($damage, $source = EntityDamageEvent::CAUSE_MAGIC){
         if($this->attacker instanceof Entity) return;
         $health = $this->getHealth();
         parent::attack($damage, $source);
@@ -112,7 +126,7 @@ abstract class Monster extends MonsterEntity{
         if($this->onGround) $this->motionY = 0;
 		$this->updateFallState($dy, $this->onGround);
     }
-    
+
     public function knockBackCheck(){
         if(!$this->attacker instanceof Entity) return false;
 
