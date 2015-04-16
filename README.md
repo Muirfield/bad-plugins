@@ -12,6 +12,7 @@ rules) for the PocketMine official
 A funny PvP manager plugin inspired by RuinPvP
 
 * [v1.1rel](https://github.com/alejandroliu/bad-plugins/tree/RunePvP-1.1rel/RunePvP)
+
 </td>
 </tr>
 </table>
