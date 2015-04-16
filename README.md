@@ -18,10 +18,8 @@ rules) for the PocketMine official
     A funny PvP manager plugin inspired by RuinPvP
     <ul>
       <li>
-	<a href="https://github.com/alejandroliu/bad-plugins/tree/RunePvP-1.1rel/RunePvP">v1.1rel</a>
-	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/RunePvP-1.1rel"><br/>
-	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png"/>
-	  Downloads</a>
+	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/RunePvP-1.1rel">v1.1rel Downloads
+	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png"/></a>
       </li>
     </ul>
   </td>
@@ -50,7 +48,7 @@ Downloads</a>
 <!---------------------------------------------------------------------->
 <tr>
   <th>
-    <a href="https://github.com/alejandroliu/bad-plugins/tree/master/AutoHeal>
+    <a href="https://github.com/alejandroliu/bad-plugins/tree/master/AutoHeal">
       <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/AutoHeal-icon.png" style="width:64px;height:64px" width="64" height="64"/>
       <br/>
       AutoHeal
