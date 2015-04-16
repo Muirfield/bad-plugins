@@ -21,10 +21,16 @@ function req($url) {
 //print_r( req("https://api.github.com/users/alejandroliu/repos"));
 
 //echo req("https://api.github.com/repos/alejandroliu/bad-plugins/releases");
+//print_r( req("https://api.github.com/repos/alejandroliu/bad-plugins/releases"));
 //print_r( req("https://api.github.com/repos/alejandroliu/pocketmine-plugins/releases"));
 foreach (req("https://api.github.com/repos/alejandroliu/bad-plugins/releases")
 			as $rel) {
-	if (isset($rel->name)) echo "# ".$rel->name."\n";
+	if (isset($rel->name) && $rel->name)
+		echo "# ".$rel->name."\n";
+	elseif (isset($rel->tag_name) && $rel->tag_name)
+		echo "# ".$rel->tag_name."\n";
+	else
+		echo "# release\n";
 	$tab = [];
 	$cols = [1,1];
 	if (isset($rel->assets)) {
@@ -40,6 +46,6 @@ foreach (req("https://api.github.com/repos/alejandroliu/bad-plugins/releases")
 		}
 	}
 	foreach ($tab as $row) {
-		printf("  %-".$cols[0]."s %".$cols[1]."d\n",$row[0],$row[1]);
+		printf("  - %-".$cols[0]."s %".$cols[1]."d\n",$row[0],$row[1]);
 	}
 }
