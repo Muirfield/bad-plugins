@@ -19,7 +19,9 @@ rules) for the PocketMine official
     <ul>
       <li>
 	<a href="https://github.com/alejandroliu/bad-plugins/tree/RunePvP-1.1rel/RunePvP">v1.1rel</a>
-	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/RunePvP-1.1rel">Downloads</a>
+	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/RunePvP-1.1rel">
+	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png"/>
+	  Downloads</a>
       </li>
     </ul>
   </td>
@@ -37,7 +39,7 @@ rules) for the PocketMine official
     A simple Entity implementation
     <ul>
       <li>
-	<a href="https://github.com/alejandroliu/bad-plugins/tree/Mobsters-0.3dev/Mobsters">v0.3dev</a>
+	<a href="https://github.com/alejandroliu/bad-plugins/tree/Mobsters-0.3dev/Mobsters">v0.3dev</a><br/>
 	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/Mobsters-0.3dev">
 	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png"/>
 Downloads</a>
