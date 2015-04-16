@@ -144,7 +144,7 @@ rules) for the PocketMine official
     <ul>
       <li>
 	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/WorldEditor-1.0.3r0.1" title="Downloads">v1.0.3r0.1
-	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads/></a>
+	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
       </li>
     </ul>
   </td>
