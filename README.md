@@ -8,7 +8,11 @@ rules) for the PocketMine official
 <tr><th>Plugin</th><th>Description</th></tr>
 <tr>
   <th><img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/Iron_Sword.png" style="width:64px;height:64px" width="64" height="64"/><br/>RunePvP</th>
-  <td>A funny PvP manager plugin inspired by RuinPvP</td>
+  <td>
+A funny PvP manager plugin inspired by RuinPvP
+
+* [v1.1rel](https://github.com/alejandroliu/bad-plugins/tree/RunePvP-1.1rel/RunePvP)
+</td>
 </tr>
 </table>
 
