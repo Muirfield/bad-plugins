@@ -38,13 +38,16 @@ rules) for the PocketMine official
     <ul>
       <li>
 	<a href="https://github.com/alejandroliu/bad-plugins/tree/Mobsters-0.3dev/Mobsters">v0.3dev</a>
-	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/Mobsters-0.3dev">Downloads</a>
+	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/Mobsters-0.3dev">
+	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png"/>
+Downloads</a>
       </li>
     </ul>
   </td>
 </tr>
 
 </table>
+
 
 
 

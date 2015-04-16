@@ -40,6 +40,6 @@ foreach (req("https://api.github.com/repos/alejandroliu/bad-plugins/releases")
 		}
 	}
 	foreach ($tab as $row) {
-		printf("%-".$cols[0]."s %".$cols[1]."d\n",$row[0],$row[1]);
+		printf("  %-".$cols[0]."s %".$cols[1]."d\n",$row[0],$row[1]);
 	}
 }
