@@ -172,6 +172,11 @@ rules) for the PocketMine official
 
 </table>
 
+# Other tools
+
+* RCON - an rcon client
+* pmptemplate - A PocketMine Plugin Template
+
 * * *
 
 ## Notes
