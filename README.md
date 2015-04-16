@@ -6,9 +6,7 @@ rules) for the PocketMine official
 
 | Plugin | Description |
 |--------|-------------|
-|<img
-|src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/Iron_Sword.png"
-|style="width:64px;height:64px" width="64" height="64"/>| *RunePvP* |
+|<img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/Iron_Sword.png" style="width:64px;height:64px" width="64" height="64"/>| *RunePvP* |
 | | A funny PvP manager plugin inspired by RuinPvP |
 
 
