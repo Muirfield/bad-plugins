@@ -18,8 +18,8 @@ rules) for the PocketMine official
     A funny PvP manager plugin inspired by RuinPvP
     <ul>
       <li>
-	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/RunePvP-1.1rel">v1.1rel Downloads
-	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png"/></a>
+	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/RunePvP-1.1rel">v1.1rel 
+	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
       </li>
     </ul>
   </td>
@@ -37,10 +37,8 @@ rules) for the PocketMine official
     A simple Entity implementation
     <ul>
       <li>
-	<a href="https://github.com/alejandroliu/bad-plugins/tree/Mobsters-0.3dev/Mobsters">v0.3dev</a><br/>
-	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/Mobsters-0.3dev">
-	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png"/>
-Downloads</a>
+	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/Mobsters-0.3dev"> v0.3dev
+	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
       </li>
     </ul>
   </td>
