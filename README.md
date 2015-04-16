@@ -37,7 +37,7 @@ rules) for the PocketMine official
     A simple Entity implementation
     <ul>
       <li>
-	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/Mobsters-0.3dev"> v0.3dev
+	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/Mobsters-0.3dev" title="Downloads"> v0.3dev
 	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
       </li>
     </ul>
