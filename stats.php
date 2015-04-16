@@ -22,4 +22,24 @@ function req($url) {
 
 //echo req("https://api.github.com/repos/alejandroliu/bad-plugins/releases");
 //print_r( req("https://api.github.com/repos/alejandroliu/pocketmine-plugins/releases"));
-print_r( req("https://api.github.com/repos/alejandroliu/bad-plugins/releases"));
+foreach (req("https://api.github.com/repos/alejandroliu/bad-plugins/releases")
+			as $rel) {
+	if (isset($rel->name)) echo "# ".$rel->name."\n";
+	$tab = [];
+	$cols = [1,1];
+	if (isset($rel->assets)) {
+		foreach ($rel->assets as $a) {
+			if (isset($a->name) && isset($a->download_count)) {
+				$tab[] = [ $a->name, $a->download_count ];
+			}
+		}
+	}
+	foreach ($tab as $row) {
+		for ($i=0;$i<count($cols);$i++) {
+			if (strlen($row[$i]) > $cols[$i]) $cols[$i] = strlen($row[$i]);
+		}
+	}
+	foreach ($tab as $row) {
+		printf("%-".$cols[0]."s %".$cols[1]."d\n",$row[0],$row[1]);
+	}
+}
