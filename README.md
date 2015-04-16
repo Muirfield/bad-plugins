@@ -7,26 +7,50 @@ rules) for the PocketMine official
 <table>
 <tr><th>Plugin</th><th>Description</th></tr>
 <tr>
-  <th><img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/Iron_Sword.png" style="width:64px;height:64px" width="64" height="64"/><br/>RunePvP</th>
+  <th>
+    <a href="https://github.com/alejandroliu/bad-plugins/tree/master/RunePvP">
+      <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/Iron_Sword.png" style="width:64px;height:64px" width="64" height="64"/>
+      <br/>
+      RunePvP
+    </a>
+  </th>
   <td>
     A funny PvP manager plugin inspired by RuinPvP
     <ul>
-      <li><a href="https://github.com/alejandroliu/bad-plugins/tree/RunePvP-1.1rel/RunePvP">v1.1rel</a></li>
+      <li>
+	<a href="https://github.com/alejandroliu/bad-plugins/tree/RunePvP-1.1rel/RunePvP">v1.1rel</a>
+	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/RunePvP-1.1rel">Downloads</a>
+      </li>
     </ul>
   </td>
 </tr>
+<!---------------------------------------------------------------------->
+<tr>
+  <th>
+    <a href="https://github.com/alejandroliu/bad-plugins/tree/master/Mobsters">
+      <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/Mobsters-icon.png" style="width:64px;height:64px" width="64" height="64"/>
+      <br/>
+      Mobsters
+    </a>
+  </th>
+  <td>
+    A simple Entity implementation
+    <ul>
+      <li>
+	<a href="https://github.com/alejandroliu/bad-plugins/tree/Mobsters-0.3dev/Mobsters">v0.3dev</a>
+	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/Mobsters-0.3dev">Downloads</a>
+      </li>
+    </ul>
+  </td>
+</tr>
+
 </table>
 
 
 
-| Plugin | Description |
-|--------|-------------|
-|<img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/Iron_Sword.png" style="width:64px;height:64px" width="64" height="64"/>| *RunePvP* |
-| | A funny PvP manager plugin inspired by RuinPvP |
-
-
 * <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/Iron_Sword.png" style="width:64px;height:64px" width="64" height="64"/>  [RunePvP](https://github.com/alejandroliu/bad-plugins/tree/master/RunePvP) [v1.1rel](https://github.com/alejandroliu/bad-plugins/tree/RunePvP-1.1rel/RunePvP)  
   A funny PvP manager plugin inspired by RuinPvP
+
 *  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/Mobsters-icon.png" style="width:64px;height:64px" width="64" height="64"/> [Mobsters](https://github.com/alejandroliu/bad-plugins/tree/master/Mobsters)
   A simple Entity implementation
   * [v0.3dev](https://github.com/alejandroliu/bad-plugins/tree/Mobsters-0.3dev/Mobsters)  
