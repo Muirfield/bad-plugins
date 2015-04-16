@@ -4,6 +4,13 @@ These are my plugin releases that are not good enough (or that break
 rules) for the PocketMine official
 [plugins](http://plugins.pocketmine.net/) repository.
 
+| Plugin | Description |
+|--------|-------------|
+|<img
+|src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/Iron_Sword.png"
+|style="width:64px;height:64px" width="64" height="64"/>| *RunePvP* |
+| | A funny PvP manager plugin inspired by RuinPvP |
+
 
 * <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/Iron_Sword.png" style="width:64px;height:64px" width="64" height="64"/>  [RunePvP](https://github.com/alejandroliu/bad-plugins/tree/master/RunePvP) [v1.1rel](https://github.com/alejandroliu/bad-plugins/tree/RunePvP-1.1rel/RunePvP)  
   A funny PvP manager plugin inspired by RuinPvP
