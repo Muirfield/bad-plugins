@@ -1,5 +1,7 @@
+<img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/helper.alt-icon.png" style="width:64px;height:64px" width="64" height="64"/>
+
 SimpleAuthHelper
-=======
+================
 
 * Summary: Simplifies the SimpleAuth login process
 * Dependency Plugins: n/a

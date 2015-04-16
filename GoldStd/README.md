@@ -1,3 +1,5 @@
+<img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/GoldStd1-icon.png" style="width:64px;height:64px" width="64" height="64"/>
+
 GoldStd
 =======
 
