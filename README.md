@@ -18,7 +18,7 @@ rules) for the PocketMine official
     A funny PvP manager plugin inspired by RuinPvP
     <ul>
       <li>
-	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/RunePvP-1.1rel">v1.1rel 
+	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/RunePvP-1.1rel" title="Downloads">v1.1rel 
 	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
       </li>
     </ul>
@@ -56,16 +56,12 @@ rules) for the PocketMine official
     A quick coded auto heal plugin
     <ul>
       <li>
-	<a href="https://github.com/alejandroliu/bad-plugins/tree/AutoHeal-1.0.1/AutoHeal">v1.0.1</a><br/>
-	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/AutoHeal-1.0.1">
-	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png"/>
-Downloads</a>
+	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/AutoHeal-1.0.1" title="Downloads">v1.0.1
+	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
       </li>
       <li>
-	<a href="https://github.com/alejandroliu/bad-plugins/tree/AutoHeal-1.0.0/AutoHeal">v1.0.0</a><br/>
-	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/AutoHeal-1.0.0">
-	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png"/>
-Downloads</a>
+	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/AutoHeal-1.0.0" title="Downloads">v1.0.0
+	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
       </li>
     </ul>
   </td>
@@ -84,16 +80,12 @@ Downloads</a>
     Makes it easier for users to login
     <ul>
       <li>
-	<a href="https://github.com/alejandroliu/bad-plugins/tree/SimpleAuthHelper-1.1.0/SimpleAuthHelper">v1.1.0</a><br/>
-	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/SimpleAuthHelper-1.1.0">
-	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png"/>
-Downloads</a>
+	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/SimpleAuthHelper-1.1.0" title="Downloads">v1.1.0
+	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
       </li>
       <li>
-	<a href="https://github.com/alejandroliu/bad-plugins/tree/SimpleAuthHelper-1.0.0/SimpleAuthHelper">v1.0.0</a><br/>
-	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/SimpleAuthHelper-1.0.0">
-	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png"/>
-Downloads</a>
+	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/SimpleAuthHelper-1.0.0" title="Downloads">v1.0.0
+	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
       </li>
     </ul>
   </td>
@@ -112,10 +104,8 @@ Downloads</a>
     A different kind of economy plugin
     <ul>
       <li>
-	<a href="https://github.com/alejandroliu/bad-plugins/tree/GoldStd-1.0.0/GoldStd">v1.0.0</a><br/>
-	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/GoldStd-1.0.0">
-	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png"/>
-Downloads</a>
+	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/GoldStd-1.0.0" title="Downloads">v1.0.0
+	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
       </li>
     </ul>
   </td>
@@ -134,10 +124,8 @@ Downloads</a>
     Jump up and down
     <ul>
       <li>
-	<a href="https://github.com/alejandroliu/bad-plugins/tree/Trampoline-1.0.0/Trampoline">v1.0.0</a><br/>
-	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/Trampoline-1.0.0">
-	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png"/>
-Downloads</a>
+	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/Trampoline-1.0.0" title="Downloads">v1.0.0
+	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
       </li>
     </ul>
   </td>
@@ -155,10 +143,8 @@ Downloads</a>
     Another WorldEditor plugin
     <ul>
       <li>
-	<a href="https://github.com/alejandroliu/bad-plugins/tree/WorldEditor-1.0.3r0.1/WorldEditor">v1.0.3r0.1</a><br/>
-	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/WorldEditor-1.0.3r0.1">
-	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png"/>
-Downloads</a>
+	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/WorldEditor-1.0.3r0.1" title="Downloads">v1.0.3r0.1
+	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads/></a>
       </li>
     </ul>
   </td>
@@ -177,10 +163,8 @@ Downloads</a>
     A flaming sword
     <ul>
       <li>
-	<a href="https://github.com/alejandroliu/bad-plugins/tree/FireBlade-1.0.0/FireBlade">v1.0.0</a><br/>
-	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/FireBlade-1.0.0">
-	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png"/>
-Downloads</a>
+	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/FireBlade-1.0.0" title="Downloads">v1.0.0
+	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
       </li>
     </ul>
   </td>
