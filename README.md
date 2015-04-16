@@ -138,7 +138,7 @@ Downloads</a>
     Jump up and down
     <ul>
       <li>
-	<a href="https://github.com/alejandroliu/bad-plugins/tree/Trampoline-1.0.0/Trampoline>v1.0.0</a><br/>
+	<a href="https://github.com/alejandroliu/bad-plugins/tree/Trampoline-1.0.0/Trampoline">v1.0.0</a><br/>
 	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/Trampoline-1.0.0">
 	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png"/>
 Downloads</a>
@@ -159,7 +159,7 @@ Downloads</a>
     Another WorldEditor plugin
     <ul>
       <li>
-	<a href="https://github.com/alejandroliu/bad-plugins/tree/WorldEditor-1.0.3r0.1/WorldEditor>v1.0.3r0.1</a><br/>
+	<a href="https://github.com/alejandroliu/bad-plugins/tree/WorldEditor-1.0.3r0.1/WorldEditor">v1.0.3r0.1</a><br/>
 	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/WorldEditor-1.0.3r0.1">
 	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png"/>
 Downloads</a>
@@ -181,7 +181,7 @@ Downloads</a>
     A flaming sword
     <ul>
       <li>
-	<a href="https://github.com/alejandroliu/bad-plugins/tree/FireBlade-1.0.0/FireBlade>v1.0.0</a><br/>
+	<a href="https://github.com/alejandroliu/bad-plugins/tree/FireBlade-1.0.0/FireBlade">v1.0.0</a><br/>
 	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/FireBlade-1.0.0">
 	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png"/>
 Downloads</a>
