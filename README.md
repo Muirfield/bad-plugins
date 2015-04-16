@@ -19,7 +19,7 @@ rules) for the PocketMine official
     <ul>
       <li>
 	<a href="https://github.com/alejandroliu/bad-plugins/tree/RunePvP-1.1rel/RunePvP">v1.1rel</a>
-	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/RunePvP-1.1rel">
+	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/RunePvP-1.1rel"><br/>
 	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png"/>
 	  Downloads</a>
       </li>
@@ -41,6 +41,148 @@ rules) for the PocketMine official
       <li>
 	<a href="https://github.com/alejandroliu/bad-plugins/tree/Mobsters-0.3dev/Mobsters">v0.3dev</a><br/>
 	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/Mobsters-0.3dev">
+	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png"/>
+Downloads</a>
+      </li>
+    </ul>
+  </td>
+</tr>
+<!---------------------------------------------------------------------->
+<tr>
+  <th>
+    <a href="https://github.com/alejandroliu/bad-plugins/tree/master/AutoHeal>
+      <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/AutoHeal-icon.png" style="width:64px;height:64px" width="64" height="64"/>
+      <br/>
+      AutoHeal
+    </a>
+  </th>
+  <td>
+    A quick coded auto heal plugin
+    <ul>
+      <li>
+	<a href="https://github.com/alejandroliu/bad-plugins/tree/AutoHeal-1.0.1/AutoHeal">v1.0.1</a><br/>
+	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/AutoHeal-1.0.1">
+	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png"/>
+Downloads</a>
+      </li>
+      <li>
+	<a href="https://github.com/alejandroliu/bad-plugins/tree/AutoHeal-1.0.0/AutoHeal">v1.0.0</a><br/>
+	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/AutoHeal-1.0.0">
+	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png"/>
+Downloads</a>
+      </li>
+    </ul>
+  </td>
+</tr>
+
+<!---------------------------------------------------------------------->
+<tr>
+  <th>
+    <a href="https://github.com/alejandroliu/bad-plugins/tree/master/SimpleAuthHelper">
+      <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/helper-icon.png" style="width:64px;height:64px" width="64" height="64"/>
+      <br/>
+      SimpleAuthHelper
+    </a>
+  </th>
+  <td>
+    Makes it easier for users to login
+    <ul>
+      <li>
+	<a href="https://github.com/alejandroliu/bad-plugins/tree/SimpleAuthHelper-1.1.0/SimpleAuthHelper">v1.1.0</a><br/>
+	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/SimpleAuthHelper-1.1.0">
+	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png"/>
+Downloads</a>
+      </li>
+      <li>
+	<a href="https://github.com/alejandroliu/bad-plugins/tree/SimpleAuthHelper-1.0.0/SimpleAuthHelper">v1.0.0</a><br/>
+	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/SimpleAuthHelper-1.0.0">
+	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png"/>
+Downloads</a>
+      </li>
+    </ul>
+  </td>
+</tr>
+
+<!---------------------------------------------------------------------->
+<tr>
+  <th>
+    <a href="https://github.com/alejandroliu/bad-plugins/tree/master/GoldStd">
+      <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/GoldStd2-icon.png" style="width:64px;height:64px" width="64" height="64"/>
+      <br/>
+      GoldStd
+    </a>
+  </th>
+  <td>
+    A different kind of economy plugin
+    <ul>
+      <li>
+	<a href="https://github.com/alejandroliu/bad-plugins/tree/GoldStd-1.0.0/GoldStd">v1.0.0</a><br/>
+	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/GoldStd-1.0.0">
+	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png"/>
+Downloads</a>
+      </li>
+    </ul>
+  </td>
+</tr>
+
+<!---------------------------------------------------------------------->
+<tr>
+  <th>
+    <a href="https://github.com/alejandroliu/bad-plugins/tree/master/Trampoline">
+      <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/Trampoline-icon.png" style="width:64px;height:64px" width="64" height="64"/>
+      <br/>
+      Trampoline
+    </a>
+  </th>
+  <td>
+    Jump up and down
+    <ul>
+      <li>
+	<a href="https://github.com/alejandroliu/bad-plugins/tree/Trampoline-1.0.0/Trampoline>v1.0.0</a><br/>
+	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/Trampoline-1.0.0">
+	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png"/>
+Downloads</a>
+      </li>
+    </ul>
+  </td>
+</tr>
+<!---------------------------------------------------------------------->
+<tr>
+  <th>
+    <a href="https://github.com/alejandroliu/bad-plugins/tree/master/WorldEditor">
+      <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/WorldEditor-icon.png" style="width:64px;height:64px" width="64" height="64"/>
+      <br/>
+      WorldEditor
+    </a>
+  </th>
+  <td>
+    Another WorldEditor plugin
+    <ul>
+      <li>
+	<a href="https://github.com/alejandroliu/bad-plugins/tree/WorldEditor-1.0.3r0.1/WorldEditor>v1.0.3r0.1</a><br/>
+	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/WorldEditor-1.0.3r0.1">
+	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png"/>
+Downloads</a>
+      </li>
+    </ul>
+  </td>
+</tr>
+
+<!---------------------------------------------------------------------->
+<tr>
+  <th>
+    <a href="https://github.com/alejandroliu/bad-plugins/tree/master/FireBlade">
+      <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/FireBlade-icon.png" style="width:64px;height:64px" width="64" height="64"/>
+      <br/>
+      FireBlade
+    </a>
+  </th>
+  <td>
+    A flaming sword
+    <ul>
+      <li>
+	<a href="https://github.com/alejandroliu/bad-plugins/tree/FireBlade-1.0.0/FireBlade>v1.0.0</a><br/>
+	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/FireBlade-1.0.0">
 	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png"/>
 Downloads</a>
       </li>
