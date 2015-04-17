@@ -170,11 +170,32 @@ rules) for the PocketMine official
   </td>
 </tr>
 
+<!---------------------------------------------------------------------->
+<tr>
+  <th>
+    <a href="https://github.com/alejandroliu/bad-plugins/tree/master/TreeCapitatorPM">
+      <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/treecapitator.png" style="width:64px;height:64px" width="64" height="64"/>
+      <br/>
+      TreeCapitatorPM
+    </a>
+  </th>
+  <td>
+    A tree cutting powertool
+    <ul>
+      <li>
+	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/TreeCapitatorPM-1.0.0" title="Downloads">v1.0.0
+	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
+      </li>
+    </ul>
+  </td>
+</tr>
+
 </table>
 
 # Other tools
 
-* RCON - an rcon client
+* [RCON](https://github.com/alejandroliu/bad-plugins/tree/master/rcon) -
+  an rcon client
 * pmptemplate - A PocketMine Plugin Template
 
 * * *
