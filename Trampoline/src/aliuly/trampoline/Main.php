@@ -51,6 +51,7 @@ class Main extends PluginBase implements Listener {
 	}
 
 	public function onFall(EntityDamageEvent $ev) {
+		if ($ev->isCancelled()) return;
 		$cause = $ev->getCause();
 		if ($cause !== EntityDamageEvent::CAUSE_FALL) return;
 		$et = $ev->getEntity();
@@ -62,6 +63,7 @@ class Main extends PluginBase implements Listener {
 	}
 
 	public function onMove(PlayerMoveEvent $ev) {
+		if ($ev->isCancelled()) return;
 		$from = $ev->getFrom();
 		$to = $ev->getTo();
 		$dir = ["dx"=>$to->getX()-$from->getX(),

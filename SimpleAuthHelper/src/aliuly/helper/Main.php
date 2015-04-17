@@ -50,6 +50,9 @@ class Main extends PluginBase implements Listener {
 		if (isset($this->pwds[$n])) unset($this->pwds[$n]);
 	}
 
+	/**
+	 * @priority LOW
+	 */
 	public function onPlayerCmd(PlayerCommandPreprocessEvent $ev) {
 		if ($ev->isCancelled()) return;
 		//echo __METHOD__.",".__LINE__."\n"; //##DEBUG;

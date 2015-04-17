@@ -30,7 +30,7 @@ class Chicken extends Animal{
 	public static $mindist = 3;
 
 	public function getName(){
-		return "SillyChicken";
+		return "ChickenLittle";
 	}
 
 	public function spawnTo(Player $player){

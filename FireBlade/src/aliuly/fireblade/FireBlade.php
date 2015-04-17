@@ -48,6 +48,9 @@ class FireBlade extends PluginBase implements CommandExecutor,Listener {
 			unset($this->players[$n]);
 		}
 	}
+	/**
+	 * @priority HIGH
+	 */
 	public function onAttack(EntityDamageEvent $ev) {
 		if ($ev->isCancelled()) return;
 		if(!($ev instanceof EntityDamageByEntityEvent)) return;

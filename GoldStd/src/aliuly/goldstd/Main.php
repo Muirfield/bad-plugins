@@ -190,6 +190,9 @@ class Main extends PluginBase implements CommandExecutor,Listener {
 		$pl = $e->getPlayer()->getName();
 		if (isset($this->state[$pl])) unset($this->state[$pl]);
 	}
+	/**
+	 * @priority LOWEST
+	 */
 	public function onPlayerPayment(EntityDamageEvent $ev) {
 		if ($ev->isCancelled()) return;
 		if(!($ev instanceof EntityDamageByEntityEvent)) return;
@@ -201,7 +204,7 @@ class Main extends PluginBase implements CommandExecutor,Listener {
 		if ($taker instanceof Player) {
 			$ev->setCancelled(); // OK, we want to pay, not to fight!
 			$this->onPlayerPaid($giver,$taker);
-		} //else playing an Entity!
+		} //else paying an Entity!
 	}
 	/*
 	 * Events

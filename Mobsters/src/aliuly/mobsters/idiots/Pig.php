@@ -22,7 +22,7 @@ class Pig extends Animal implements Rideable{
 	public $stepHeight = 0.2;
 
 	public function getName(){
-		return "Piggy";
+		return "Porky";
 	}
 	public static $range = 16;
 	public static $speed = 0.05;
