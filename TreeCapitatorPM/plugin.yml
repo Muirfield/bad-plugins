@@ -1,0 +1,20 @@
+main: aliuly\treecapitator\Main
+api: 1.10.0
+load: POSTWORLD
+
+name: TreeCapitatorPM
+description: Tree chopping plugin
+version: 1.0.0
+author: aliuly
+
+commands:
+    treecapitator:
+        description: Enable/Disable treecapitator
+        usage: "/treecapitator"
+        aliases: [tc]
+        permission: treecapitator.use
+
+permissions:
+    treecapitator.use:
+        default: true
+        description: "Allow treecapitator"
