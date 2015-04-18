@@ -40,7 +40,7 @@ class Main extends PluginBase implements Listener,CommandExecutor {
 				"login timeout" => "Login timer expired!",
 				"register first" => "You must first be registered",
 				"chpwd msg" => "Enter your new password:",
-				"chpwd error" => "Old password does not mach",
+				"chpwd error" => "Old password does not match",
 				"chpwd ok" => "Password changed succesfully",
 				"registration error" => "Registration error.  Try again later!",
 				"auth error" => "Authentication error.  Try again later!",
