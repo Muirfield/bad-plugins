@@ -56,6 +56,7 @@ class Main extends PluginBase implements Listener {
 		if (isset($this->pwds[$n])) unset($this->pwds[$n]);
 	}
 	public function onPlayerJoin(PlayerJoinEvent $ev) {
+		if ($this->cfg["login-timeout"] == 0) return;
 		$n = $ev->getPlayer()->getName();
 		$this->getServer()->getScheduler()->scheduleDelayedTask(new CallbackTask([$this,"checkTimeout"],[$n]),$this->cfg["login-timeout"]*20);
 	}
@@ -107,13 +108,15 @@ class Main extends PluginBase implements Listener {
 			}
 			return;
 		}
-		if (isset($this->pwds[$n])) {
-			++$this->pwds[$n];
-		} else {
-			$this->pwds[$n] = 0;
-		}
 		$ev->setMessage("/login ".$ev->getMessage());
-		$this->getServer()->getScheduler()->scheduleDelayedTask(new CallbackTask([$this,"checkLoginCount"],[$n]),5);
+		if ($this->cfg["max-attempts"] > 0) {
+			if (isset($this->pwds[$n])) {
+				++$this->pwds[$n];
+			} else {
+				$this->pwds[$n] = 1;
+			}
+			$this->getServer()->getScheduler()->scheduleDelayedTask(new CallbackTask([$this,"checkLoginCount"],[$n]),5);
+		}
 		return;
 	}
 	public function checkTimeout($n) {
@@ -131,7 +134,7 @@ class Main extends PluginBase implements Listener {
 		$pl = $this->getServer()->getPlayer($n);
 		if ($pl && !$this->auth->isPlayerAuthenticated($pl)) {
 			echo __METHOD__.",".__LINE__."($n)\n"; //##DEBUG;
-			if ($this->pwds[$n] > $this->cfg["max-attempts"]) {
+			if ($this->pwds[$n] >= $this->cfg["max-attempts"]) {
 				echo __METHOD__.",".__LINE__."($n)\n"; //##DEBUG;
 				$pl->kick($this->cfg["messages"]["too many logins"]);
 				unset($this->pwds[$n]);
