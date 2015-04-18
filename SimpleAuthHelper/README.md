@@ -29,7 +29,7 @@ password (again without */register*).
 
 ### Login process
 
-Player connects agian.  They are prompted to enter their login
+Player connects again.  They are prompted to enter their login
 password.  They type their login password directly (without
 */login*).  And they are in.
 
@@ -38,6 +38,14 @@ Documentation
 
 As a bonus, it can start a player with initial inventory upon
 registration.  This is configured through the `nest-egg` setting.
+
+### Commands
+
+* *chpwd* _<old-pwd>_  
+  Used by players to change their passwords.
+* *resetpwd* _<player>_  
+  Used by ops to reset a players password.  This actually unregisters
+  the password.
 
 ### Configuration
 
@@ -75,8 +83,11 @@ Changes
 -------
 
 * 1.2.0: max-logins
-  * Suggestion from MCPEPIG - kick user out after `max-attempts`.
+  * Suggestion from MCPEPIG
+    - kick user out after `max-attempts`.
+    - Added a chpwd command.
   * Kick user out if not authenticated after `timeout` seconds.
+  * Added resetpwd command for ops
 * 1.1.0: Small update
   * Added `nest-egg`
   * Messages can be configured.
