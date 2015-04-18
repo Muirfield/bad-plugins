@@ -115,10 +115,10 @@ class Main extends PluginBase implements CommandExecutor,Listener {
 			$hand->setDamage($hand->getDamage() + $this->itemwear * $damage);
 			$pl->getInventory()->setItemInHand($hand);
 			if ($this->broadcast)
-				$pl->sendMessage("Used TreeCapitator");
-			else
 				$this->getServer()->broadcastMessage($pl->getName().
 																 " used TreeCapitator");
+			else
+				$pl->sendMessage("Used TreeCapitator");
 		}
 	}
 	/////////////////////////////////////////////////////////////////////////

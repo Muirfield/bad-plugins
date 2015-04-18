@@ -64,6 +64,8 @@ A TreeCapitator plugin for PocketMine.
 Changes
 -------
 
+* ?
+  - Fixed broadcast bug
 * 1.0.0 : First submission
 
 Copyright
