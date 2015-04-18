@@ -53,22 +53,30 @@ registration.  This is configured through the `nest-egg` setting.
 	    Password should not contain spaces
 	    or tabs
 	  not name: Password should not be your name
+	  too many login: You have attempted to login too many times.
+	  login timeout: Login timer expired!
 	nest-egg:
 	- "272:0:1"
 	- "17:0:16"
 	- "364:0:5"
 	- "266:0:10"
+	max-attempts: 5
+	login-timeout: 60
 	...
 
-The section `messages` can be used to configure displayed texts.
-
-`nest-egg` section contains list of items that will be given to the
+* The section `messages` can be used to configure displayed texts.
+* `nest-egg` section contains list of items that will be given to the
 player upon registration.
-
+* `max-attempts` counts the number of tries to login.
+* `login-timeout` will kick the player out if not authenticated in
+  that number of seconds.
 
 Changes
 -------
 
+* 1.2.0: max-logins
+  * Suggestion from MCPEPIG - kick user out after `max-attempts`.
+  * Kick user out if not authenticated after `timeout` seconds.
 * 1.1.0: Small update
   * Added `nest-egg`
   * Messages can be configured.
