@@ -4,6 +4,6 @@ load: POSTWORLD
 
 name: SimpleAuthHelper
 description: Simplifies the way people authenticate to servers
-version: 1.1.0
+version: 1.1.0-dev
 author: aliuly
 
