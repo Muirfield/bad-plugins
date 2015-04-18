@@ -7,13 +7,19 @@ use pocketmine\utils\TextFormat;
 use pocketmine\event\player\PlayerCommandPreprocessEvent;
 use pocketmine\event\player\PlayerQuitEvent;
 use pocketmine\event\player\PlayerJoinEvent;
+use pocketmine\command\CommandExecutor;
+use pocketmine\command\ConsoleCommandSender;
+use pocketmine\command\CommandSender;
+use pocketmine\command\Command;
 use pocketmine\item\Item;
 use pocketmine\utils\Config;
 use pocketmine\scheduler\CallbackTask;
+use pocketmine\Player;
 
-class Main extends PluginBase implements Listener {
+class Main extends PluginBase implements Listener,CommandExecutor {
 	protected $auth;
 	protected $pwds;
+	protected $chpwd;
 	protected $cfg;
 
 	public function onEnable(){
@@ -32,6 +38,12 @@ class Main extends PluginBase implements Listener {
 				"not name" => "Password should not be your name",
 				"too many logins" => "You have attempted to login too many times.",
 				"login timeout" => "Login timer expired!",
+				"register first" => "You must first be registered",
+				"chpwd msg" => "Enter your new password:",
+				"chpwd error" => "Old password does not mach",
+				"chpwd ok" => "Password changed succesfully",
+				"registration error" => "Registration error.  Try again later!",
+				"auth error" => "Authentication error.  Try again later!",
 			],
 			"nest-egg" => [
 				"272:0:1",
@@ -51,9 +63,15 @@ class Main extends PluginBase implements Listener {
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 		$this->pwds = [];
 	}
+	//////////////////////////////////////////////////////////////////////
+	//
+	// Event handlers
+	//
+	//////////////////////////////////////////////////////////////////////
 	public function onPlayerQuit(PlayerQuitEvent $ev) {
 		$n = $ev->getPlayer()->getName();
 		if (isset($this->pwds[$n])) unset($this->pwds[$n]);
+		if (isset($this->chpwd[$n])) unset($this->chpwd[$n]);
 	}
 	public function onPlayerJoin(PlayerJoinEvent $ev) {
 		if ($this->cfg["login-timeout"] == 0) return;
@@ -65,12 +83,12 @@ class Main extends PluginBase implements Listener {
 	 */
 	public function onPlayerCmd(PlayerCommandPreprocessEvent $ev) {
 		if ($ev->isCancelled()) return;
-		//echo __METHOD__.",".__LINE__."\n"; //##DEBUG;
+		echo __METHOD__.",".__LINE__."\n"; //##DEBUG;
 		$pl = $ev->getPlayer();
-		if ($this->auth->isPlayerAuthenticated($pl)) return;
-
 		$n = $pl->getName();
-		if (!$this->auth->isPlayerRegistered($pl)) {
+		if ($this->auth->isPlayerAuthenticated($pl) && !isset($this->chpwd[$n])) return;
+
+		if (!$this->auth->isPlayerRegistered($pl) || isset($this->chpwd[$n])) {
 			if (!isset($this->pwds[$n])) {
 				if (!$this->checkPwd($pl,$ev->getMessage())) {
 					$ev->setCancelled();
@@ -87,12 +105,37 @@ class Main extends PluginBase implements Listener {
 				unset($this->pwds[$n]);
 				$ev->setCancelled();
 				$ev->setMessage("~");
-				echo $this->cfg["messages"]["passwords dont match"]."\n";
 				$pl->sendMessage($this->cfg["messages"]["passwords dont match"]);
 				return;
 			}
-			$this->auth->registerPlayer($pl,$this->pwds[$n]);
-			$this->auth->authenticatePlayer($pl);
+			if (isset($this->chpwd[$n])) {
+				// User is changing password...
+				unset($this->chpwd[$n]);
+				$ev->setMessage("~");
+				$ev->setCancelled();
+				$pw = $this->pwds[$n];
+				unset($this->pwds[$n]);
+
+				if (!$this->auth->unregisterPlayer($pl)) {
+					$pl->sendMessage($this->cfg["messages"]["registration error"]);
+					return;
+				}
+				if (!$this->auth->registerPlayer($pl,$pw)) {
+					$pl->kick($this->cfg["messages"]["registration error"]);
+					return;
+				}
+				$pl->sendMessage($this->cfg["messages"]["chpwd ok"]);
+				return;
+			}
+			// New user registration...
+			if (!$this->auth->registerPlayer($pl,$this->pwds[$n])) {
+				$pl->kick($this->cfg["messages"]["registration error"]);
+				return;
+			}
+			if (!$this->auth->authenticatePlayer($pl)) {
+				$pl->kick($this->cfg["messages"]["auth error"]);
+				return;
+			}
 			unset($this->pwds[$n]);
 			$ev->setMessage("~");
 			$ev->setCancelled();
@@ -159,5 +202,77 @@ class Main extends PluginBase implements Listener {
 		}
 		return true;
 	}
-
+	//////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	//////////////////////////////////////////////////////////////////////
+	public function onCommand(CommandSender $sender, Command $cmd, $label, array $args) {
+		if (!$this->auth) {
+			$sender->sendMessage(TextFormat::RED."SimpleAuthHelper has been disabled");
+			$sender->sendMessage(TextFormat::RED."SimpleAuth not found!");
+			return true;
+		}
+		switch($cmd->getName()){
+			case "chpwd":
+				if (!($sender instanceof Player)) {
+					$sender->sendMessage(TextFormat::RED.
+												"This command only works in-game.");
+					return true;
+				}
+				if (count($args) == 0) return false;
+				if(!$this->auth->isPlayerRegistered($sender)) {
+					$sender->sendMessage($this->cfg["messages"]["register first"]);
+					return true;
+				}
+				$provider = $this->auth->getDataProvider();
+				if (($data = $provider->getPlayer($sender)) === null) {
+					$sender->sendMessage(TextFormat::RED.
+												"Internal Registration error");
+					return true;
+				}
+				$password = implode(" ", $args);
+				if(hash_equals($data["hash"], $this->hash(strtolower($sender->getName()), $password))) {
+					$this->chpwd[$sender->getName()] = $sender->getName();
+					$sender->sendMessage($this->cfg["messages"]["chpwd msg"]);
+					return true;
+				}else{
+					$sender->sendMessage($this->cfg["messages"]["chpwd error"]);
+					return false;
+				}
+				break;
+			case "resetpwd":
+				foreach($args as $name){
+					$player = $this->getServer()->getOfflinePlayer($name);
+					if($this->auth->unregisterPlayer($player)){
+						$sender->sendMessage(TextFormat::GREEN . "$name unregistered");
+						if($player instanceof Player){
+							$player->sendMessage(TextFormat::YELLOW."You are no longer registered!");
+							$this->auth->deauthenticatePlayer($player);
+						}
+					}else{
+						$sender->sendMessage(TextFormat::RED . "Unable to unregister $name");
+					}
+					return true;
+				}
+				break;
+		}
+		return false;
+	}
+	/**
+	 * COPIED FROM SimpleAuth by PocketMine team...
+	 *
+	 * Uses SHA-512 [http://en.wikipedia.org/wiki/SHA-2] and Whirlpool [http://en.wikipedia.org/wiki/Whirlpool_(cryptography)]
+	 *
+	 * Both of them have an output of 512 bits. Even if one of them is broken in the future, you have to break both of them
+	 * at the same time due to being hashed separately and then XORed to mix their results equally.
+	 *
+	 * @param string $salt
+	 * @param string $password
+	 *
+	 * @return string[128] hex 512-bit hash
+	 */
+	private function hash($salt, $password){
+		return bin2hex(hash("sha512", $password . $salt, true) ^ hash("whirlpool", $salt . $password, true));
+	}
 }
