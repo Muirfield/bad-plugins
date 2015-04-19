@@ -29,6 +29,7 @@ class Main extends PluginBase implements CommandExecutor,Listener {
 	protected $leaves;
 	protected $itemwear;
 	protected $broadcast;
+	protected $creative;
 	protected $state;
 	public function onEnable(){
 		if (!is_dir($this->getDataFolder())) mkdir($this->getDataFolder());
@@ -42,6 +43,7 @@ class Main extends PluginBase implements CommandExecutor,Listener {
 			"break-leaves" => true,
 			"item-wear" => 1,
 			"broadcast-use" => true,
+			"creative" => true,
 		];
 		$cfg=(new Config($this->getDataFolder()."config.yml",
 									  Config::YAML,$defaults))->getAll();
@@ -55,6 +57,7 @@ class Main extends PluginBase implements CommandExecutor,Listener {
 		} else {
 			$this->items = false;
 		}
+		$this->creative = $cfg["creative"];
 		$this->broadcast = $cfg["broadcast-use"];
 		$this->state = [];
 	}
@@ -101,9 +104,11 @@ class Main extends PluginBase implements CommandExecutor,Listener {
 		if ($ev->isCancelled()) return;
 		$pl = $ev->getPlayer();
 		if (!isset($this->state[$pl->getName()])) return;
-		if ($this->items && !isset($this->items[$ev->getItem()->getId()])) {
-			echo "Not using an Axe\n"; //##DEBUG
-			return;
+		if (!$pl->isCreative() || !$this->creative) {
+			if ($this->items && !isset($this->items[$ev->getItem()->getId()])) {
+				echo "Not using an Axe\n"; //##DEBUG
+				return;
+			}
 		}
 		if ($this->leaves) {
 			$damage = $this->destroyTree($ev->getBlock());
