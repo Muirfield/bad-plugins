@@ -1,38 +1,20 @@
 <?php
-namespace aliuly\trampoline;
+namespace aliuly\toybox;
 
-use pocketmine\plugin\PluginBase;
 use pocketmine\event\Listener;
-use pocketmine\event\player\PlayerMoveEvent;
-use pocketmine\utils\Config;
+
+use pocketmine\utils\TextFormat;
 use pocketmine\block\Block;
+use pocketmine\event\entity\EntityDamageEvent;
+use pocketmine\event\player\PlayerMoveEvent;
 use pocketmine\math\Vector3;
 
-use pocketmine\Player;
 
-
-use pocketmine\Server;
-use pocketmine\utils\TextFormat;
-
-
-
-use pocketmine\item\Item;
-use pocketmine\network\protocol\SetHealthPacket;
-
-use pocketmine\event\entity\EntityDamageEvent;
-use pocketmine\scheduler\CallbackTask;
-
-
-class Main extends PluginBase implements Listener {
+class Trampoline implements Listener {
 	protected $blocks;
 
-	public function onEnable(){
-		$defaults = [
-			"blocks" => [ Block::SPONGE ],
-		];
-		if (!is_dir($this->getDataFolder())) mkdir($this->getDataFolder());
-		$cfg=(new Config($this->getDataFolder()."config.yml",
-							  Config::YAML,$defaults))->getAll();
+	public function __construct($plugin,$cfg) {
+		$this->owner = $plugin;
 		$this->blocks = [];
 		if (isset($cfg["blocks"]) && is_array($cfg["blocks"])) {
 			foreach ($cfg["blocks"] as $id) {
@@ -41,12 +23,11 @@ class Main extends PluginBase implements Listener {
 			}
 		}
 		if (count($this->blocks)) {
-			$this->getServer()->getPluginManager()->registerEvents($this, $this);
-			$this->getLogger()->info(TextFormat::GREEN."Trampoline block ids:".
-											 count($this->blocks));
+			$this->owner->getServer()->getPluginManager()->registerEvents($this, $this->owner);
+			$this->owner->getLogger()->info(TextFormat::GREEN."Trampoline blocks:".
+												  count($this->blocks));
 		} else {
 			$this->getLogger()->info(TextFormat::RED."No blocks configured");
-
 		}
 	}
 

@@ -1,0 +1,16 @@
+main: aliuly\toybox\Main
+api: 1.10.0
+load: POSTWORLD
+
+name: ToyBox
+description: A box full of fun toys and tools
+version: 1.0.0
+author: aliuly
+
+permissions:
+    toybox.treecapitator:
+        default: op
+        description: "Use tree capitator"
+    toybox.compasstp:
+        default: op
+        description: "Teleport with compass"

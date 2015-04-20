@@ -122,25 +122,6 @@ rules) for the PocketMine official
 <!---------------------------------------------------------------------->
 <tr>
   <th>
-    <a href="https://github.com/alejandroliu/bad-plugins/tree/master/Trampoline">
-      <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/Trampoline-icon.png" style="width:64px;height:64px" width="64" height="64"/>
-      <br/>
-      Trampoline
-    </a>
-  </th>
-  <td>
-    Jump up and down
-    <ul>
-      <li>
-	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/Trampoline-1.0.0" title="Downloads">v1.0.0
-	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
-      </li>
-    </ul>
-  </td>
-</tr>
-<!---------------------------------------------------------------------->
-<tr>
-  <th>
     <a href="https://github.com/alejandroliu/bad-plugins/tree/master/WorldEditor">
       <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/WorldEditor-icon.png" style="width:64px;height:64px" width="64" height="64"/>
       <br/>
@@ -181,17 +162,17 @@ rules) for the PocketMine official
 <!---------------------------------------------------------------------->
 <tr>
   <th>
-    <a href="https://github.com/alejandroliu/bad-plugins/tree/master/TreeCapitatorPM">
-      <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/treecapitator.png" style="width:64px;height:64px" width="64" height="64"/>
+    <a href="https://github.com/alejandroliu/bad-plugins/tree/master/ToyBox">
+      <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/icon-toy-box.png" style="width:64px;height:64px" width="64" height="64"/>
       <br/>
-      TreeCapitatorPM
+      ToyBox
     </a>
   </th>
   <td>
-    A tree cutting powertool
+    A collection of toys and useful tool items
     <ul>
       <li>
-	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/TreeCapitatorPM-1.0.0" title="Downloads">v1.0.0
+	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/ToyBox-1.0.0" title="Downloads">v1.0.0
 	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
       </li>
     </ul>
