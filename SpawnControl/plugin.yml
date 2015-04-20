@@ -1,0 +1,16 @@
+main: aliuly\spawncontrol\Main
+api: 1.10.0
+load: POSTWORLD
+
+name: SpawnControl
+description: More spawn related settings
+version: 1.0.0
+author: aliuly
+
+permissions:
+    spawncontrol.spawnarmor.receive:
+        default: true
+        description: "allows to receive armor when you spawn"
+    spanwcontrol.spawnitems.receive:
+        default: true
+        description: "allows to receive items when you spawn"
