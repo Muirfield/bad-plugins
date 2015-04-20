@@ -4,15 +4,16 @@ namespace aliuly\toybox;
 use pocketmine\event\Listener;
 use pocketmine\scheduler\CallbackTask;
 use pocketmine\event\player\PlayerInteractEvent;
-use pocketmine\item\Item;
 use pocketmine\math\Vector3;
 
 class CompassTp implements Listener {
 	public $owner;
+	protected $item;
 
-	public function __construct($plugin) {
+	public function __construct($plugin,$item) {
 		$this->owner = $plugin;
 		$this->owner->getServer()->getPluginManager()->registerEvents($this, $this->owner);
+		$this->item = $item;
 	}
 	public function delayedTP($name,$x,$y,$z) {
 		$pl = $this->owner->getServer()->getPlayer($name);
@@ -26,7 +27,7 @@ class CompassTp implements Listener {
 		if (!$pl->hasPermission("toybox.compasstp")) return;
 
 		$hand = $pl->getInventory()->getItemInHand();
-		if ($hand->getID() != Item::COMPASS) return;
+		if ($hand->getID() != $this->item) return;
 
 		$pos = $pl->getPosition()->add(0,$pl->getEyeHeight(),0);
 		$start = new Vector3($pos->getX(),$pos->getY(),$pos->getZ());

@@ -20,6 +20,8 @@ Provide additional items with special functionality to PocketMine.
 * TreeCapitator - axe that destroys trees quickly
 * CompassTP - Teleporting compass
 * Trampoline - Jump and down blocks
+* CloakClock - Clock that gives Invisibility
+* PowerTool - pickax that destroys blocks instantly
 
 Documentation
 -------------
@@ -27,9 +29,10 @@ Documentation
 
 ### Commands
 
-* *treecapitator* _[on|off]_  
-  If nothing is provider it will show you if TreeCapitator is active
-  or not.  Use *on* to enable, *off* to disable.
+* *treecapitator*  
+  Toggles treecapitator usage.
+* *powertool*  
+  Toggles powertool usage
 
 ### Configuration
 
@@ -37,6 +40,8 @@ Documentation
       treecapitator: true
       compasstp: true
       trampoline: true
+      powertool: true
+      cloakclock: true
     treecapitator:
 	ItemIDs:
 	- 258
@@ -51,6 +56,20 @@ Documentation
 	creative: true
     trampoline:
       blocks: [ 19 ]
+    powertools:
+      ItemIDs:
+      - 257
+      - 270
+      - 274
+      - 278
+      - 285
+      need-item: true
+      item-wear: 1
+      creative: true
+    compasstp:
+      item: 345
+    cloakclock:
+      item: 347
 
 * modules
   * Allows you to enable/disable specific toys
@@ -68,31 +87,22 @@ Documentation
 
 * toybox.treecapitator: Allow treecapitator
 * toybox.compasstp: Allow treecapitator
+* toybox.powertool: Allow the use of powertool
+* toybox.cloakclock.use: Can use cloakclock
+* toybox.cloakclock.inmune: Can see players using cloakclock
 
 Todo
 ----
 
-* Configure compassTP to other item-ids
-* MagicClock - invisibility (enable by hitting air, disable by changing item)
-        foreach($this->m->getServer()->getOnlinePlayers() as $online){
-            $online->hidePlayer($p);
-        }
-        foreach($this->getOwner()->getServer()->getOnlinePlayers() as $online){
-            $online->showPlayer($this->p);
 * MagicTorch - light
    (If eyelevel is AIR)
-				$pk = new UpdateBlockPacket();
-				$pk->x = $pos->x;
-				$pk->y = $pos->y;
-				$pk->z = $pos->z;
-				$pk->block = $block->getId();
-				$pk->meta = $block->getDamage();
-
-				Server::broadcastPacket(<level>->getUsingChunk($pos->x >> 4, $pos->z >> 4), $pk);
-
-
-
-* PowerPickAxe - instant break block
+	$pk = new UpdateBlockPacket();
+	$pk->x = $pos->x;
+	$pk->y = $pos->y;
+	$pk->z = $pos->z;
+	$pk->block = $block->getId();
+	$pk->meta = $block->getDamage();
+	Server::broadcastPacket(<level>->getUsingChunk($pos->x >> 4, $pos->z >> 4), $pk);
 * Magic Carpet - ?
 * Ball - ??
 

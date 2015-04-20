@@ -10,7 +10,16 @@ author: aliuly
 permissions:
     toybox.treecapitator:
         default: op
-        description: "Use tree capitator"
+        description: "Use treecapitator"
     toybox.compasstp:
         default: op
         description: "Teleport with compass"
+    toybox.powertool:
+        default: op
+        description: "Allow the use of powertool"
+    toybox.cloakclock.use:
+        default: op
+        description: "Can use cloakclock"
+    toybox.cloakclock.inmune:
+        default: op
+        description: "Can see players using cloakclock"

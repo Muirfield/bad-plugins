@@ -47,7 +47,7 @@ class TreeCapitator extends BaseCommand implements Listener {
 
 		$state = $this->getState($sender,false);
 		if ($state) {
-			$sender->sendMessage("TreeCapitator de-active");
+			$sender->sendMessage("TreeCapitator de-actived");
 			$this->setState($sender,false);
 		} else {
 			$sender->sendMessage("TreeCapitator activated");
