@@ -22,7 +22,7 @@ class TreeCapitator extends BaseCommand implements Listener {
 		parent::__construct($owner);
 		$this->enableCmd("treecapitator",
 							  ["description" => "Enable/Disable treecapitator",
-								"usage" => "/treecapitator [on|off]",
+								"usage" => "/treecapitator",
 								"aliases" => ["tc"],
 								"permission" => "toybox.treecapitator"]);
 		$this->owner->getServer()->getPluginManager()->registerEvents($this,$this->owner);
@@ -43,29 +43,17 @@ class TreeCapitator extends BaseCommand implements Listener {
 	public function onCommand(CommandSender $sender,Command $cmd,$label, array $args) {
 		if ($cmd->getName() != "treecapitator") return false;
 		if (!$this->inGame($sender)) return true;
-		if (count($args) == 0) {
-			$state = $this->getState($sender,false);
-			if ($state) {
-				$sender->sendMessage("TreeCapitator is active");
-			} else {
-				$sender->sendMessage("TreeCapitator is inactive");
-			}
-			return true;
+		if (count($args) != 0) return false;
+
+		$state = $this->getState($sender,false);
+		if ($state) {
+			$sender->sendMessage("TreeCapitator de-active");
+			$this->setState($sender,false);
+		} else {
+			$sender->sendMessage("TreeCapitator activated");
+			$this->setState($sender,true);
 		}
-		if (count($args) == 1) {
-			if (in_array(strtolower($args[0]),["on","true","1"])) {
-				$this->setState($sender,true);
-				$sender->sendMessage("TreeCapitator is activated");
-			} elseif (in_array(strtolower($args[0]),["off","false","0"])) {
-				$this->setState($sender,false);
-				$sender->sendMessage("TreeCapitator is de-activated");
-			} else {
-				$sender->sendMessage("Invalid state \"".$args[0]."\"");
-				return false;
-			}
-			return true;
-		}
-		return false;
+		return true;
 	}
 	/////////////////////////////////////////////////////////////////////////
 	//

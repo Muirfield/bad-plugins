@@ -5,6 +5,7 @@ use pocketmine\command\CommandExecutor;
 use pocketmine\command\CommandSender;
 use pocketmine\command\Command;
 use pocketmine\command\PluginCommand;
+use pocketmine\Player;
 
 abstract class BaseCommand implements CommandExecutor {
 	protected $owner;
@@ -42,7 +43,7 @@ abstract class BaseCommand implements CommandExecutor {
 	}
 
 	public function inGame(CommandSender $sender,$msg = true) {
-		if (!($sender instanceof $sender)) {
+		if (!($sender instanceof Player)) {
 			if ($msg) $sender->sendMessage("You can only do this in-game");
 			return false;
 		}
