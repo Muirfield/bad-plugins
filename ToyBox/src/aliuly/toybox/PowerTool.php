@@ -61,14 +61,14 @@ class PowerTool extends BaseCommand implements Listener {
 	//
 	/////////////////////////////////////////////////////////////////////////
 	public function onBreak(BlockBreakEvent $ev) {
-		echo __METHOD__.",".__LINE__."\n";
+		//echo __METHOD__.",".__LINE__."\n";//##DEBUG
 		if ($ev->isCancelled()) return;
 		$pl = $ev->getPlayer();
 		if (!$this->getState($pl,false)) return;
 		if ($ev->getBlock()->getId() == Block::AIR) return;
 		if (!$pl->isCreative() || !$this->creative) {
 			if ($this->items && !isset($this->items[$ev->getItem()->getId()])) {
-				echo "Not using an PickAxe\n"; //##DEBUG
+				//echo "Not using an PickAxe\n"; //##DEBUG
 				return;
 			}
 		}
@@ -82,7 +82,7 @@ class PowerTool extends BaseCommand implements Listener {
 		if ($ev->getBlock()->getId() == Block::AIR) return;
 		if (!$pl->isCreative() || !$this->creative) {
 			if ($this->items && !isset($this->items[$ev->getItem()->getId()])) {
-				echo "Not using an PickAxe\n"; //##DEBUG
+				//echo "Not using an PickAxe\n"; //##DEBUG
 				return;
 			}
 		}
