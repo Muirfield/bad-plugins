@@ -4,7 +4,7 @@ load: POSTWORLD
 
 name: ToyBox
 description: A box full of fun toys and tools
-version: 1.0.0
+version: 1.1.0
 author: aliuly
 
 permissions:
@@ -23,3 +23,6 @@ permissions:
     toybox.cloakclock.inmune:
         default: op
         description: "Can see players using cloakclock"
+    toybox.torch:
+        default: op
+        description: "Can use floating torch"

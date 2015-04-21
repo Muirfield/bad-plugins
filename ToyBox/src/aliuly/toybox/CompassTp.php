@@ -5,15 +5,16 @@ use pocketmine\event\Listener;
 use pocketmine\scheduler\CallbackTask;
 use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\math\Vector3;
+use pocketmine\item\Item;
 
 class CompassTp implements Listener {
 	public $owner;
 	protected $item;
 
-	public function __construct($plugin,$item) {
+	public function __construct($plugin,$i) {
 		$this->owner = $plugin;
 		$this->owner->getServer()->getPluginManager()->registerEvents($this, $this->owner);
-		$this->item = $item;
+		$this->item = $this->owner->getItem($i,Item::COMPASS,"compassTp")->getId();
 	}
 	public function delayedTP($name,$x,$y,$z) {
 		$pl = $this->owner->getServer()->getPlayer($name);

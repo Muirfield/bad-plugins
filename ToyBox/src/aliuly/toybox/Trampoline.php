@@ -17,9 +17,10 @@ class Trampoline implements Listener {
 		$this->owner = $plugin;
 		$this->blocks = [];
 		if (isset($cfg["blocks"]) && is_array($cfg["blocks"])) {
-			foreach ($cfg["blocks"] as $id) {
-				if ($id == Block::AIR) continue;
-				$this->blocks[$id] = $id;
+			foreach ($cfg["blocks"] as $i) {
+				$item = $this->owner->getItem($i,false,"trampoline");
+				if ($item === null) continue;
+				$this->blocks[$item->getId()] = $item->getId();
 			}
 		}
 		if (count($this->blocks)) {

@@ -22,10 +22,42 @@ Provide additional items with special functionality to PocketMine.
 * Trampoline - Jump and down blocks
 * CloakClock - Clock that gives Invisibility
 * PowerTool - pickax that destroys blocks instantly
+* Floating Torch - Floating torch that follows you around
+
+### TreeCapitator
+
+Equip an Axe.  Then enter the command `/treecapitator`.  Go to a tree
+and break the lowest block.  This will then eliminate the entire tree
+above.  If it did'nt block the first time, break the next lowest block
+(which now is floating over the air).
+
+### CompassTP
+
+Holding the compass, tap on the screen for one second.  It will
+teleport you in the direction you were looking at.
+
+### Trampoline
+
+Place some Sponge on the ground.  Jump on them.  Watch out your
+landing!
+
+### CloakClock
+
+Holding a Clock, tap on the sreen.  If it doesn't work, hold the
+screen for 1 second.  Will enable invisibility.
+
+### Power Tool
+
+Enter the command `/powertool`.  Equip a pick axe and start tapping on
+blocks.  They will be destroyed instantly.
+
+## Floating Toch
+
+Equip a torch, and tap on the screen.  This will create a torch that
+will follow you around iluminating the way you are going.
 
 Documentation
 -------------
-
 
 ### Commands
 
@@ -36,52 +68,54 @@ Documentation
 
 ### Configuration
 
-    modules:
-      treecapitator: true
-      compasstp: true
-      trampoline: true
-      powertool: true
-      cloakclock: true
-    treecapitator:
-	ItemIDs:
-	- 258
-	- 271
-	- 275
-	- 279
-	- 286
-	need-item: true
-	break-leaves: true
-	item-wear: 1
-	broadcast-use: true
-	creative: true
-    trampoline:
-      blocks: [ 19 ]
-    powertools:
-      ItemIDs:
-      - 257
-      - 270
-      - 274
-      - 278
-      - 285
-      need-item: true
-      item-wear: 1
-      creative: true
-    compasstp:
-      item: 345
-    cloakclock:
-      item: 347
-
-* modules
-  * Allows you to enable/disable specific toys
-* treecapitator - configuration for the treecapitator module.
-  - ItemIDs: list of treecapitator tools (defaults to axes)
-  - need-item: will require the use of the Items in ItemIDs.
-  - break-leaves: destroy tree trunk and leaves.
-  - item-wear: how much wear and tear this causes to your tool.
-  - broadcast-use: Tell everybody that you are using treecapitator.
-  - creative: Enable treecapitator in creative.
-* trampoline - configuration for the trampoline module.
-  - blocks: List of blocks that well bounce you up/down.
+	---
+	# Enable or disable specifif toys
+	modules:
+	  treecapitator: true
+	  compasstp: true
+	  trampoline: true
+	  powertool: true
+	  cloakclock: true
+	  floating-torch: true
+	# Configure torch data
+	floating-torch:
+	  item: TORCH
+	  block: TORCH
+	# Configure compass items
+	compasstp:
+	  item: COMPASS
+	# Configure cloaking item
+	cloakclock:
+	  item: CLOCK
+	# Configure power tools
+	powertool:
+	  ItemIDs:
+	  - IRON_PICKAXE
+	  - WOODEN_PICKAXE
+	  - STONE_PICKAXE
+	  - DIAMOND_PICKAXE
+	  - GOLD_PICKAXE
+	  need-item: true
+	  item-wear: 1
+	  creative: true
+	# Configure TeeCapitator
+	treecapitator:
+	  ItemIDs:
+	  - IRON_AXE
+	  - WOODEN_AXE
+	  - STONE_AXE
+	  - DIAMOND_AXE
+	  - GOLD_AXE
+	  need-item: true
+	  break-leaves: true
+	  item-wear: 1
+	  broadcast-use: true
+	  creative: true
+	# Configure trampoline blocks
+	trampoline:
+	  blocks:
+	  - SPONGE
+	...
 
 ### Permission Nodes:
 
@@ -90,25 +124,21 @@ Documentation
 * toybox.powertool: Allow the use of powertool
 * toybox.cloakclock.use: Can use cloakclock
 * toybox.cloakclock.inmune: Can see players using cloakclock
+* toybox.torch: Allow use of torch
 
 Todo
 ----
 
-* MagicTorch - light
-   (If eyelevel is AIR)
-	$pk = new UpdateBlockPacket();
-	$pk->x = $pos->x;
-	$pk->y = $pos->y;
-	$pk->z = $pos->z;
-	$pk->block = $block->getId();
-	$pk->meta = $block->getDamage();
-	Server::broadcastPacket(<level>->getUsingChunk($pos->x >> 4, $pos->z >> 4), $pk);
 * Magic Carpet - ?
 * Ball - ??
+* Make sure anti-griefing mods work
 
 Changes
 -------
 
+* 1.1.0 : Next release
+  * Added Floating Torch
+  * Configuration is more readable
 * 1.0.0 : First submission
 
 Copyright

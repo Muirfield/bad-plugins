@@ -4,7 +4,6 @@ namespace aliuly\toybox;
 use pocketmine\plugin\PluginBase;
 use pocketmine\event\Listener;
 use pocketmine\item\Item;
-use pocketmine\block\Block;
 use pocketmine\command\CommandSender;
 use pocketmine\utils\Config;
 
@@ -23,17 +22,22 @@ class Main extends PluginBase implements Listener {
 				"trampoline" => true,
 				"powertool" => true,
 				"cloakclock" => true,
+				"floating-torch" => true,
+			],
+			"floating-torch" => [
+				"item" => "TORCH",
+				"block" => "TORCH",
 			],
 			"compasstp" => [
-				"item" => Item::COMPASS,
+				"item" => "COMPASS",
 			],
 			"cloakclock" => [
-				"item" => Item::CLOCK,
+				"item" => "CLOCK"
 			],
 			"powertool" => [
 				"ItemIDs" => [
-					Item::IRON_PICKAXE, Item::WOODEN_PICKAXE, Item::STONE_PICKAXE,
-					Item::DIAMOND_PICKAXE, Item::GOLD_PICKAXE
+					"IRON_PICKAXE", "WOODEN_PICKAXE", "STONE_PICKAXE",
+					"DIAMOND_PICKAXE", "GOLD_PICKAXE"
 				],
 				"need-item" => true,
 				"item-wear" => 1,
@@ -41,8 +45,8 @@ class Main extends PluginBase implements Listener {
 			],
 			"treecapitator" => [
 				"ItemIDs" => [
-					Item::IRON_AXE, Item::WOODEN_AXE, Item::STONE_AXE,
-					Item::DIAMOND_AXE, Item::GOLD_AXE
+					"IRON_AXE","WOODEN_AXE", "STONE_AXE",
+					"DIAMOND_AXE","GOLD_AXE"
 				],
 				"need-item" => true,
 				"break-leaves" => true,
@@ -51,7 +55,7 @@ class Main extends PluginBase implements Listener {
 				"creative" => true,
 			],
 			"trampoline" => [
-				"blocks" => [ Block::SPONGE ],
+				"blocks" => [ "SPONGE" ],
 			],
 		];
 		$cnt = 0;
@@ -67,6 +71,8 @@ class Main extends PluginBase implements Listener {
 			$this->modules[] = new CompassTp($this,$cfg["compasstp"]["item"]);
 		if ($cfg["modules"]["cloakclock"])
 			$this->modules[] = new CloakClock($this,$cfg["cloakclock"]["item"]);
+		if ($cfg["modules"]["floating-torch"])
+			$this->modules[] = new TorchMgr($this,$cfg["floating-torch"]);
 		if (count($this->modules)) {
 			$this->state = [];
 			$this->getServer()->getPluginManager()->registerEvents($this, $this);
@@ -98,5 +104,25 @@ class Main extends PluginBase implements Listener {
 		if (!isset($this->state[$player][$label])) return;
 		unset($this->state[$player][$label]);
 	}
-
+	public function getItem($txt,$default=0,$msg="") {
+		$r = explode(":",$txt);
+		if (count($r)) {
+			if (!isset($r[1])) $r[1] = 0;
+			$item = Item::fromString($r[0].":".$r[1]);
+			if (isset($r[2])) $item->setCount(intval($r[2]));
+			if ($item->getId() != Item::AIR) {
+				return $item;
+			}
+		}
+		if ($default) {
+			if ($msg != "")
+				$this->getLogger()->info("$msg: Invalid item $txt, using default");
+			$item = Item::fromString($default.":0");
+			$item->setCount(1);
+			return $item;
+		}
+		if ($msg != "")
+			$this->getLogger()->info("$msg: Invalid item $txt, ignoring");
+		return null;
+	}
 }

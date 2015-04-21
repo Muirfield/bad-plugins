@@ -7,6 +7,7 @@ use pocketmine\command\Command;
 use pocketmine\event\Listener;
 
 use pocketmine\item\ItemBlock;
+use pocketmine\item\Item;
 use pocketmine\block\Block;
 use pocketmine\math\Vector3;
 use pocketmine\event\block\BlockBreakEvent;
@@ -31,7 +32,9 @@ class TreeCapitator extends BaseCommand implements Listener {
 		if ($cfg["need-item"]) {
 			$this->items = [];
 			foreach ($cfg["ItemIDs"] as $i) {
-				$this->items[$i] = $i;
+				$item = $this->owner->getItem($i,false,"powertool");
+				if ($item === null) continue;
+				$this->items[$item->getId()] = $item->getId();
 			}
 			$this->itemwear = $cfg["item-wear"];
 		} else {

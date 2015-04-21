@@ -6,6 +6,7 @@ use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\event\player\PlayerItemHeldEvent;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\Player;
+use pocketmine\item\Item;
 
 
 //use pocketmine\math\Vector3;
@@ -30,10 +31,10 @@ class CloakClock implements Listener {
 			}
 	}
 
-	public function __construct($plugin,$item) {
+	public function __construct($plugin,$i) {
 		$this->owner = $plugin;
 		$this->owner->getServer()->getPluginManager()->registerEvents($this, $this->owner);
-		$this->item = $item;
+		$this->item = $this->owner->getItem($i,Item::CLOCK,"cloakclock")->getId();
 	}
 	public function onItemHeld(PlayerItemHeldEvent $e) {
 		$pl = $e->getPlayer();
