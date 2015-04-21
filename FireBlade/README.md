@@ -12,3 +12,9 @@ indicate its active state. When you hit another player (or mobs
 perhaps) with it, it will deal damage but also will set the target on
 fire.
 
+Changes
+=======
+
+* 1.0.1: ?
+  * Better configuration
+* 1.0.0: First release

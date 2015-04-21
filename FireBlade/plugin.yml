@@ -4,7 +4,7 @@ load: POSTWORLD
 
 name: FireBlade
 description: Turn a Sword into a flaming sword
-version: 1.0.0
+version: 1.0.1
 author: aliuly
 
 commands:

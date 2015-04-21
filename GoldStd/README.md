@@ -64,7 +64,7 @@ for regular gameplay:
 These can be configured from `config.yml`:
 
     settings:
-	currency: 266
+	currency: GOLD_INGOT
     defaults:
 	payment: 1
 
@@ -85,6 +85,8 @@ These can be configured from `config.yml`:
 Changes
 -------
 
+* 1.0.1 : ?
+  * Configuration uses strings instead of codes
 * 1.0.0 : First submission
 
 Copyright

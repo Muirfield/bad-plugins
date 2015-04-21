@@ -22,6 +22,22 @@ class Main extends PluginBase implements CommandExecutor,Listener {
 	protected $currency;
 	protected $state;
 
+	public function getItem($txt,$default) {
+		$r = explode(":",$txt);
+		if (count($r)) {
+			if (!isset($r[1])) $r[1] = 0;
+			$item = Item::fromString($r[0].":".$r[1]);
+			if (isset($r[2])) $item->setCount(intval($r[2]));
+			if ($item->getId() != Item::AIR) {
+				return $item;
+			}
+		}
+		$this->getLogger()->info("$msg: Invalid item $txt, using default");
+		$item = Item::fromString($default.":0");
+		$item->setCount(1);
+		return $item;
+	}
+
 	// Access and other permission related checks
 	private function access(CommandSender $sender, $permission) {
 		if($sender->hasPermission($permission)) return true;
@@ -43,7 +59,7 @@ class Main extends PluginBase implements CommandExecutor,Listener {
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 		$defaults = [
 			"settings" => [
-				"currency" => 266,
+				"currency" => "GOLD_INGOT",
 			],
 			"defaults" => [
 				"payment" => 1,
@@ -52,7 +68,8 @@ class Main extends PluginBase implements CommandExecutor,Listener {
 		];
 		$cf = (new Config($this->getDataFolder()."config.yml",
 								Config::YAML,$defaults))->getAll();
-		$this->currency = $cf["settings"]["currency"];
+		$this->currency = $this->getItem($cf["settings"]["currency"],
+													Item::GOLD_INGOT,"currency");
 		self::$defaults = $cf["defaults"];
 	}
 	//////////////////////////////////////////////////////////////////////
