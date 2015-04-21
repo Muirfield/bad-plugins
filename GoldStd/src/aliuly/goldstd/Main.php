@@ -69,7 +69,7 @@ class Main extends PluginBase implements CommandExecutor,Listener {
 		$cf = (new Config($this->getDataFolder()."config.yml",
 								Config::YAML,$defaults))->getAll();
 		$this->currency = $this->getItem($cf["settings"]["currency"],
-													Item::GOLD_INGOT,"currency");
+													Item::GOLD_INGOT,"currency")->getId();
 		self::$defaults = $cf["defaults"];
 	}
 	//////////////////////////////////////////////////////////////////////
