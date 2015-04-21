@@ -54,10 +54,10 @@ class FireBlade extends PluginBase implements CommandExecutor,Listener {
 								 Config::YAML,$defaults))->getAll();
 		$this->cf["sword1"] = $this->getItem($this->cf["sword1"],
 														 Item::IRON_SWORD,
-														 "sword1");
+														 "sword1")->getId();
 		$this->cf["sword2"] = $this->getItem($this->cf["sword2"],
 														 Item::GOLD_SWORD,
-														 "sword2");
+														 "sword2")->getId();
 
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 		$this->players = [];
