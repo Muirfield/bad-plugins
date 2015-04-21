@@ -10,6 +10,7 @@ use pocketmine\item\ItemBlock;
 use pocketmine\block\Block;
 use pocketmine\math\Vector3;
 use pocketmine\event\player\PlayerInteractEvent;
+use pocketmine\event\block\BlockBreakEvent;
 
 
 class PowerTool extends BaseCommand implements Listener {
@@ -59,6 +60,21 @@ class PowerTool extends BaseCommand implements Listener {
 	// Event handlers
 	//
 	/////////////////////////////////////////////////////////////////////////
+	public function onBreak(BlockBreakEvent $ev) {
+		echo __METHOD__.",".__LINE__."\n";
+		if ($ev->isCancelled()) return;
+		$pl = $ev->getPlayer();
+		if (!$this->getState($pl,false)) return;
+		if ($ev->getBlock()->getId() == Block::AIR) return;
+		if (!$pl->isCreative() || !$this->creative) {
+			if ($this->items && !isset($this->items[$ev->getItem()->getId()])) {
+				echo "Not using an PickAxe\n"; //##DEBUG
+				return;
+			}
+		}
+		$ev->setInstaBreak(true);
+	}
+
 	public function onTouch(PlayerInteractEvent $ev){
 		if ($ev->isCancelled()) return;
 		$pl = $ev->getPlayer();
@@ -71,18 +87,12 @@ class PowerTool extends BaseCommand implements Listener {
 			}
 		}
 		$bl = $ev->getBlock();
-		$l = $bl->getLevel();
-		$l->dropItem($bl,new ItemBlock($bl));
-		$x = $bl->getX();
-		$y = $bl->getY();
-		$z = $bl->getZ();
-		$l->setBlockIdAt($x,$y,$z,0);
-		$l->setBlockDataAt($x,$y,$z,0);
-
 		if ($this->items && $this->itemwear) {
 			$hand = $pl->getInventory()->getItemInHand();
-			$hand->setDamage($hand->getDamage() + $this->itemwear);
+			$bl->getLevel()->useBreakOn($bl,$hand,$pl);
 			$pl->getInventory()->setItemInHand($hand);
+		} else {
+			$bl->getLevel()->useBreakOn($bl,null,$pl);
 		}
 	}
 }
