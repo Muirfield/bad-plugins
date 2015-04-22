@@ -1,8 +1,8 @@
-main: aliuly\spawncontrol\Main
+main: aliuly\spawnmgr\Main
 api: 1.10.0
 load: POSTWORLD
 
-name: SpawnControl
+name: SpawnMgr
 description: More spawn related settings
 version: 1.0.0
 author: aliuly
@@ -14,3 +14,9 @@ permissions:
     spanwcontrol.spawnitems.receive:
         default: true
         description: "allows to receive items when you spawn"
+    spawncontrol.keepinv:
+        default: op
+        description: "allow player to keep inventory"
+    spawncontrol.spawnmode:
+        default: true
+        description: "player will follow spawn-control setting"

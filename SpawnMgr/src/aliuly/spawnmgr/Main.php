@@ -1,11 +1,13 @@
 <?php
-namespace aliuly\spawncontrol;
+namespace aliuly\spawnmgr;
 
 use pocketmine\plugin\PluginBase;
 use pocketmine\event\Listener;
 use pocketmine\utils\Config;
 
+use pocketmine\event\player\PlayerDeathEvent;
 use pocketmine\event\player\PlayerRespawnEvent;
+use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\event\entity\EntityExplodeEvent;
@@ -17,6 +19,9 @@ class Main extends PluginBase implements Listener {
 	protected $armor;
 	protected $pvp;
 	protected $tnt;
+	protected $spawnmode;
+	protected $keepinv;
+	protected $cmd;
 
 	public function onEnable(){
 		if (!is_dir($this->getDataFolder())) mkdir($this->getDataFolder());
@@ -24,6 +29,9 @@ class Main extends PluginBase implements Listener {
 			"settings" => [
 				"tnt" => true,
 				"pvp" => true,
+				"spawn-mode" => "default",
+				"keep-inventory" => false,
+				"home-cmd" => "/home",
 			],
 			"spawnarmor"=>[
 				"head"=>"-",
@@ -44,13 +52,59 @@ class Main extends PluginBase implements Listener {
 							  Config::YAML,$defaults))->getAll();
 		$this->tnt = $cfg["settings"]["tnt"];
 		$this->pvp = $cfg["settings"]["pvp"];
+		switch(strtolower($cfg["settings"]["spawn-mode"])) {
+			case "home":
+			case "default":
+			case "world":
+			case "always":
+				$this->spawnmode = strtolower($cfg["settings"]["spawn-mode"]);
+				break;
+			default:
+				$this->spawnmode = "default";
+				$this->getLogger()->info("Invalid spawn-mode setting!");
+		}
+		$this->cmd = $cfg["settings"]["home-cmd"];
+		$this->keepinv = $cfg["settings"]["keep-inventory"];
 		$this->armor = $cfg["spawnarmor"];
 		$this->items = isset($cfg["spawnitems"]) ? $cfg["spawnitems"] : [];
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 	}
+	public function mwteleport($pl,$pos) {
+		if (($pos instanceof Position) &&
+			 ($mw = $this->owner->getServer()->getPluginManager()->getPlugin("ManyWorlds")) != null) {
+			// Using ManyWorlds for teleporting...
+			$mw->mwtp($pl,$pos);
+		} else {
+			$pl->teleport($pos);
+		}
+	}
 
+	public function onDeath(PlayerDeathEvent $e) {
+		if (!$this->keepinv) return;
+		if (!$e->getEntity()->hasPermission("spawncontrol.keepinv")) return;
+		$e->setKeepInventory(true);
+		$e->setDrops([]);
+	}
+
+	public function onJoin(PlayerJoinEvent $e) {
+		echo __METHOD__.",".__LINE__."\n";//##DEBUG
+		$pl = $e->getPlayer();
+		if (!$pl->hasPermission("spawncontrol.spawnmode")) return;
+
+		switch($this->spawnmode) {
+			case "world":
+				$this->mwteleport($pl,$pl->getLevel()->getSafeSpawn());
+				break;
+			case "always":
+				$this->mwteleport($pl,$this->getServer()->getDefaultLevel()->getSafeSpawn());
+				break;
+			case "home":
+				$this->getServer()->dispatchCommand($pl,$this->cmd);
+				break;
+		}
+	}
 	public function onRespawn(PlayerRespawnEvent $e) {
-		//echo __METHOD__.",".__LINE__."\n";//##DEBUG
+		echo __METHOD__.",".__LINE__."\n";//##DEBUG
 		$pl = $e->getPlayer();
 		if (!($pl instanceof Player)) return;
 		if ($pl->isCreative()) return;

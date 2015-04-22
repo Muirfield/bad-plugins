@@ -1,5 +1,5 @@
 
-SpawnControl
+SpawnMgr
 =======
 
 * Summary: Better control of how players spawn
@@ -9,7 +9,7 @@ SpawnControl
 * OptionalPlugins: -
 * Categories: Admin Tools
 * Plugin Access: Commands
-* WebSite: [github](https://github.com/alejandroliu/bad-plugins/tree/master/SpawnControl)
+* WebSite: [github](https://github.com/alejandroliu/bad-plugins/tree/master/SpawnMgr)
 
 Overview
 --------
@@ -28,6 +28,9 @@ Configuration is through the `config.yml` file:
 	settings:
 	  tnt: true
 	  pvp: true
+	  spawn-mode: default
+	  keep-inventory: false
+	  home-cmd: /home
 	spawnarmor:
 	  head: '-'
 	  body: chainmail
@@ -39,21 +42,34 @@ Configuration is through the `config.yml` file:
 	- "364:0:5"
 
 * `settings`: Basic spawn settings
+   * `tnt` : if *true* allows tnt explosions in spawn area.
+   * `pvp` : if *true* allows PvP in spawn area.
+   * `spawn-mode`: can be one of the following:
+     * *default* : when joining will start at the last location.
+     * *world* : when joining will always start at the last world
+       spawn point.
+     * *always* : when joining will always start at the default world
+       spawn point.
+     * *home* : when joining will start at your home location.
+  * `keep-inventory` : players get to keep their stuff when they die.
+  * `home-cmd` : Configure the command to go *home*.  This is for the
+    *home* *spawn-mode*.  This is executed in the player's context so
+    make sure all players have permissions to execute this command.
 * `spawnarmor`: defines the list of armor that players will spawn with.
 * `spawnitems`: lists the `item_id`:`damage`:`count` for initial items that
   will be placed in the players inventory at spawn time.
+
+**NOTE**: The *home* *spawn-mode* requires you to have a */home*
+plugin that provides with a `/home` command.  This command is executed
+when the player joins.
+
 
 ### Permission Nodes:
 
 * spawncontrol.spawnarmor.receive: allows player to receive armor when spawning
 * spawncontrol.spawnitems.receive: allows player to receive items when spawning
-
-Todo
-----
-
-* AlwaysSpawn: off,false|world|home|default
-  * home will dispatch /home.
-* Keep Items when dieing or respawning
+* spawncontrol.keepinv: allow player to keep inventory
+* spawncontrol.spawnmode: player will follow spawn-control setting
 
 Changes
 -------
@@ -62,7 +78,7 @@ Changes
 Copyright
 ---------
 
-    SpawnControl
+    SpawnMgr
     Copyright (C) 2015 Alejandro Liu  
     All Rights Reserved.
 
