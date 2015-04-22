@@ -201,17 +201,21 @@ rules) for the PocketMine official
 <!---------------------------------------------------------------------->
 <tr>
   <th>
-    <a href="https://github.com/alejandroliu/bad-plugins/tree/master/SpawnControl">
+    <a href="https://github.com/alejandroliu/bad-plugins/tree/master/SpawnMgr">
 <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/spawnicon.png" style="width:64px;height:64px" width="64" height="64"/>
       <br/>
-      SpawnControl
+      SpawnMgr
     </a>
   </th>
   <td>
     Control Spawn settings
     <ul>
       <li>
-	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/SpawnControl-1.0.0" title="Downloads">v1.0.0
+	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/SpawnMgr-1.0.0" title="Downloads">v1.0.0
+	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
+      </li>
+      <li>
+	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/SpawnControl-1.0.0" title="Downloads">v1.0.0-dev
 	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
       </li>
     </ul>

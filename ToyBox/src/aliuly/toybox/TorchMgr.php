@@ -60,7 +60,7 @@ class TorchMgr implements Listener {
 		$this->block = $this->owner->getItem($cfg["block"],Item::TORCH,"torch-block")->getId();
 	}
 	public function onItemHeld(PlayerItemHeldEvent $e) {
-		echo __METHOD__.",".__LINE__."\n";//##DEBUG
+		//echo __METHOD__.",".__LINE__."\n";//##DEBUG
 		$pl = $e->getPlayer();
 		if(!$this->owner->getState("Torch",$pl,null)) return;
 		if ($e->getItem()->getId() != $this->item) {
