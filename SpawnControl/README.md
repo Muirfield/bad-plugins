@@ -48,6 +48,13 @@ Configuration is through the `config.yml` file:
 * spawncontrol.spawnarmor.receive: allows player to receive armor when spawning
 * spawncontrol.spawnitems.receive: allows player to receive items when spawning
 
+Todo
+----
+
+* AlwaysSpawn: off,false|world|home|default
+  * home will dispatch /home.
+* Keep Items when dieing or respawning
+
 Changes
 -------
 * 1.0.0 : First public release
