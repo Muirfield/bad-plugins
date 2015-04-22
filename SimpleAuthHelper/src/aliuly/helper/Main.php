@@ -46,10 +46,10 @@ class Main extends PluginBase implements Listener,CommandExecutor {
 				"auth error" => "Authentication error.  Try again later!",
 			],
 			"nest-egg" => [
-				"272:0:1",
-				"17:0:16",
-				"364:0:5",
-				"266:0:10",
+				"STONE_SWORD:0:1",
+				"WOOD:0:16",
+				"COOKED_BEEF:0:5",
+				"GOLD_INGOT:0:10",
 			],
 			"max-attempts" => 5,
 			"login-timeout" => 60,
@@ -145,7 +145,8 @@ class Main extends PluginBase implements Listener,CommandExecutor {
 				foreach ($this->cfg["nest-egg"] as $i) {
 					$r = explode(":",$i);
 					if (count($r) != 3) continue;
-					$item = new Item($r[0],$r[1],$r[2]);
+					$item = Item::fromString($r[0].":".$r[1]);
+					$item->setCount(intval($r[2]));
 					$pl->getInventory()->addItem($item);
 				}
 			}
