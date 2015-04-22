@@ -23,6 +23,7 @@ Provide additional items with special functionality to PocketMine.
 * CloakClock - Clock that gives Invisibility
 * PowerTool - pickax that destroys blocks instantly
 * Floating Torch - Floating torch that follows you around
+* Magic Carpet - Fly with a carpet made of glass
 
 ### TreeCapitator
 
@@ -51,10 +52,17 @@ screen for 1 second.  Will enable invisibility.
 Enter the command `/powertool`.  Equip a pick axe and start tapping on
 blocks.  They will be destroyed instantly.
 
-## Floating Toch
+### Floating Toch
 
 Equip a torch, and tap on the screen.  This will create a torch that
 will follow you around iluminating the way you are going.
+
+### Magic Carpet
+
+Enter the command `/magiccarpet`.  Walk normally, to go up jump, to go
+down look down.  Be careful when going down as you can easily hurt
+yourself.
+
 
 Documentation
 -------------
@@ -65,6 +73,8 @@ Documentation
   Toggles treecapitator usage.
 * *powertool*  
   Toggles powertool usage
+* *magiccarpet*  
+  Toggle magic carpet
 
 ### Configuration
 
@@ -77,6 +87,7 @@ Documentation
 	  powertool: true
 	  cloakclock: true
 	  floating-torch: true
+	  magic-carpet: true
 	# Configure torch data
 	floating-torch:
 	  item: TORCH
@@ -115,6 +126,8 @@ Documentation
 	trampoline:
 	  blocks:
 	  - SPONGE
+	magic-carpet:
+	  block: GLASS
 	...
 
 ### Permission Nodes:
@@ -125,19 +138,19 @@ Documentation
 * toybox.cloakclock.use: Can use cloakclock
 * toybox.cloakclock.inmune: Can see players using cloakclock
 * toybox.torch: Allow use of torch
+* toybox.magiccarpet: Allow use of Magic carpet
 
 Todo
 ----
 
-* Magic Carpet - ?
 * Ball - ??
-* Make sure anti-griefing mods work
 
 Changes
 -------
 
 * 1.1.0 : Next release
   * Added Floating Torch
+  * Added magic carpet
   * Configuration is more readable
 * 1.0.0 : First submission
 
@@ -160,3 +173,4 @@ Copyright
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
