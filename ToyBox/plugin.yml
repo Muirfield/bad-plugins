@@ -11,6 +11,9 @@ permissions:
     toybox.treecapitator:
         default: op
         description: "Use treecapitator"
+    toybox.magiccarpet:
+        default: op
+        description: "MagicCarpet command"
     toybox.compasstp:
         default: op
         description: "Teleport with compass"

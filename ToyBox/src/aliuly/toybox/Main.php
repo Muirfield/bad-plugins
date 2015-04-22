@@ -23,6 +23,7 @@ class Main extends PluginBase implements Listener {
 				"powertool" => true,
 				"cloakclock" => true,
 				"floating-torch" => true,
+				"magic-carpet" => true,
 			],
 			"floating-torch" => [
 				"item" => "TORCH",
@@ -57,6 +58,9 @@ class Main extends PluginBase implements Listener {
 			"trampoline" => [
 				"blocks" => [ "SPONGE" ],
 			],
+			"magic-carpet" => [
+				"block" => "GLASS"
+			],
 		];
 		$cnt = 0;
 		$cfg=(new Config($this->getDataFolder()."config.yml",
@@ -73,6 +77,8 @@ class Main extends PluginBase implements Listener {
 			$this->modules[] = new CloakClock($this,$cfg["cloakclock"]["item"]);
 		if ($cfg["modules"]["floating-torch"])
 			$this->modules[] = new TorchMgr($this,$cfg["floating-torch"]);
+		if ($cfg["modules"]["magic-carpet"])
+			$this->modules[] = new MagicCarpet($this,$cfg["magic-carpet"]["block"]);
 		if (count($this->modules)) {
 			$this->state = [];
 			$this->getServer()->getPluginManager()->registerEvents($this, $this);
