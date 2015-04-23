@@ -20,3 +20,6 @@ permissions:
     spawncontrol.spawnmode:
         default: true
         description: "player will follow spawn-control setting"
+    spawncontrol.reserved:
+        default: op
+        description: "Players is allowed to join full servers"

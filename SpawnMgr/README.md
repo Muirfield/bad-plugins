@@ -16,6 +16,16 @@ Overview
 
 Let's you control how your players spawn on your server.
 
+Supports:
+
+* no explosions in spawn
+* no pvp in spawn
+* always spawn, spawn in world, spawn at home
+* allow ops to join full servers
+* allow to keep inventory when dieing
+* spawn with armor
+* spawn with items
+
 Documentation
 -------------
 
@@ -29,6 +39,7 @@ Configuration is through the `config.yml` file:
 	  tnt: true
 	  pvp: true
 	  spawn-mode: default
+	  reserved: true
 	  keep-inventory: false
 	  home-cmd: /home
 	spawnarmor:
@@ -51,6 +62,9 @@ Configuration is through the `config.yml` file:
      * *always* : when joining will always start at the default world
        spawn point.
      * *home* : when joining will start at your home location.
+  * `reserved` : can be set to `false` to disable.  `true` to allow
+    people to join full servers.  Or a number to allow up to the
+    number of people to join full servers.
   * `keep-inventory` : players get to keep their stuff when they die.
   * `home-cmd` : Configure the command to go *home*.  This is for the
     *home* *spawn-mode*.  This is executed in the player's context so
@@ -70,16 +84,20 @@ when the player joins.
 * spawncontrol.spawnitems.receive: allows player to receive items when spawning
 * spawncontrol.keepinv: allow player to keep inventory
 * spawncontrol.spawnmode: player will follow spawn-control setting
+* spawncontrol.reserved: player will join full servers
+
 
 Changes
 -------
+* 1.0.1:
+  * reserved slots
 * 1.0.0 : First public release
 
 Copyright
 ---------
 
     SpawnMgr
-    Copyright (C) 2015 Alejandro Liu  
+    Copyright (C) 2015 Alejandro Liu
     All Rights Reserved.
 
     This program is free software: you can redistribute it and/or modify

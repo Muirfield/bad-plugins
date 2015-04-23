@@ -8,6 +8,7 @@ use pocketmine\utils\Config;
 use pocketmine\event\player\PlayerDeathEvent;
 use pocketmine\event\player\PlayerRespawnEvent;
 use pocketmine\event\player\PlayerJoinEvent;
+use pocketmine\event\player\PlayerKickEvent;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\event\entity\EntityExplodeEvent;
@@ -22,6 +23,7 @@ class Main extends PluginBase implements Listener {
 	protected $spawnmode;
 	protected $keepinv;
 	protected $cmd;
+	protected $reserved;
 
 	public function onEnable(){
 		if (!is_dir($this->getDataFolder())) mkdir($this->getDataFolder());
@@ -29,6 +31,7 @@ class Main extends PluginBase implements Listener {
 			"settings" => [
 				"tnt" => true,
 				"pvp" => true,
+				"reserved" => 4,
 				"spawn-mode" => "default",
 				"keep-inventory" => false,
 				"home-cmd" => "/home",
@@ -43,7 +46,7 @@ class Main extends PluginBase implements Listener {
 				"STONE_SWORD:0:1",
 				"WOOD:0:16",
 				"COOKED_BEEF:0:5",
-			]
+			],
 		];
 		if (file_exists($this->getDataFolder()."config.yml")) {
 			unset($defaults["spawnitems"]);
@@ -52,6 +55,7 @@ class Main extends PluginBase implements Listener {
 							  Config::YAML,$defaults))->getAll();
 		$this->tnt = $cfg["settings"]["tnt"];
 		$this->pvp = $cfg["settings"]["pvp"];
+		$this->reserved = $cfg["settings"]["reserved"];
 		switch(strtolower($cfg["settings"]["spawn-mode"])) {
 			case "home":
 			case "default":
@@ -78,7 +82,17 @@ class Main extends PluginBase implements Listener {
 			$pl->teleport($pos);
 		}
 	}
-
+	public function onPlayerKick(PlayerKickEvent $event){
+		if (!$this->reserved) return;
+		if ($event->getReason() !== "server full") return;
+		if (!$event->getPlayer()->hasPermission("spawncontrol.reserved")) return;
+		if($this->reserved !== true) {
+			// OK, we do have a limit...
+			if(count($this->getServer()->getOnlinePlayers()) >
+				$this->getServer()->getMaxPlayers() + $this->reserved) return;
+		}
+		$ev->setCancelled();
+	}
 	public function onDeath(PlayerDeathEvent $e) {
 		if (!$this->keepinv) return;
 		if (!$e->getEntity()->hasPermission("spawncontrol.keepinv")) return;
