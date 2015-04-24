@@ -76,7 +76,7 @@ class RCon {
 		if ($size < 0 or $size > 65535) return NULL;
 		list($id) = array_values(unpack("V1", fread($this->sock, 4)));
 		list($type) = array_values(unpack("V1", fread($this->sock, 4)));
-		$payload = rtrim(fread($this->sock,$size+2));
+		$payload = rtrim(fread($this->sock,$size-8));
 		return array($id,$type,$payload);
 	}
 	public function cmd($cmd) {
