@@ -1,0 +1,18 @@
+main: aliuly\getping\Main
+api: 1.10.0
+load: POSTWORLD
+
+name: GetPing
+description: Automatic Latency Measurement
+version: 1.0.0
+author: aliuly
+
+commands:
+    getping:
+        description: show latency infomration
+        usage: "/getping"
+
+permissions:
+    getping.cmd:
+        default: true
+        description: "Show latency information"
