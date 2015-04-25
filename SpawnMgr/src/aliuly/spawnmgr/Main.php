@@ -31,7 +31,7 @@ class Main extends PluginBase implements Listener {
 			"settings" => [
 				"tnt" => true,
 				"pvp" => true,
-				"reserved" => 4,
+				"reserved" => false,
 				"spawn-mode" => "default",
 				"keep-inventory" => false,
 				"home-cmd" => "/home",
@@ -84,6 +84,7 @@ class Main extends PluginBase implements Listener {
 	}
 	public function onPlayerKick(PlayerKickEvent $event){
 		if (!$this->reserved) return;
+		echo $event->getReason()."\n";//##DEBUG
 		if ($event->getReason() !== "server full") return;
 		if (!$event->getPlayer()->hasPermission("spawncontrol.reserved")) return;
 		if($this->reserved !== true) {
