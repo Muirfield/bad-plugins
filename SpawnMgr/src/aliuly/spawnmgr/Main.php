@@ -84,15 +84,20 @@ class Main extends PluginBase implements Listener {
 	}
 	public function onPlayerKick(PlayerKickEvent $event){
 		if (!$this->reserved) return;
-		echo $event->getReason()."\n";//##DEBUG
-		if ($event->getReason() !== "server full") return;
-		if (!$event->getPlayer()->hasPermission("spawncontrol.reserved")) return;
-		if($this->reserved !== true) {
-			// OK, we do have a limit...
-			if(count($this->getServer()->getOnlinePlayers()) >
-				$this->getServer()->getMaxPlayers() + $this->reserved) return;
+		//echo $event->getReason()."\n";//##DEBUG
+		if ($event->getReason() == "server full" &&
+			 $event->getReason() == "disconnectionScreen.serverFull") {
+			if (!$event->getPlayer()->hasPermission("spawncontrol.reserved"))
+				return;
+			if($this->reserved !== true) {
+				// OK, we do have a limit...
+				if(count($this->getServer()->getOnlinePlayers()) >
+					$this->getServer()->getMaxPlayers() + $this->reserved) return;
+			}
+			$ev->setCancelled();
+			return;
 		}
-		$ev->setCancelled();
+		// Not server full message...
 	}
 	public function onDeath(PlayerDeathEvent $e) {
 		if (!$this->keepinv) return;
