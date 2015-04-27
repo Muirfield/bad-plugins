@@ -1,0 +1,19 @@
+main: aliuly\mtp\Main
+api: 1.10.0
+load: POSTWORLD
+
+name: MeTooPortal
+description: Yet another portal plugin
+version: 1.0.0
+author: aliuly
+
+commands:
+    mtp:
+        description: Create a portal
+        usage: "/mtp [world] [x y z]"
+        permission: metooportal.cmd.mtp
+
+permissions:
+    metooportal.cmd.mtp:
+        default: op
+        description: "Allow to create portal"
