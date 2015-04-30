@@ -3,7 +3,6 @@ namespace aliuly\autoheal;
 
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
-use pocketmine\scheduler\CallbackTask;
 use pocketmine\utils\TextFormat;
 use pocketmine\permission\Permission;
 
@@ -44,7 +43,7 @@ class Main extends PluginBase{
 			$p = new Permission("autoheal.".$rank,"Enables auto heal for ".$rank,
 									  $perms);
 			$this->getServer()->getPluginManager()->addPermission($p);
-			$this->getServer()->getScheduler()->scheduleRepeatingTask(new CallbackTask([$this,"healTimer"],[$rank,$amount]),$rate);
+			$this->getServer()->getScheduler()->scheduleRepeatingTask(new PluginCallbackTask($this,[$this,"healTimer"],[$rank,$amount]),$rate);
 			++$cnt;
 		}
 		if ($cnt == 0) {
