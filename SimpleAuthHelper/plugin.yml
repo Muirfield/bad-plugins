@@ -5,7 +5,7 @@ depend: [SimpleAuth]
 
 name: SimpleAuthHelper
 description: Simplifies the way people authenticate to servers
-version: 1.2.0
+version: 1.2.1
 author: aliuly
 
 commands:

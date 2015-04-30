@@ -82,13 +82,14 @@ player upon registration.
 Changes
 -------
 
+* 1.2.1: CallbackTask deprecation
+  * Removed CallbackTask deprecation warnings
 * 1.2.0: max-logins
   * Suggestion from MCPEPIG
     - kick user out after `max-attempts`.
     - Added a chpwd command.
   * Kick user out if not authenticated after `timeout` seconds.
   * Added resetpwd command for ops
-  * Removed CallbackTask deprecation warnings
 * 1.1.0: Small update
   * Added `nest-egg`
   * Messages can be configured.
