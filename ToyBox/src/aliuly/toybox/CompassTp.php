@@ -2,7 +2,6 @@
 namespace aliuly\toybox;
 
 use pocketmine\event\Listener;
-use pocketmine\scheduler\CallbackTask;
 use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\math\Vector3;
 use pocketmine\item\Item;
@@ -70,7 +69,7 @@ class CompassTp implements Listener {
 			$x = (($pos->getX()-$start->getX())*$f/$m)+$start->getX();
 			$y = (($pos->getY()-$start->getY())*$f/$m)+$start->getY();
 			$z = (($pos->getZ()-$start->getZ())*$f/$m)+$start->getZ();
-			$c = new CallbackTask([$this,"delayedTP"],[$pl->getName(),$x,$y,$z]);
+			$c = new PluginCallbackTask($this->owner,[$this,"delayedTP"],[$pl->getName(),$x,$y,$z]);
 			$this->owner->getServer()->getScheduler()->scheduleDelayedTask($c,$ticks);
 		}
 	}

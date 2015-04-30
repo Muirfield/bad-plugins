@@ -152,6 +152,7 @@ Changes
   * Added Floating Torch
   * Added magic carpet
   * Configuration is more readable
+  * Removed CallbackTask deprecation warnings
 * 1.0.0 : First submission
 
 Copyright
