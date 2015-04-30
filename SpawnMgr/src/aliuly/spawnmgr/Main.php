@@ -36,20 +36,20 @@ class Main extends PluginBase implements Listener {
 				"keep-inventory" => false,
 				"home-cmd" => "/home",
 			],
-			"spawnarmor"=>[
-				"head"=>"-",
-				"body"=>"chainmail",
-				"legs"=>"leather",
-				"boots"=>"leather",
+			"armor"=>[
+				"chain_chestplate",
+				"leather_pants",
+				"leather_boots",
 			],
-			"spawnitems"=>[
-				"STONE_SWORD:0:1",
-				"WOOD:0:16",
-				"COOKED_BEEF:0:5",
+			"items"=>[
+				"STONE_SWORD,1",
+				"WOOD,16",
+				"COOKED_BEEF,5",
 			],
 		];
 		if (file_exists($this->getDataFolder()."config.yml")) {
-			unset($defaults["spawnitems"]);
+			unset($defaults["items"]);
+			unset($defaults["armor"]);
 		}
 		$cfg=(new Config($this->getDataFolder()."config.yml",
 							  Config::YAML,$defaults))->getAll();
@@ -69,10 +69,26 @@ class Main extends PluginBase implements Listener {
 		}
 		$this->cmd = $cfg["settings"]["home-cmd"];
 		$this->keepinv = $cfg["settings"]["keep-inventory"];
-		$this->armor = $cfg["spawnarmor"];
-		$this->items = isset($cfg["spawnitems"]) ? $cfg["spawnitems"] : [];
+		$this->armor = isset($cfg["armor"]) ? $cfg["armor"] : [];
+		$this->items = isset($cfg["items"]) ? $cfg["items"] : [];
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 	}
+
+	public function itemName(Item $item) {
+		$items = [];
+		$constants = array_keys((new \ReflectionClass("pocketmine\\item\\Item"))->getConstants());
+		foreach ($constants as $constant) {
+			$id = constant("pocketmine\\item\\Item::$constant");
+			$constant = str_replace("_", " ", $constant);
+			$items[$id] = $constant;
+		}
+		$n = $item->getName();
+		if ($n != "Unknown") return $n;
+		if (isset($items[$item->getId()])) return $items[$item->getId()];
+		return $n;
+	}
+
+
 	public function mwteleport($pl,$pos) {
 		if (($pos instanceof Position) &&
 			 ($mw = $this->owner->getServer()->getPluginManager()->getPlugin("ManyWorlds")) != null) {
@@ -87,7 +103,7 @@ class Main extends PluginBase implements Listener {
 		//echo $event->getReason()."\n";//##DEBUG
 		if ($event->getReason() == "server full" &&
 			 $event->getReason() == "disconnectionScreen.serverFull") {
-			if (!$event->getPlayer()->hasPermission("spawncontrol.reserved"))
+			if (!$event->getPlayer()->hasPermission("spawnmgr.reserved"))
 				return;
 			if($this->reserved !== true) {
 				// OK, we do have a limit...
@@ -101,7 +117,7 @@ class Main extends PluginBase implements Listener {
 	}
 	public function onDeath(PlayerDeathEvent $e) {
 		if (!$this->keepinv) return;
-		if (!$e->getEntity()->hasPermission("spawncontrol.keepinv")) return;
+		if (!$e->getEntity()->hasPermission("spawnmgr.keepinv")) return;
 		$e->setKeepInventory(true);
 		$e->setDrops([]);
 	}
@@ -109,7 +125,7 @@ class Main extends PluginBase implements Listener {
 	public function onJoin(PlayerJoinEvent $e) {
 		echo __METHOD__.",".__LINE__."\n";//##DEBUG
 		$pl = $e->getPlayer();
-		if (!$pl->hasPermission("spawncontrol.spawnmode")) return;
+		if (!$pl->hasPermission("spawnmgr.spawnmode")) return;
 
 		switch($this->spawnmode) {
 			case "world":
@@ -128,33 +144,36 @@ class Main extends PluginBase implements Listener {
 		$pl = $e->getPlayer();
 		if (!($pl instanceof Player)) return;
 		if ($pl->isCreative()) return;
-		if ($pl->hasPermission("spawncontrol.spawnarmor.receive")) {
-			//echo __METHOD__.",".__LINE__."\n";//##DEBUG
-			foreach ([0=>"head",1=>"body",2=>"legs",3=>"boots"] as $slot=>$attr) {
-				if ($pl->getInventory()->getArmorItem($slot)->getID()!=0) continue;
-				if (!isset($this->armor[$attr])) continue;
-				$type = strtolower($this->armor[$attr]);
-				if ($type == "leather") {
-					$type = 298;
-				} elseif ($type == "chainmail") {
-					$type = 302;
-				} elseif ($type == "iron") {
-					$type = 306;
-				} elseif ($type == "gold") {
-					$type = 314;
-				} elseif ($type == "diamond") {
-					$type = 310;
-				} else {
+		if ($pl->hasPermission("spawnmgr.receive.armor")) {
+			echo __METHOD__.",".__LINE__."\n";//##DEBUG
+			$slot_map = [ "helmet" => 0, "chestplate" => 1, "leggings" => 2,
+							  "boots" => 3 , "cap" => 0, "tunic" => 1,
+							  "pants" => 2 ];
+			$inventory = [];
+			foreach ($this->armor as $j) {
+				$item = Item::fromString($j);
+				echo __METHOD__.",".__LINE__."-".$item->getId()."\n";//##DEBUG
+				$itemName = explode(" ",strtolower($this->itemName($item)),2);
+				if (count($itemName) != 2) {
+					$this->getLogger()->info("Invalid armor item: $j");
 					continue;
 				}
-				//echo __METHOD__.",".__LINE__."\n";//##DEBUG
-				//echo "slot=$slot($attr) type=$type ".($type+$slot)."\n";//##DEBUG
-				$pl->getInventory()->setArmorItem($slot,new Item($type+$slot,0,1));
+				list($material,$type) = $itemName;
+				if (!isset($slot_map[$type])) {
+					$this->getLogger()->info("Invalid armor type: $type for $material");
+					continue;
+				}
+				$slot = $slot_map[$type];
+				$inventory[$slot] = $item;
+			}
+			foreach ($inventory as $slot => $item) {
+				if ($pl->getInventory()->getArmorItem($slot)->getID()!=0) continue;
+				$pl->getInventory()->setArmorItem($slot,clone $item);
 			}
 		}
-		//echo __METHOD__.",".__LINE__."\n";//##DEBUG
-		if ($pl->hasPermission("spawncontrol.spawnitems.receive")) {
-			//echo __METHOD__.",".__LINE__."\n";//##DEBUG
+		echo __METHOD__.",".__LINE__."\n";//##DEBUG
+		if ($pl->hasPermission("spawnmgr.receive.items")) {
+			echo __METHOD__.",".__LINE__."\n";//##DEBUG
 			// Figure out if the inventory is empty...
 			$cnt = 0;
 			$max = $pl->getInventory()->getSize();
@@ -162,13 +181,14 @@ class Main extends PluginBase implements Listener {
 				if ($slot < $max) ++$cnt;
 			}
 			if ($cnt) return;
-			//echo __METHOD__.",".__LINE__."\n";//##DEBUG
+			echo __METHOD__.",".__LINE__."\n";//##DEBUG
 			// This player has nothing... let's give them some to get started...
 			foreach ($this->items as $i) {
-				$r = explode(":",$i);
-				if (count($r) != 3) continue;
-				$item = Item::fromString($r[0].":".$r[1]);
-				$item->setCount(intval($r[2]));
+				$r = explode(",",$i);
+				if (count($r) != 2) continue;
+				echo __METHOD__.",".__LINE__."i=$i ($r[0]-$r[1])\n";//##DEBUG
+				$item = Item::fromString($r[0]);
+				$item->setCount(intval($r[1]));
 				$pl->getInventory()->addItem($item);
 			}
 		}

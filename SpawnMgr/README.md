@@ -1,3 +1,5 @@
+<img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Medi
+a/spawnicon.png" style="width:64px;height:64px" width="64" height="64"/>
 
 SpawnMgr
 =======
@@ -13,6 +15,8 @@ SpawnMgr
 
 Overview
 --------
+
+**PLEASE DELETE YOUR OLD CONFIGURATION FILE AS THE FORMAT HAS BEEN CHANGED**
 
 Let's you control how your players spawn on your server.
 
@@ -35,62 +39,61 @@ Control spawn settings in your server.
 
 Configuration is through the `config.yml` file:
 
-	settings:
-	  tnt: true
-	  pvp: true
-	  spawn-mode: default
-	  reserved: true
-	  keep-inventory: false
-	  home-cmd: /home
-	spawnarmor:
-	  head: '-'
-	  body: chainmail
-	  legs: leather
-	  boots: leather
-	spawnitems:
-	- "272:0:1"
-	- "17:0:16"
-	- "364:0:5"
-
-* `settings`: Basic spawn settings
-   * `tnt` : if *true* allows tnt explosions in spawn area.
-   * `pvp` : if *true* allows PvP in spawn area.
-   * `spawn-mode`: can be one of the following:
-     * *default* : when joining will start at the last location.
-     * *world* : when joining will always start at the last world
-       spawn point.
-     * *always* : when joining will always start at the default world
-       spawn point.
-     * *home* : when joining will start at your home location.
-  * `reserved` : can be set to `false` to disable.  `true` to allow
-    people to join full servers.  Or a number to allow up to the
-    number of people to join full servers.
-  * `keep-inventory` : players get to keep their stuff when they die.
-  * `home-cmd` : Configure the command to go *home*.  This is for the
-    *home* *spawn-mode*.  This is executed in the player's context so
-    make sure all players have permissions to execute this command.
-* `spawnarmor`: defines the list of armor that players will spawn with.
-* `spawnitems`: lists the `item_id`:`damage`:`count` for initial items that
-  will be placed in the players inventory at spawn time.
+~~~
+[CODE]
+---
+settings:
+  # Explosions allowed in spawn area, set false to disallow
+  tnt: true
+  # PvP allowed in spawn area, set false to disallow
+  pvp: true
+  # If true, allows Ops to join full servers, set to a number to allow
+  # only the specified number of extra slots (above max slots)
+  reserved: false
+  # spawn-mode: can be one of the following:
+  # - *default* : when joining will start at the last location.
+  # - *world* : when joining will always start at the last world
+  #    spawn point.
+  # - *always* : when joining will always start at the default world
+  #     spawn point.
+  # - *home* : when joining will start at your home location.
+  spawn-mode: default
+  # If true, players get to keep their inventory when they die
+  keep-inventory: false
+  # If spawn-mode is *home*, this is the command to use to teleport
+  # player to their home.  Requires an plugin that implements /home
+  # functionality
+  home-cmd: /home
+# List of armor elements
+armor:
+- chain_chestplate
+- leather_pants
+- leather_boots
+# List of initial inventory
+items:
+- STONE_SWORD,1
+- WOOD,16
+- COOKED_BEEF,5
+...
+[/CODE]
+~~~
 
 **NOTE**: The *home* *spawn-mode* requires you to have a */home*
 plugin that provides with a `/home` command.  This command is executed
 when the player joins.
 
-
 ### Permission Nodes:
 
-* spawncontrol.spawnarmor.receive: allows player to receive armor when spawning
-* spawncontrol.spawnitems.receive: allows player to receive items when spawning
-* spawncontrol.keepinv: allow player to keep inventory
-* spawncontrol.spawnmode: player will follow spawn-control setting
-* spawncontrol.reserved: player will join full servers
-
+* spawnmgr.receive.armor: allows to receive armor when you spawn
+* spawnmgr.receive.items: allows to receive items when you spawn
+* spawnmgr.keepinv: allow player to keep inventory
+* spawnmgr.spawnmode: player will follow spawn-control setting
+* spawnmgr.reserved: Players is allowed to join full servers
 
 Changes
 -------
 * 1.0.1:
-  * reserved slots
+  * rewrite to remove offending code.
 * 1.0.0 : First public release
 
 Copyright

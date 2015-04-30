@@ -4,22 +4,22 @@ load: POSTWORLD
 
 name: SpawnMgr
 description: More spawn related settings
-version: 1.0.0
+version: 1.1.0
 author: aliuly
 
 permissions:
-    spawncontrol.spawnarmor.receive:
+    spawnmgr.receive.armor:
         default: true
         description: "allows to receive armor when you spawn"
-    spanwcontrol.spawnitems.receive:
+    spawnmgr.receive.items:
         default: true
         description: "allows to receive items when you spawn"
-    spawncontrol.keepinv:
+    spawnmgr.keepinv:
         default: op
         description: "allow player to keep inventory"
-    spawncontrol.spawnmode:
+    spawnmgr.spawnmode:
         default: true
         description: "player will follow spawn-control setting"
-    spawncontrol.reserved:
+    spawnmgr.reserved:
         default: op
         description: "Players is allowed to join full servers"
