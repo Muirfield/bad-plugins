@@ -88,6 +88,7 @@ Changes
     - Added a chpwd command.
   * Kick user out if not authenticated after `timeout` seconds.
   * Added resetpwd command for ops
+  * Removed CallbackTask deprecation warnings
 * 1.1.0: Small update
   * Added `nest-egg`
   * Messages can be configured.

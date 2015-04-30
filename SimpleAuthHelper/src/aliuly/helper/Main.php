@@ -13,7 +13,6 @@ use pocketmine\command\CommandSender;
 use pocketmine\command\Command;
 use pocketmine\item\Item;
 use pocketmine\utils\Config;
-use pocketmine\scheduler\CallbackTask;
 use pocketmine\Player;
 
 class Main extends PluginBase implements Listener,CommandExecutor {
@@ -76,7 +75,7 @@ class Main extends PluginBase implements Listener,CommandExecutor {
 	public function onPlayerJoin(PlayerJoinEvent $ev) {
 		if ($this->cfg["login-timeout"] == 0) return;
 		$n = $ev->getPlayer()->getName();
-		$this->getServer()->getScheduler()->scheduleDelayedTask(new CallbackTask([$this,"checkTimeout"],[$n]),$this->cfg["login-timeout"]*20);
+		$this->getServer()->getScheduler()->scheduleDelayedTask(new PluginCallbackTask($this,[$this,"checkTimeout"],[$n]),$this->cfg["login-timeout"]*20);
 	}
 	/**
 	 * @priority LOW
@@ -159,7 +158,7 @@ class Main extends PluginBase implements Listener,CommandExecutor {
 			} else {
 				$this->pwds[$n] = 1;
 			}
-			$this->getServer()->getScheduler()->scheduleDelayedTask(new CallbackTask([$this,"checkLoginCount"],[$n]),5);
+			$this->getServer()->getScheduler()->scheduleDelayedTask(new PluginCallbackTask($this,[$this,"checkLoginCount"],[$n]),5);
 		}
 		return;
 	}
