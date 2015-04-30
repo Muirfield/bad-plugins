@@ -4,13 +4,13 @@ load: POSTWORLD
 
 name: MeTooPortal
 description: Yet another portal plugin
-version: 1.0.0
+version: 1.1.0
 author: aliuly
 
 commands:
     mtp:
         description: Create a portal
-        usage: "/mtp [world] [x y z]"
+        usage: "/mtp [world|addr:port] [x y z]"
         permission: metooportal.cmd.mtp
 
 permissions:

@@ -7,6 +7,7 @@ use pocketmine\command\CommandSender;
 use pocketmine\command\Command;
 use pocketmine\event\Listener;
 use pocketmine\Player;
+use pocketmine\utils\TextFormat;
 
 use pocketmine\math\Vector3;
 use pocketmine\block\Block;
@@ -18,23 +19,40 @@ use pocketmine\event\block\BlockPlaceEvent;
 
 class Main extends PluginBase implements CommandExecutor,Listener {
 	protected $portals;
-	protected $max_dist = 8;
-	protected $border = Block::NETHER_BRICKS;
-	protected $center = Block::STILL_WATER;
-	protected $corner = Block::NETHER_BRICKS_STAIRS;
+	protected $max_dist;
+	protected $border;
+	protected $center;
+	protected $corner;
 
 	private function inGame(CommandSender $sender,$msg = true) {
 		if ($sender instanceof Player) return true;
-		if ($msg) $sender->sendMessage("You can only use this command in-game");
+		if ($msg) $sender->sendMessage(TextFormat::RED.
+												 "You can only use this command in-game");
 		return false;
 	}
 
 	public function onEnable(){
 		if (!is_dir($this->getDataFolder())) mkdir($this->getDataFolder());
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
+		$defaults = [
+			"max-dist" => 8,
+			"border" => Block::NETHER_BRICKS,
+			"center" => Block::STILL_WATER,
+			"corner" => Block::NETHER_BRICKS_STAIRS,
+			"broadcast-tp" => false,
+		];
+		$cfg = (new Config($this->getDataFolder()."config.yml",
+										  Config::YAML,$defaults))->getAll();
+		$this->max_dist = $cfg["max-dist"];
+		$this->border = $cfg["border"];
+		$this->center = $cfg["center"];
+		$this->corner = $cfg["corner"];
 
 		$this->portals=(new Config($this->getDataFolder()."portals.yml",
-										  Config::YAML,[]))->getAll();
+											Config::YAML,[]))->getAll();
+		if ($this->getServer()->getPluginManager()->getPlugin("FastTransfer")){
+			$this->getLogger()->info(TextFormat::GREEN."FastTransfer available!");
+		}
 	}
 	private function checkLevel($w) {
 		if (!$this->getServer()->isLevelGenerated($w)) return null;
@@ -47,6 +65,12 @@ class Main extends PluginBase implements CommandExecutor,Listener {
 	private function checkTarget($args) {
 		switch (count($args)) {
 			case 1:
+				$ft_server = explode(":",$args[0],2);
+				if (count($ft_server) == 2 && !empty($ft_server[0]) &&
+					 is_numeric($ft_server[1])) {
+					// This is a Fast Transfer target!
+					return $ft_server;
+				}
 				list($world) = $args;
 				$l = $this->checkLevel($world);
 				if ($l) return $l->getSafeSpawn();
@@ -160,7 +184,7 @@ class Main extends PluginBase implements CommandExecutor,Listener {
 				if (!$this->inGame($sender)) return true;
 				$dest = $this->checkTarget($args);
 				if (!$dest) {
-					$sender->sendMessage("Invalid target for portal");
+					$sender->sendMessage(TextFormat::RED."Invalid target for portal");
 					return true;
 				}
 				$bl = $this->targetPos($sender,$sender->getDirectionVector());
@@ -196,12 +220,29 @@ class Main extends PluginBase implements CommandExecutor,Listener {
 					$pl->sendMessage("Nothing happens!");
 					return;
 				}
-				$pl->sendMessage("Teleporting...");
-				if (($mw = $this->getServer()->getPluginManager()->getPlugin("ManyWorlds")) != null) {
-					$mw->mwtp($pl,$dest);
-				} else {
-					$pl->teleport($dest);
+				if ($dest instanceof Vector3) {
+					$pl->sendMessage("Teleporting...");
+					if (($mw = $this->getServer()->getPluginManager()->getPlugin("ManyWorlds")) != null) {
+						$mw->mwtp($pl,$dest);
+					} else {
+						$pl->teleport($dest);
+					}
+					return;
 				}
+				// If it is not a position
+				$ft = $this->getServer()->getPluginManager()->getPlugin("FastTransfer");
+				if (!$ft) {
+					$this->getLogger()->info(TextFormat::RED."FAST TRANSFER NOT INSTALLED");
+					$pl->sendMessage("Nothing happens!");
+					$pl->sendMessage(TextFormat::RED."Somebody removed FastTransfer!");
+					return;
+				}
+				list($addr,$port) = $dest;
+				$this->getLogger()->info(TextFormat::RED."FastTransfer being used hope it works!");
+				$this->getLogger()->info("- Player:  ".$pl->getName()." => ".
+												 $addr.":".$port);
+				$ft->transferPlayer($pl,$addr,$port);
+				return;
 			}
 		}
 	}
