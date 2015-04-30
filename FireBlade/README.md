@@ -15,6 +15,7 @@ fire.
 Changes
 =======
 
-* 1.0.1: ?
+* 1.0.1:
   * Better configuration
+  * Removed CallbackTask deprecation warning
 * 1.0.0: First release

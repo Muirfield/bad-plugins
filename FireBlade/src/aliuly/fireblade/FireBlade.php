@@ -8,7 +8,6 @@ use pocketmine\command\CommandSender;
 use pocketmine\command\Command;
 use pocketmine\Player;
 use pocketmine\item\Item;
-use pocketmine\scheduler\CallbackTask;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerQuitEvent;
 use pocketmine\event\player\PlayerItemHeldEvent;
@@ -61,7 +60,7 @@ class FireBlade extends PluginBase implements CommandExecutor,Listener {
 
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 		$this->players = [];
-		$tt = new CallbackTask([$this,"updateTimer"],[]);
+		$tt = new PluginCallbackTask($this,[$this,"updateTimer"],[]);
 		$this->getServer()->getScheduler()->scheduleRepeatingTask($tt,$this->cf["timer"]);
 	}
 	public function onQuit(PlayerQuitEvent $ev) {
