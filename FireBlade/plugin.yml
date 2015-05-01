@@ -11,6 +11,7 @@ commands:
     fireblade:
         description: Turn your sword into a flaming sword
         usage: "/fireblade"
+        permission: fireblade.cmd
 
 permissions:
     fireblade.cmd:
