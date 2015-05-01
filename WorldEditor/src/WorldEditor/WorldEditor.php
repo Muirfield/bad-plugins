@@ -61,6 +61,7 @@ class WorldEditor extends PluginBase implements Listener{
 		if (!is_dir($this->getDataFolder())) mkdir($this->getDataFolder());
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 		$defaults = [
+			"version" => $this->getDescription()->getVersion(),
 			"block-limit" => -1,
 			"wand-item" => "IRON_HOE",
 		];

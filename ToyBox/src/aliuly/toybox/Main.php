@@ -16,6 +16,7 @@ class Main extends PluginBase implements Listener {
 	public function onEnable(){
 		if (!is_dir($this->getDataFolder())) mkdir($this->getDataFolder());
 		$defaults = [
+			"version" => $this->getDescription()->getVersion(),
 			"modules" => [
 				"treecapitator" => true,
 				"compasstp" => true,

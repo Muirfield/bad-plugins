@@ -43,6 +43,8 @@ class FireBlade extends PluginBase implements CommandExecutor,Listener {
 	public function onEnable(){
 		if (!is_dir($this->getDataFolder())) mkdir($this->getDataFolder());
 		$defaults = [
+			"version" => $this->getDescription()->getVersion(),
+
 			"sword1" => "IRON_SWORD",
 			"sword2" => "GOLD_SWORD",
 			"sword_txt" => "You must be holding an Iron Sword\nor a Gold Sword",

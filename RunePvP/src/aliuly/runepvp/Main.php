@@ -59,6 +59,7 @@ class Main extends PluginBase implements CommandExecutor,Listener {
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 		$this->dbm = new DatabaseManager($this->getDataFolder()."runepvp.sqlite3");
 		$defaults = [
+			"version" => $this->getDescription()->getVersion(),
 			"settings" => [
 				"dynamic-updates" => 1,
 			],
@@ -228,7 +229,7 @@ class Main extends PluginBase implements CommandExecutor,Listener {
 				$this->money->grantMoney($p, $money);
 				break;
 			case "EconomyAPI":
-				$this->money->setMoney($p,$this->money->getMoney($p)+$money);
+				$this->money->setMoney($p,$this->money->mymoney($p)+$money);
 				break;
 			case "MassiveEconomy":
 				$this->money->payPlayer($p,$money);

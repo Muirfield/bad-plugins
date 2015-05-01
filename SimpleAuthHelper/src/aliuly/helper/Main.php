@@ -29,6 +29,7 @@ class Main extends PluginBase implements Listener,CommandExecutor {
 		}
 		if (!is_dir($this->getDataFolder())) mkdir($this->getDataFolder());
 		$defaults = [
+			"version" => $this->getDescription()->getVersion(),
 			"messages" => [
 				"re-enter pwd" => "Please re-enter password to confirm:",
 				"passwords dont match" => "Passwords do not match.\nPlease try again!\nEnter a new password:",

@@ -35,6 +35,7 @@ class Main extends PluginBase implements CommandExecutor,Listener {
 		if (!is_dir($this->getDataFolder())) mkdir($this->getDataFolder());
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 		$defaults = [
+			"version" => $this->getDescription()->getVersion(),
 			"max-dist" => 8,
 			"border" => Block::NETHER_BRICKS,
 			"center" => Block::STILL_WATER,

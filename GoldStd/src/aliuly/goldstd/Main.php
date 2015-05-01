@@ -58,6 +58,8 @@ class Main extends PluginBase implements CommandExecutor,Listener {
 		if (!is_dir($this->getDataFolder())) mkdir($this->getDataFolder());
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 		$defaults = [
+			"version" => $this->getDescription()->getVersion(),
+
 			"settings" => [
 				"currency" => "GOLD_INGOT",
 			],

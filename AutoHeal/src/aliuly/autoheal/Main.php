@@ -15,6 +15,7 @@ class Main extends PluginBase{
 	public function onEnable(){
 		if (!is_dir($this->getDataFolder())) mkdir($this->getDataFolder());
 		$defaults = [
+			"version" => $this->getDescription()->getVersion(),
 			"ranks" => [
 				"vip1" => [40, 1, false],
 				"vip2" => [80, 2, false],
