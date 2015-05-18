@@ -58,13 +58,15 @@ class MyZipStream {
 	}
 }
 
-
 class Main extends PluginBase {
 	public function onEnable(){
 		if (!in_array("myzip",stream_get_wrappers())) {
-			stream_wrapper_register("myzip",__NAMESPACE__."\\MyZipStream") or die("Unable to register myzip");
+			if (!stream_wrapper_register("myzip",__NAMESPACE__."\\MyZipStream")) {
+				$this->getLogger()->info("Unable to register Zip wrapper");
+				trigger_error("Unable to register ZipWrapper", E_USER_WARNING);
+				return;
+			}
 		}
-
 		$this->getServer()->getPluginManager()->registerInterface("ZipPluginLoader\\ZipPluginLoader");
 		$this->getServer()->getPluginManager()->loadPlugins($this->getServer()->getPluginPath(), ["ZipPluginLoader\\ZipPluginLoader"]);
 		$this->getServer()->enablePlugins(PluginLoadOrder::STARTUP);
