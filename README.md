@@ -244,7 +244,7 @@ rules) for the PocketMine official
 <tr>
   <th>
     <a href="https://github.com/alejandroliu/bad-plugins/tree/master/ZipPluginLoader">
-<img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/ZipPlugin-icon.jpg" style="width:64px;height:64px" width="64" height="64"/>
+<img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/ZipPlugin-icon.png" style="width:64px;height:64px" width="64" height="64"/>
       <br/>
       ZipPluginLoader
     </a>
