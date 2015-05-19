@@ -24,6 +24,8 @@ will look for a **plugin.yml** file in there and load the plugin.
 Changes
 -------
 
+* ???: 
+  * Change the way error reporting is done...
 * 1.0.0: First release
 
 Copyright
