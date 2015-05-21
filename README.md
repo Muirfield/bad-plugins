@@ -224,25 +224,6 @@ rules) for the PocketMine official
 <!---------------------------------------------------------------------->
 <tr>
   <th>
-    <a href="https://github.com/alejandroliu/bad-plugins/tree/master/MeTooPortal">
-<img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/portal-icon.jpg" style="width:64px;height:64px" width="64" height="64"/>
-      <br/>
-      MeTooPortal
-    </a>
-  </th>
-  <td>
-    An Easy to use portal command
-    <ul>
-      <li>
-	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/MeTooPortal-1.0.0" title="Downloads">v1.0.0
-	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
-      </li>
-    </ul>
-  </td>
-</tr>
-<!---------------------------------------------------------------------->
-<tr>
-  <th>
     <a href="https://github.com/alejandroliu/bad-plugins/tree/master/ZipPluginLoader">
 <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/ZipPlugin-icon.png" style="width:64px;height:64px" width="64" height="64"/>
       <br/>
@@ -267,6 +248,13 @@ rules) for the PocketMine official
 * [RCON](https://github.com/alejandroliu/bad-plugins/tree/master/rcon) -
   an rcon client
 * pmptemplate - A PocketMine Plugin Template
+
+* * *
+
+This plugins used to be hosted in this repository but has then moved
+since:
+
+* [MeTooPortal](https://github.com/alejandroliu/pocketmine-plugins/tree/master/MagicTelePortal)
 
 * * *
 
