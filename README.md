@@ -70,38 +70,6 @@ rules) for the PocketMine official
 <!---------------------------------------------------------------------->
 <tr>
   <th>
-    <a href="https://github.com/alejandroliu/bad-plugins/tree/master/SimpleAuthHelper">
-      <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/helper-icon.png" style="width:64px;height:64px" width="64" height="64"/>
-      <br/>
-      SimpleAuthHelper
-    </a>
-  </th>
-  <td>
-    Makes it easier for users to login
-    <ul>
-      <li>
-	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/SimpleAuthHelper-1.2.0" title="Downloads">v1.2.0
-	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
-      </li>
-      <li> <em>Pre-Release:</em>
-	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/SimpleAuthHelper-1.1.0-dev" title="Downloads">v1.1.0-dev
-	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
-      </li>
-      <li>
-	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/SimpleAuthHelper-1.1.0" title="Downloads">v1.1.0
-	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
-      </li>
-      <li>
-	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/SimpleAuthHelper-1.0.0" title="Downloads">v1.0.0
-	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
-      </li>
-    </ul>
-  </td>
-</tr>
-
-<!---------------------------------------------------------------------->
-<tr>
-  <th>
     <a href="https://github.com/alejandroliu/bad-plugins/tree/master/GoldStd">
       <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/GoldStd2-icon.png" style="width:64px;height:64px" width="64" height="64"/>
       <br/>
@@ -113,26 +81,6 @@ rules) for the PocketMine official
     <ul>
       <li>
 	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/GoldStd-1.0.0" title="Downloads">v1.0.0
-	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
-      </li>
-    </ul>
-  </td>
-</tr>
-
-<!---------------------------------------------------------------------->
-<tr>
-  <th>
-    <a href="https://github.com/alejandroliu/bad-plugins/tree/master/WorldEditor">
-      <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/WorldEditor-icon.png" style="width:64px;height:64px" width="64" height="64"/>
-      <br/>
-      WorldEditor
-    </a>
-  </th>
-  <td>
-    Another WorldEditor plugin
-    <ul>
-      <li>
-	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/WorldEditor-1.0.3r0.1" title="Downloads">v1.0.3r0.1
 	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
       </li>
     </ul>
@@ -255,6 +203,9 @@ This plugins used to be hosted in this repository but has then moved
 since:
 
 * [MeTooPortal](https://github.com/alejandroliu/pocketmine-plugins/tree/master/MagicTelePortal)
+* [SimpleAuthHelper](https://github.com/alejandroliu/pocketmine-plugins/tree/master/SimpleAuthHelper)
+* [WorldEditor](https://github.com/alejandroliu/plugin-remakes/tree/master/WorldEditor)
+
 
 * * *
 
