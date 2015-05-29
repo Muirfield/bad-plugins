@@ -57,8 +57,13 @@ settings:
   #     spawn point.
   # - *home* : when joining will start at your home location.
   spawn-mode: default
-  # If true, players get to keep their inventory when they die
-  keep-inventory: false
+  # on-death-inv allows the following values:
+  # - false : player drops all items on the spot (default)
+  # - keep : player keeps inventory
+  # - clear : player loses all inventory but nothing gets dropped
+  # - perms : Will use spawnmgr.keepinv and spawnmgr.nodrops to
+  #    determine results
+  on-death-inv: false
   # If spawn-mode is *home*, this is the command to use to teleport
   # player to their home.  Requires an plugin that implements /home
   # functionality
@@ -85,13 +90,16 @@ when the player joins.
 
 * spawnmgr.receive.armor: allows to receive armor when you spawn
 * spawnmgr.receive.items: allows to receive items when you spawn
-* spawnmgr.keepinv: allow player to keep inventory
+* spawnmgr.keepinv: allows player to keep inventory
+* spawnmgr.nodrops: players with this permission do not drop items on death
 * spawnmgr.spawnmode: player will follow spawn-control setting
 * spawnmgr.reserved: Players is allowed to join full servers
 
 Changes
 -------
-* 1.0.1:
+* 1.2.0:
+  * Additional inventory on death options
+* 1.1.0:
   * rewrite to remove offending code.
 * 1.0.0 : First public release
 

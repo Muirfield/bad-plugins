@@ -14,6 +14,7 @@ use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\event\entity\EntityExplodeEvent;
 use pocketmine\Player;
 use pocketmine\item\Item;
+use pocketmine\utils\TextFormat;
 
 class Main extends PluginBase implements Listener {
 	protected $items;
@@ -21,7 +22,7 @@ class Main extends PluginBase implements Listener {
 	protected $pvp;
 	protected $tnt;
 	protected $spawnmode;
-	protected $keepinv;
+	protected $deathinv;
 	protected $cmd;
 	protected $reserved;
 
@@ -34,7 +35,7 @@ class Main extends PluginBase implements Listener {
 				"pvp" => true,
 				"reserved" => false,
 				"spawn-mode" => "default",
-				"keep-inventory" => false,
+				"on-death-inv" => false,
 				"home-cmd" => "/home",
 			],
 			"armor"=>[
@@ -54,6 +55,10 @@ class Main extends PluginBase implements Listener {
 		}
 		$cfg=(new Config($this->getDataFolder()."config.yml",
 							  Config::YAML,$defaults))->getAll();
+		if (version_compare($cfg["version"],"1.1.0") <= 0) {
+			$this->getLogger()->warning(TextFormat::RED."CONFIG FILE FORMAT CHANGED");
+			$this->getLogger()->warning(TextFormat::RED."Please review your settings");
+		}
 		$this->tnt = $cfg["settings"]["tnt"];
 		$this->pvp = $cfg["settings"]["pvp"];
 		$this->reserved = $cfg["settings"]["reserved"];
@@ -66,10 +71,24 @@ class Main extends PluginBase implements Listener {
 				break;
 			default:
 				$this->spawnmode = "default";
-				$this->getLogger()->info("Invalid spawn-mode setting!");
+				$this->getLogger()->error("Invalid spawn-mode setting!");
 		}
 		$this->cmd = $cfg["settings"]["home-cmd"];
-		$this->keepinv = $cfg["settings"]["keep-inventory"];
+		switch(strtolower($cfg["settings"]["on-death-inv"])) {
+			case "keep":
+			case "clear":
+			case "perms":
+				$this->deathinv = strtolower($cfg["settings"]["on-death-inv"]);
+				break;
+			default:
+				if ($cfg["settings"]["on-death-inv"] === false ||
+					 $cfg["settings"]["on-death-inv"] === "") {
+					$this->deathinv = false;
+				} else {
+					$this->deathinv = false;
+					$this->getLogger()->error("Invalid on-death-inv setting!");
+				}
+		}
 		$this->armor = isset($cfg["armor"]) ? $cfg["armor"] : [];
 		$this->items = isset($cfg["items"]) ? $cfg["items"] : [];
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
@@ -117,10 +136,26 @@ class Main extends PluginBase implements Listener {
 		// Not server full message...
 	}
 	public function onDeath(PlayerDeathEvent $e) {
-		if (!$this->keepinv) return;
-		if (!$e->getEntity()->hasPermission("spawnmgr.keepinv")) return;
-		$e->setKeepInventory(true);
-		$e->setDrops([]);
+		switch($this->deathinv) {
+			case "keep":
+				if (!$e->getEntity()->hasPermission("spawnmgr.keepinv")) return;
+				$e->setKeepInventory(true);
+				$e->setDrops([]);
+				break;
+			case "clear":
+				if (!$e->getEntity()->hasPermission("spawnmgr.nodrops")) return;
+				$e->setKeepInventory(false);
+				$e->setDrops([]);
+				break;
+			case "perms":
+				if ($e->getEntity()->hasPermission("spawnmgr.keepinv")) {
+					$e->setKeepInventory(true);
+				}
+				if ($e->getEntity()->hasPermission("spawnmgr.nodrops")) {
+					$e->setDrops([]);
+				}
+				break;
+		}
 	}
 
 	public function onJoin(PlayerJoinEvent $e) {
@@ -153,12 +188,12 @@ class Main extends PluginBase implements Listener {
 			echo __METHOD__.",".__LINE__."-".$item->getId()."\n";//##DEBUG
 			$itemName = explode(" ",strtolower($this->itemName($item)),2);
 			if (count($itemName) != 2) {
-				$this->getLogger()->info("Invalid armor item: $j");
+				$this->getLogger()->error("Invalid armor item: $j");
 				continue;
 			}
 			list($material,$type) = $itemName;
 			if (!isset($slot_map[$type])) {
-				$this->getLogger()->info("Invalid armor type: $type for $material");
+				$this->getLogger()->error("Invalid armor type: $type for $material");
 				continue;
 			}
 			$slot = $slot_map[$type];
