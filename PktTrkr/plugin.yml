@@ -1,0 +1,9 @@
+main: aliuly\pkttrkr\Main
+api: 1.10.0
+load: POSTWORLD
+
+name: PktTrkr
+description: Packet Tracker
+version: 1.0.0
+author: aliuly
+
