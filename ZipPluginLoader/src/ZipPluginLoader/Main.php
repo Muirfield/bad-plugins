@@ -52,7 +52,7 @@ class Main extends PluginBase {
 	public function onEnable(){
 		if (!in_array("myzip",stream_get_wrappers())) {
 			if (!stream_wrapper_register("myzip",__NAMESPACE__."\\MyZipStream")) {
-				$this->getLogger()->info("Unable to register Zip wrapper");
+				$this->getLogger()->error("Unable to register Zip wrapper");
 				throw new \RuntimeException("Runtime checks failed");
 				return;
 			}
