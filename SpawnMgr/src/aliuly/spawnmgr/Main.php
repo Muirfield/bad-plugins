@@ -120,7 +120,6 @@ class Main extends PluginBase implements Listener {
 	}
 	public function onPlayerKick(PlayerKickEvent $event){
 		if (!$this->reserved) return;
-		//echo $event->getReason()."\n";//##DEBUG
 		if ($event->getReason() == "server full" &&
 			 $event->getReason() == "disconnectionScreen.serverFull") {
 			if (!$event->getPlayer()->hasPermission("spawnmgr.reserved"))
@@ -159,7 +158,6 @@ class Main extends PluginBase implements Listener {
 	}
 
 	public function onJoin(PlayerJoinEvent $e) {
-		echo __METHOD__.",".__LINE__."\n";//##DEBUG
 		$pl = $e->getPlayer();
 		if (!$pl->hasPermission("spawnmgr.spawnmode")) return;
 
@@ -178,14 +176,12 @@ class Main extends PluginBase implements Listener {
 	private function giveArmor($pl) {
 		if (!$pl->hasPermission("spawnmgr.receive.armor")) return;
 
-		echo __METHOD__.",".__LINE__."\n";//##DEBUG
 		$slot_map = [ "helmet" => 0, "chestplate" => 1, "leggings" => 2,
 						  "boots" => 3 , "cap" => 0, "tunic" => 1,
 						  "pants" => 2 ];
 		$inventory = [];
 		foreach ($this->armor as $j) {
 			$item = Item::fromString($j);
-			echo __METHOD__.",".__LINE__."-".$item->getId()."\n";//##DEBUG
 			$itemName = explode(" ",strtolower($this->itemName($item)),2);
 			if (count($itemName) != 2) {
 				$this->getLogger()->error("Invalid armor item: $j");
@@ -205,9 +201,7 @@ class Main extends PluginBase implements Listener {
 		}
 	}
 	private function giveItems($pl) {
-		echo __METHOD__.",".__LINE__."\n";//##DEBUG
 		if (!$pl->hasPermission("spawnmgr.receive.items")) return;
-		echo __METHOD__.",".__LINE__."\n";//##DEBUG
 		// Figure out if the inventory is empty...
 		$cnt = 0;
 		$max = $pl->getInventory()->getSize();
@@ -215,12 +209,10 @@ class Main extends PluginBase implements Listener {
 			if ($slot < $max) ++$cnt;
 		}
 		if ($cnt) return;
-		echo __METHOD__.",".__LINE__."\n";//##DEBUG
 		// This player has nothing... let's give them some to get started...
 		foreach ($this->items as $i) {
 			$r = explode(",",$i);
 			if (count($r) != 2) continue;
-			echo __METHOD__.",".__LINE__."i=$i ($r[0]-$r[1])\n";//##DEBUG
 			$item = Item::fromString($r[0]);
 			$item->setCount(intval($r[1]));
 			$pl->getInventory()->addItem($item);
@@ -228,7 +220,6 @@ class Main extends PluginBase implements Listener {
 	}
 
 	public function onRespawn(PlayerRespawnEvent $e) {
-		echo __METHOD__.",".__LINE__."\n";//##DEBUG
 		$pl = $e->getPlayer();
 		if (!($pl instanceof Player)) return;
 		if ($pl->isCreative()) return;

@@ -32,7 +32,7 @@ class Main extends PluginBase implements CommandExecutor,Listener {
 				return $item;
 			}
 		}
-		$this->getLogger()->info("$msg: Invalid item $txt, using default");
+		$this->getLogger()->error("$msg: Invalid item $txt, using default");
 		$item = Item::fromString($default.":0");
 		$item->setCount(1);
 		return $item;
@@ -137,7 +137,7 @@ class Main extends PluginBase implements CommandExecutor,Listener {
 		} elseif ($money > $now) {
 			return $this->giveMoney($player, $money - $now);
 		} elseif ($money == $now) return true; // Nothing to do!
-		$this->getLogger()->info("INTERNAL ERROR AT ".__FILE__.",".__LINE__);
+		$this->getLogger()->error("INTERNAL ERROR AT ".__FILE__.",".__LINE__);
 		return false;
 	}
 	//////////////////////////////////////////////////////////////////////
