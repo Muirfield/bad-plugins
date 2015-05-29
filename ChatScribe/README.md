@@ -17,6 +17,38 @@ Overview
 
 Let's you log all commands and chat's to files
 
+Usage:
+
+* /log [on|off]
+  * with no arguments shows logging status
+  * on : enables logging
+  * off : disables logging
+
+### Configuration
+
+    ---
+    version: 1.0.0
+    settings:
+      # log: Either server or file
+      log: server
+      # dest: If file, this is a filename, otherwise
+      #    emergency|alert|critical|error|warning|notice|info|debug
+      dest: info
+      # default: If true, will start logging by default
+      default: false
+      # listener: Set to early or late
+      listener: early
+    # privacy: regular expressions and replacements used for ensuring privacy
+    privacy:
+      /\/login\s*.*/: /login **CENSORED**
+      /\/register\s*.*/: /register **CENSORED**
+    ...
+
+
+### Permissions
+
+* chatscribe.cmd: Enable logging
+* chatscribe.privacy: No logging
 
 Changes
 -------
