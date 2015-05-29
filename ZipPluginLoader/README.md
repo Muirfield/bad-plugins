@@ -21,11 +21,30 @@ too lazy to learn how to make proper plugins.
 Essentially you put your plugin code in a zip file, and this plugin
 will look for a **plugin.yml** file in there and load the plugin.
 
+This is particularly handy when trying out source plugins from
+[GitHub](http://github.com) as you can click the **Download ZIP**
+button, as you can then place the zip file in the plugins folder.
+
+If there are multiple plugins in a zip file, all the plugins will be
+loaded by default.  You can control what plugins will be loaded by
+creating a control file.  For example if you have a:
+
+	example.zip
+
+You need to create a text file called:
+
+	example.ctl
+
+In this file you list (one plugin per line) the plugins that you want
+to load.  Any plugins not in listed the control file will **not** be
+loaded.
+
 Changes
 -------
 
 * ???: 
   * Change the way error reporting is done...
+  * Supports for multiple plugins in a zip file.
 * 1.0.0: First release
 
 Copyright
