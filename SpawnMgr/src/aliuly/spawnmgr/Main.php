@@ -140,59 +140,65 @@ class Main extends PluginBase implements Listener {
 				break;
 		}
 	}
+	private function giveArmor($pl) {
+		if (!$pl->hasPermission("spawnmgr.receive.armor")) return;
+
+		echo __METHOD__.",".__LINE__."\n";//##DEBUG
+		$slot_map = [ "helmet" => 0, "chestplate" => 1, "leggings" => 2,
+						  "boots" => 3 , "cap" => 0, "tunic" => 1,
+						  "pants" => 2 ];
+		$inventory = [];
+		foreach ($this->armor as $j) {
+			$item = Item::fromString($j);
+			echo __METHOD__.",".__LINE__."-".$item->getId()."\n";//##DEBUG
+			$itemName = explode(" ",strtolower($this->itemName($item)),2);
+			if (count($itemName) != 2) {
+				$this->getLogger()->info("Invalid armor item: $j");
+				continue;
+			}
+			list($material,$type) = $itemName;
+			if (!isset($slot_map[$type])) {
+				$this->getLogger()->info("Invalid armor type: $type for $material");
+				continue;
+			}
+			$slot = $slot_map[$type];
+			$inventory[$slot] = $item;
+		}
+		foreach ($inventory as $slot => $item) {
+			if ($pl->getInventory()->getArmorItem($slot)->getID()!=0) continue;
+			$pl->getInventory()->setArmorItem($slot,clone $item);
+		}
+	}
+	private function giveItems($pl) {
+		echo __METHOD__.",".__LINE__."\n";//##DEBUG
+		if (!$pl->hasPermission("spawnmgr.receive.items")) return;
+		echo __METHOD__.",".__LINE__."\n";//##DEBUG
+		// Figure out if the inventory is empty...
+		$cnt = 0;
+		$max = $pl->getInventory()->getSize();
+		foreach ($pl->getInventory()->getContents() as $slot => &$item) {
+			if ($slot < $max) ++$cnt;
+		}
+		if ($cnt) return;
+		echo __METHOD__.",".__LINE__."\n";//##DEBUG
+		// This player has nothing... let's give them some to get started...
+		foreach ($this->items as $i) {
+			$r = explode(",",$i);
+			if (count($r) != 2) continue;
+			echo __METHOD__.",".__LINE__."i=$i ($r[0]-$r[1])\n";//##DEBUG
+			$item = Item::fromString($r[0]);
+			$item->setCount(intval($r[1]));
+			$pl->getInventory()->addItem($item);
+		}
+	}
+
 	public function onRespawn(PlayerRespawnEvent $e) {
 		echo __METHOD__.",".__LINE__."\n";//##DEBUG
 		$pl = $e->getPlayer();
 		if (!($pl instanceof Player)) return;
 		if ($pl->isCreative()) return;
-		if ($pl->hasPermission("spawnmgr.receive.armor")) {
-			echo __METHOD__.",".__LINE__."\n";//##DEBUG
-			$slot_map = [ "helmet" => 0, "chestplate" => 1, "leggings" => 2,
-							  "boots" => 3 , "cap" => 0, "tunic" => 1,
-							  "pants" => 2 ];
-			$inventory = [];
-			foreach ($this->armor as $j) {
-				$item = Item::fromString($j);
-				echo __METHOD__.",".__LINE__."-".$item->getId()."\n";//##DEBUG
-				$itemName = explode(" ",strtolower($this->itemName($item)),2);
-				if (count($itemName) != 2) {
-					$this->getLogger()->info("Invalid armor item: $j");
-					continue;
-				}
-				list($material,$type) = $itemName;
-				if (!isset($slot_map[$type])) {
-					$this->getLogger()->info("Invalid armor type: $type for $material");
-					continue;
-				}
-				$slot = $slot_map[$type];
-				$inventory[$slot] = $item;
-			}
-			foreach ($inventory as $slot => $item) {
-				if ($pl->getInventory()->getArmorItem($slot)->getID()!=0) continue;
-				$pl->getInventory()->setArmorItem($slot,clone $item);
-			}
-		}
-		echo __METHOD__.",".__LINE__."\n";//##DEBUG
-		if ($pl->hasPermission("spawnmgr.receive.items")) {
-			echo __METHOD__.",".__LINE__."\n";//##DEBUG
-			// Figure out if the inventory is empty...
-			$cnt = 0;
-			$max = $pl->getInventory()->getSize();
-			foreach ($pl->getInventory()->getContents() as $slot => &$item) {
-				if ($slot < $max) ++$cnt;
-			}
-			if ($cnt) return;
-			echo __METHOD__.",".__LINE__."\n";//##DEBUG
-			// This player has nothing... let's give them some to get started...
-			foreach ($this->items as $i) {
-				$r = explode(",",$i);
-				if (count($r) != 2) continue;
-				echo __METHOD__.",".__LINE__."i=$i ($r[0]-$r[1])\n";//##DEBUG
-				$item = Item::fromString($r[0]);
-				$item->setCount(intval($r[1]));
-				$pl->getInventory()->addItem($item);
-			}
-		}
+		$this->giveItems($pl);
+		$this->giveArmor($pl);
 	}
 	public function onPvP(EntityDamageEvent $ev) {
 		if ($ev->isCancelled()) return;
