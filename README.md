@@ -201,7 +201,7 @@ rules) for the PocketMine official
     Logs chats and stuff
     <ul>
       <li>
-	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/ZipPluginLoader-1.0.0" title="Downloads">v1.0.0
+	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/ChatSCribe-1.0.0" title="Downloads">v1.0.0
 	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
       </li>
     </ul>
