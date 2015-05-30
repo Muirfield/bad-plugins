@@ -15,6 +15,7 @@ class FileLogger {
 			throw new \RuntimeException("$target: unable to open");
 			return;
 		}
+		fclose($fp);
 		$this->file = $target;
 	}
 	public function logMsg(CommandSender $pl,$msg) {

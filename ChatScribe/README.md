@@ -53,6 +53,8 @@ Usage:
 Changes
 -------
 
+* 1.0.1:
+  * Fixed leak
 * 1.0.0: First release
 
 Copyright
