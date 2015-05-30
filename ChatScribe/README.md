@@ -55,6 +55,7 @@ Changes
 
 * 1.0.1:
   * Fixed leak
+  * Hard-coded some rules to avoid logging SimpleAuth passwords
 * 1.0.0: First release
 
 Copyright

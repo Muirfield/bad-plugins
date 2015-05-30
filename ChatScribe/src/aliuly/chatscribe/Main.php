@@ -80,6 +80,17 @@ class Main extends PluginBase implements CommandExecutor{
 		if ($pl instanceof Player) {
 			if ($pl->hasPermission("chatscribe.privacy")) return;
 		}
+		//
+		// First we apply hard-coded white-washing rules
+		//
+		foreach ([
+			// Remove any passwords
+			'/\/login\s*.*/' => '/login **CENSORED**',
+			'/\/register\s*.*/' => '/register **CENSORED**',
+			'/\/unregister\s*.*/' => '/register **CENSORED**',
+		] as $re => $txt) {
+			$msg = preg_replace($re,$txt,$msg);
+		}
 		foreach ($this->privacy as $re => $txt) {
 			$msg = preg_replace($re,$txt,$msg);
 		}
