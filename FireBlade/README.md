@@ -15,6 +15,8 @@ fire.
 Changes
 =======
 
+* 1.0.2:
+  * Added forgotten permission
 * 1.0.1:
   * Better configuration
   * Removed CallbackTask deprecation warning
