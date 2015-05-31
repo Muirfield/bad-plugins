@@ -36,13 +36,13 @@ You need to create a text file called:
 	example.ctl
 
 In this file you list (one plugin per line) the plugins that you want
-to load.  Any plugins not in listed the control file will **not** be
+to load.  Any plugins **not** in listed the control file will **not** be
 loaded.
 
 Changes
 -------
 
-* 1.1: Multiple plugins
+* 1.1.0: Multiple plugins
   * Change the way error reporting is done...
   * Supports for multiple plugins in a zip file.
 * 1.0.0: First release
