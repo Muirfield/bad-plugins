@@ -18,6 +18,11 @@ Overview
 Let's you load plugins from zip files.  This is for people that are
 too lazy to learn how to make proper plugins.
 
+**This is unlike _DevTools_, as it is focus on only loading Zip files
+instead of folders like _DevTools_.**  You still need _DevTools_ if
+you actually want to do Plugin Development and to create _phar_ file
+plugins.
+
 Essentially you put your plugin code in a zip file, and this plugin
 will look for a **plugin.yml** file in there and load the plugin.
 

@@ -30,9 +30,7 @@ class Main extends PluginBase implements CommandExecutor{
 			],
 			"# privacy" => "regular expressions and replacements used for ensuring privacy",
 			"privacy" => [
-				// SimpleAuth related commands
 				'/\/login\s*.*/' => '/login **CENSORED**',
-				'/\/register\s*.*/' => '/register **CENSORED**',
 			],
 		];
 		if (file_exists($this->getDataFolder()."config.yml")) {
@@ -84,10 +82,12 @@ class Main extends PluginBase implements CommandExecutor{
 		// First we apply hard-coded white-washing rules
 		//
 		foreach ([
-			// Remove any passwords
+			// SimpleAuth related commands
 			'/\/login\s*.*/' => '/login **CENSORED**',
 			'/\/register\s*.*/' => '/register **CENSORED**',
 			'/\/unregister\s*.*/' => '/register **CENSORED**',
+			// SimpleAuthHelper related commands
+			'/\/chpwd\s*.*/' => '/register **CENSORED**',
 		] as $re => $txt) {
 			$msg = preg_replace($re,$txt,$msg);
 		}

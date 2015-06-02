@@ -24,26 +24,29 @@ Usage:
   * on : enables logging
   * off : disables logging
 
+To ensure user's privacy, there is a set of regular expressions that
+will remove passwords before logging the line.  You can add additional
+regular expressions if needed.
+
+Also, for certain users a "chatscribe.privacy" permission is provided.
+Users with that permission will not be logged.
+
+
 ### Configuration
 
-    ---
-    version: 1.0.0
-    settings:
-      # log: Either server or file
-      log: server
-      # dest: If file, this is a filename, otherwise
-      #    emergency|alert|critical|error|warning|notice|info|debug
-      dest: info
-      # default: If true, will start logging by default
-      default: false
-      # listener: Set to early or late
-      listener: early
-    # privacy: regular expressions and replacements used for ensuring privacy
-    privacy:
-      /\/login\s*.*/: /login **CENSORED**
-      /\/register\s*.*/: /register **CENSORED**
-    ...
-
+* _log_: Either _server_ or _file_.
+* _dest_: Log destination
+  * If _log_ is _server_ can be one of:  
+    emergency, alert, critical, error, warning, notice, info, debug
+  * Otherwise it is a file name.
+* _default_: If _true_ will start logging when the plugin is enabled.
+  Otherwise you need to activate by command.
+* _listener_: When to log the line.  Can be:
+  * _early_ : Will log at the beginning of the
+    PlayerCommandPreprocessEvent or
+  * _late_ : Will log at the end of the PlayerCommandPreprocessEvent.
+* privacy: Additonal regular expressions and their replacement strings
+  to add to clean-up privacy concerns.
 
 ### Permissions
 
