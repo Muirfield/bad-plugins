@@ -8,25 +8,6 @@ rules) for the PocketMine official
 <tr><th>Plugin</th><th>Description</th></tr>
 <tr>
   <th>
-    <a href="https://github.com/alejandroliu/bad-plugins/tree/master/RunePvP">
-      <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/Iron_Sword.png" style="width:64px;height:64px" width="64" height="64"/>
-      <br/>
-      RunePvP
-    </a>
-  </th>
-  <td>
-    A funny PvP manager plugin inspired by RuinPvP
-    <ul>
-      <li>
-	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/RunePvP-1.1rel" title="Downloads">v1.1rel 
-	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
-      </li>
-    </ul>
-  </td>
-</tr>
-<!---------------------------------------------------------------------->
-<tr>
-  <th>
     <a href="https://github.com/alejandroliu/bad-plugins/tree/master/Mobsters">
       <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/Mobsters-icon.png" style="width:64px;height:64px" width="64" height="64"/>
       <br/>
@@ -247,7 +228,7 @@ since:
 * [MeTooPortal](https://github.com/alejandroliu/pocketmine-plugins/tree/master/MagicTelePortal)
 * [SimpleAuthHelper](https://github.com/alejandroliu/pocketmine-plugins/tree/master/SimpleAuthHelper)
 * [WorldEditor](https://github.com/alejandroliu/plugin-remakes/tree/master/WorldEditor)
-
+* [RunePvP](https://github.com/alejandroliu/plugin-remakes/tree/master/RunePvP)
 
 * * *
 
