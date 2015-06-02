@@ -10,7 +10,9 @@
 $pm = $plugin->getServer()->getPluginManager();
 
 if (($kr = $pm->getPlugin("KillRate")) !== null) {
-	$vars["{score}"] = $kr->getScore($player);
+	if (version_compare($kr->getDescription()->getVersion(),"1.1") >= 0) {
+		$vars["{score}"] = $kr->getScore($player);
+	}
 }
 if (($mm = $pm->getPlugin("PocketMoney")) !== null) {
 	$vars["{money}"] = $mm->getMoney($player);
