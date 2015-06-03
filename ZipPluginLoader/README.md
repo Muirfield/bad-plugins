@@ -9,26 +9,24 @@ ZipPluginLoader
 * DependencyPlugins: -
 * OptionalPlugins: -
 * Categories: Developer Tools
-* Plugin Access: -
+* Plugin Access: Manages plugins
 * WebSite: [github](https://github.com/alejandroliu/bad-plugins/tree/master/ZipPluginLoader)
 
 Overview
 --------
 
-Let's you load plugins from zip files.  This is for people that are
-too lazy to learn how to make proper plugins.
-
-**This is unlike _DevTools_, as it is focus on only loading Zip files
+**NOTE: This is unlike _DevTools_, as it is focus on only loading Zip files
 instead of folders like _DevTools_.**  You still need _DevTools_ if
 you actually want to do Plugin Development and to create _phar_ file
 plugins.
 
-Essentially you put your plugin code in a zip file, and this plugin
-will look for a **plugin.yml** file in there and load the plugin.
-
-This is particularly handy when trying out source plugins from
+This plugin Let's you load plugins from zip files.  This is
+particularly handy when trying out source plugins from
 [GitHub](http://github.com) as you can click the **Download ZIP**
 button, as you can then place the zip file in the plugins folder.
+
+Essentially you put your plugin code in a zip file, and this plugin
+will look for a **plugin.yml** file in there and load the plugin.
 
 If there are multiple plugins in a zip file, all the plugins will be
 loaded by default.  You can control what plugins will be loaded by
