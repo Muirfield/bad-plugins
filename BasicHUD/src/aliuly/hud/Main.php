@@ -102,6 +102,8 @@ class Main extends PluginBase {
 
 	public function getVars($player) {
 		$vars = [
+			"{BasicHUD}" => $this->getDescription()->getFullName(),
+			"{MOTD}" => $this->getServer()->getMotd(),
 			"{player}" => $player->getName(),
 			"{world}" => $player->getLevel()->getName(),
 			"{x}" => (int)$player->getX(),
@@ -151,13 +153,13 @@ class Main extends PluginBase {
 	public function onEnable(){
 		if (!is_dir($this->getDataFolder())) mkdir($this->getDataFolder());
 		/* Save default resources */
-		$this->saveResource("message-example.php",false);
+		$this->saveResource("message-example.php",true);
 		$this->saveResource("vars-example.php",true);
 
 		$defaults = [
 			"version" => $this->getDescription()->getVersion(),
 			"ticks" => 15,
-			"format" => "{world} ({x},{y},{z}) {bearing}",
+			"format" => "{GREEN}{BasicHUD} {WHITE}{world} ({x},{y},{z}) {bearing}",
 		];
 		$cf = (new Config($this->getDataFolder()."config.yml",
 								Config::YAML,$defaults))->getAll();

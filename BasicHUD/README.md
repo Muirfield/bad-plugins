@@ -36,6 +36,8 @@ The displayed text can be:
 
 The default variables are:
 
+* {BasicHUD}
+* {MOTD}
 * {player}
 * {world}
 * {x}
