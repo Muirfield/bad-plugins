@@ -9,13 +9,16 @@ ChatScribe
 * DependencyPlugins: -
 * OptionalPlugins: -
 * Categories: Admin
-* Plugin Access: -
+* Plugin Access: Commands, Data Saving
 * WebSite: [github](https://github.com/alejandroliu/bad-plugins/tree/master/ChatScribe)
 
 Overview
 --------
 
-Let's you log all commands and chat's to files
+Let's you log all commands and chat's to files.  **To ensure user's
+privacy, there is a set of regular expressions that will remove
+passwords before logging the line.  You can add additional
+regular expressions if needed.**
 
 Usage:
 
@@ -24,13 +27,18 @@ Usage:
   * on : enables logging
   * off : disables logging
 
-To ensure user's privacy, there is a set of regular expressions that
-will remove passwords before logging the line.  You can add additional
-regular expressions if needed.
+Users with the permission **chatscribe.privacy** do not have their
+commands logged.
 
-Also, for certain users a "chatscribe.privacy" permission is provided.
-Users with that permission will not be logged.
+The following command lines are modified before logging so passwords
+are **NEVER** stored:
 
+* SimpleAuth related:
+  * /login
+  * /register
+  * /unregister
+* SimpleAuthHelper:
+  * /chpwd
 
 ### Configuration
 
@@ -41,10 +49,6 @@ Users with that permission will not be logged.
   * Otherwise it is a file name.
 * _default_: If _true_ will start logging when the plugin is enabled.
   Otherwise you need to activate by command.
-* _listener_: When to log the line.  Can be:
-  * _early_ : Will log at the beginning of the
-    PlayerCommandPreprocessEvent or
-  * _late_ : Will log at the end of the PlayerCommandPreprocessEvent.
 * privacy: Additonal regular expressions and their replacement strings
   to add to clean-up privacy concerns.
 
@@ -59,6 +63,7 @@ Changes
 * 1.0.1:
   * Fixed leak
   * Hard-coded some rules to avoid logging SimpleAuth passwords
+  * Removed the early/later listener option
 * 1.0.0: First release
 
 Copyright

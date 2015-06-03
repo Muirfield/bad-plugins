@@ -25,8 +25,10 @@ class Main extends PluginBase implements CommandExecutor{
 				"dest" => "info",
 				"# default" => "If true, will start logging by default",
 				"default" => false,
+				/*
 				"# listener" => "Set to early or late",
 				"listener" => "late",
+				*/
 			],
 			"# privacy" => "regular expressions and replacements used for ensuring privacy",
 			"privacy" => [
@@ -55,6 +57,7 @@ class Main extends PluginBase implements CommandExecutor{
 		$this->privacy = $cf["privacy"];
 		$this->logging = $cf["settings"]["default"];
 		if ($this->logging) $this->getServer()->getLogger()->info("Logging started");
+		/*
 		switch ($cf["settings"]["listener"]) {
 			case "early":
 				$listener = new EarlyListener($this);
@@ -65,8 +68,9 @@ class Main extends PluginBase implements CommandExecutor{
 			default:
 				$this->getServer()->getLogger()->error("Invalid listener type");
 				$this->getServer()->getLogger()->error("Defaults to \"late\"");
-				$listener = new LateListener($this);
-		}
+				}
+		*/
+		$listener = new LateListener($this);
 		$this->getServer()->getPluginManager()->registerEvents($listener,$this);
 	}
 	public function logMsg($pl,$msg,$forced = false) {
@@ -87,7 +91,7 @@ class Main extends PluginBase implements CommandExecutor{
 			'/\/register\s*.*/' => '/register **CENSORED**',
 			'/\/unregister\s*.*/' => '/register **CENSORED**',
 			// SimpleAuthHelper related commands
-			'/\/chpwd\s*.*/' => '/register **CENSORED**',
+			'/\/chpwd\s*.*/' => '/chpwd **CENSORED**',
 		] as $re => $txt) {
 			$msg = preg_replace($re,$txt,$msg);
 		}
