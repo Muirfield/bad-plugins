@@ -85,6 +85,10 @@ and do whatever checks you need to do.
 Changes
 -------
 
+* 1.0.1: minor update
+  * Added additional variables
+  * Improved examples
+  * changed defaults
 * 1.0.0: First release
 
 Copyright
