@@ -215,6 +215,25 @@ rules) for the PocketMine official
     </ul>
   </td>
 </tr>
+<!---------------------------------------------------------------------->
+<tr>
+  <th>
+    <a href="https://github.com/alejandroliu/bad-plugins/tree/master/NetherChests">
+<img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/EnderChest.png" style="width:64px;height:64px" width="64" height="64"/>
+      <br/>
+      NetherChests
+    </a>
+  </th>
+  <td>
+    An EnderChest implementation
+    <ul>
+      <li>
+	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/NetherChests-0.1.0" title="Downloads">v0.1.0
+	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
+      </li>
+    </ul>
+  </td>
+</tr>
 
 </table>
 
