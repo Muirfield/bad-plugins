@@ -1,0 +1,22 @@
+name: FloatChat
+version: 0.1.0
+main: aliuly\floatchat\Main
+api: 1.12.0
+load: POSTWORLD
+
+description: Float chat messages
+author: aliuly
+
+permissions:
+  floatchat.broadcast:
+    default: true
+    description: "Give players the ability to broadcast messages"
+  floatchat.broadcast.server:
+    default: op
+    description: "Broadcast to the server"
+  floatchat.broadcast.level:
+    default: true
+    description: "Broadcast to the level"
+  floatchat.spy:
+    default: true
+    description: "Grant players the ability to spy on players"
