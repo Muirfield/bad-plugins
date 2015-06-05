@@ -6,6 +6,7 @@ name: SpawnMgr
 description: More spawn related settings
 version: 1.2.0
 author: aliuly
+softdepend: [SimpleAuth]
 
 permissions:
   spawnmgr.receive.armor:
