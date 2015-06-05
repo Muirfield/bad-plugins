@@ -212,6 +212,10 @@ rules) for the PocketMine official
 	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/BasicHUD-1.0.0" title="Downloads">v1.0.0
 	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
       </li>
+      <li>
+	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/BasicHUD-1.0.1" title="Downloads">v1.0.1
+	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
+      </li>
     </ul>
   </td>
 </tr>
