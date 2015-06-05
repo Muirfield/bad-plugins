@@ -12,10 +12,9 @@ BasicHUD
 * Plugin Access: Other Plugins
 * WebSite: [github](https://github.com/alejandroliu/bad-plugins/tree/master/BasicHUD)
 
-Overview
---------
+## Overview
 
-This plugin lets you configure a basic Head-Up Display (HUD) for
+This plugin lets you configure a basic Heads-Up Display (HUD) for
 players.
 
 ### Configuration
@@ -82,13 +81,30 @@ inactive until you log-in.  If you are using something other than
 `SimpleAuth` you can copy the `message-example.php` to `message.php`
 and do whatever checks you need to do.
 
-Changes
--------
+# API
+
+Since **BasicHUD** takes over the built-in _sendPopup_ functionality,
+it provides a replacement function for it.  To use it you need this
+fragment of code:
+
+````PHP
+[CODE]
+if (($hud = $this->getServer()->getPluginManager()->getPlugin("BasicHUD")) !== null) {
+  $hud->sendPopup($player,$msg);
+} else {
+  $player->sendPopup($msg);
+}
+[/CODE]
+
+````
+
+# Changes
 
 * 1.0.1: minor update
   * Added additional variables
   * Improved examples
   * changed defaults
+  * Added API
 * 1.0.0: First release
 
 Copyright

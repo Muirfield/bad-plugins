@@ -5,6 +5,8 @@ use pocketmine\utils\TextFormat;
 use pocketmine\Player;
 use pocketmine\utils\Config;
 use pocketmine\scheduler\PluginTask;
+use pocketmine\event\Listener;
+use pocketmine\event\player\PlayerQuitEvent;
 
 interface Formatter {
 	static public function formatString(Main $plugin,$format,Player $player);
@@ -49,12 +51,13 @@ class PopupTask extends PluginTask{
 
 }
 
-class Main extends PluginBase {
+class Main extends PluginBase implements Listener {
 	protected $_getMessage;
 	protected $_getVars;
 
 	protected $format;
 	protected $formatter;
+	public $sendPopup;
 
 	static public function bearing($deg) {
 		// Determine bearing
@@ -144,13 +147,30 @@ class Main extends PluginBase {
 		return $vars;
 	}
 
+	public function sendPopup($player,$msg,$length=3) {
+		if ($this->isEnabled()) {
+			$n = strtolower($player->getName());
+			$this->sendPopup[$n] = [ $msg, microtime(true)+$length ];
+			$msg = $this->getMessage($player);
+		}
+		$player->sendPopup($msg);
+	}
+
 	public function defaultGetMessage($player) {
+		$n = strtolower($player->getName());
+		if (isset($this->sendPopup[$n])) {
+			list($msg,$timer) = $this->sendPopup[$n];
+			if (microtime(true) < $timer) return $msg;
+			unset($this->sendPopup[$n]);
+		}
+
 		$fmt = $this->formatter;
 		$txt = $fmt::formatString($this,$this->format,$player);
 		return $txt;
 	}
 
 	public function onEnable(){
+		$this->sendPopup = [];
 		if (!is_dir($this->getDataFolder())) mkdir($this->getDataFolder());
 		/* Save default resources */
 		$this->saveResource("message-example.php",true);
@@ -192,6 +212,11 @@ class Main extends PluginBase {
 			$this->_getVars = null;
 		}
 		$this->getServer()->getScheduler()->scheduleRepeatingTask(new PopupTask($this), $cf["ticks"]);
+		$this->getServer()->getPluginManager()->registerEvents($this, $this);
+	}
 
+	public function onQuit(PlayerQuitEvent $ev) {
+		$n = strtolower($ev->getPlayer()->getName());
+		if (isset($this->sendPopup[$n])) unset($this->sendPopup[$n]);
 	}
 }
