@@ -17,6 +17,15 @@ BasicHUD
 This plugin lets you configure a basic Heads-Up Display (HUD) for
 players.
 
+### Basic Usage
+
+* **/hud** _[on|off|format]_
+  * If none specified, will show the current mode info.
+  * If _on_ is specified, HUD will be turned on.
+  * If _off_ is specified, HUD will be turned off.
+  * If _format_ is specified, that needs to be configured in
+    `config.yml` and that format will be used.
+
 ### Configuration
 
 In the `config.yml` you can configure the following:
@@ -81,6 +90,43 @@ inactive until you log-in.  If you are using something other than
 `SimpleAuth` you can copy the `message-example.php` to `message.php`
 and do whatever checks you need to do.
 
+### Multi-Format options
+
+BasicHUD supports multiple formats.  These can be configured through
+the `config.yml`.  So instead of **format** only having **one** format
+configured, you can configure multiple, like this example:
+
+````YAML
+[CODE]
+format: 
+ lv3: '{GREEN}{BasicHUD} {YELLOW}Lv3 {WHITE}{world} ({x},{y},{z}) {bearing} {RED}EUR:{money} Pts:{score}'
+ lv2: '{GREEN}{BasicHUD} {GREEN}Lv2 {WHITE}{world} ({x},{y},{z}) {bearing} {RED}EUR:{money} Pts:{score}'
+ lv1: '{GREEN}{BasicHUD} {BLUE}Lv1 {WHITE}{world} ({x},{y},{z}) {bearing} {RED}EUR:{money} Pts:{score}'
+ lv0: '{GREEN}{BasicHUD} {GRAY}Lv0 {WHITE}{world} ({x},{y},{z}) {bearing} {RED}EUR:{money} Pts:{score}'
+[/CODE]
+````
+
+In this example, four formats are defined.  To select the format,
+**BasicHUD** will test permissions in order until the player has the
+permission:
+
+* basichud.rank.selector
+
+So if the player wants to use format _lv2_, permission
+_basichud.rank.lv2_ is required.  For multiple matches, the first
+match is used.  If none matches, the last format is used.
+
+Switching formats is not saved.  So on join the player always gets the
+default format.  If you want HUD format choices to be saved you need a
+permissions plugin.
+
+### Permission Nodes
+
+* basichud.cmd: Allow players to access HUD command
+* basichud.cmd.toggle: Allow players to toggle HUD on/off
+* basichud.cmd.switch: Allow players to switch formats
+* basichud.rank.*: If multiple formats, these selects them.
+
 # API
 
 Since **BasicHUD** takes over the built-in _sendPopup_ functionality,
@@ -100,6 +146,10 @@ if (($hud = $this->getServer()->getPluginManager()->getPlugin("BasicHUD")) !== n
 
 # Changes
 
+* 1.0.2: added features
+  * command to turn on|off|change HUD
+  * supports multiple HUD formats which can be selected based on
+    permissions.
 * 1.0.1: minor update
   * Added additional variables
   * Improved examples
