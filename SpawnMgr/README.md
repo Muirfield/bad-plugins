@@ -28,6 +28,7 @@ Supports:
 * allow to keep inventory when dieing
 * spawn with armor
 * spawn with items
+* SimpleAuth nest-egg's
 
 Documentation
 -------------
@@ -78,6 +79,9 @@ items:
 - STONE_SWORD,1
 - WOOD,16
 - COOKED_BEEF,5
+# Nest Egg, granted to the player when they register through SimpleAuth
+nest-egg:
+- GOLD_INGOT,10
 ...
 [/CODE]
 ~~~
@@ -90,6 +94,8 @@ when the player joins.
 
 * spawnmgr.receive.armor: allows to receive armor when you spawn
 * spawnmgr.receive.items: allows to receive items when you spawn
+* spawnmgr.receive.nestegg: allows to receive items when you register
+  to SimpleAuth
 * spawnmgr.keepinv: allows player to keep inventory
 * spawnmgr.nodrops: players with this permission do not drop items on death
 * spawnmgr.spawnmode: player will follow spawn-control setting
@@ -99,6 +105,7 @@ Changes
 -------
 * 1.2.0:
   * Additional inventory on death options
+  * Added Nest-Egg feature
 * 1.1.0:
   * rewrite to remove offending code.
 * 1.0.0 : First public release

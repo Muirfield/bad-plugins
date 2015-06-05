@@ -48,10 +48,14 @@ class Main extends PluginBase implements Listener {
 				"WOOD,16",
 				"COOKED_BEEF,5",
 			],
+			"nest-egg"=>[
+				"GOLD_INGOT,64",
+			],
 		];
 		if (file_exists($this->getDataFolder()."config.yml")) {
 			unset($defaults["items"]);
 			unset($defaults["armor"]);
+			unset($defaults["nest-egg"]);
 		}
 		$cfg=(new Config($this->getDataFolder()."config.yml",
 							  Config::YAML,$defaults))->getAll();
@@ -91,6 +95,12 @@ class Main extends PluginBase implements Listener {
 		}
 		$this->armor = isset($cfg["armor"]) ? $cfg["armor"] : [];
 		$this->items = isset($cfg["items"]) ? $cfg["items"] : [];
+		if (isset($cfg["nest-egg"]) && count($cfg["nest-egg"])) {
+			$sa = $this->getServer()->getPluginManager()->getPlugin("SimpleAuth");
+			if ($sa !== null && $sa->isEnabled()) {
+				$this->getServer()->getPluginManager()->registerEvents(new SimpleAuthMgr($this,$cfg["nest-egg"]),$this);
+			}
+		}
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 	}
 

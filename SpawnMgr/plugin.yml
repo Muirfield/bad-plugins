@@ -14,6 +14,9 @@ permissions:
   spawnmgr.receive.items:
     default: true
     description: "allows to receive items when you spawn"
+  spawnmgr.receive.nestegg:
+    default: true
+    description: "allows to receive items when you register to SimpleAuth"
   spawnmgr.keepinv:
     default: true
     description: "allow player to keep inventory"
