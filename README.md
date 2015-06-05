@@ -247,7 +247,7 @@ rules) for the PocketMine official
     Show chat as floating text particles
     <ul>
       <li>
-	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/NetherChests-0.1.0" title="Downloads">v0.1.0
+	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/FloatChat-0.1.0" title="Downloads">v0.1.0
 	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
       </li>
     </ul>
