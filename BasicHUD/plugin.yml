@@ -14,6 +14,9 @@ commands:
     permission: basichud.cmd
 
 permissions:
+  basichud.user:
+    default: true
+    description: Allow players to have an HUD
   basichud.cmd:
     default: true
     description: Allow players to access HUD command

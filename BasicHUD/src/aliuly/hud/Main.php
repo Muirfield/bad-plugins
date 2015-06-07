@@ -49,6 +49,7 @@ class PopupTask extends PluginTask{
 		if ($plugin->isDisabled()) return;
 
 		foreach ($plugin->getServer()->getOnlinePlayers() as $pl) {
+			if (!$pl->hasPermission("basichud.user")) continue;
 			$msg = $plugin->getMessage($pl);
 			if ($msg != "") $pl->sendPopup($msg);
 		}
@@ -162,9 +163,11 @@ class Main extends PluginBase implements Listener,CommandExecutor {
 
 	public function sendPopup($player,$msg,$length=3) {
 		if ($this->isEnabled()) {
-			$n = strtolower($player->getName());
-			$this->sendPopup[$n] = [ $msg, microtime(true)+$length ];
-			$msg = $this->getMessage($player);
+			if ($player->hasPermission("basichud.user")) {
+				$n = strtolower($player->getName());
+				$this->sendPopup[$n] = [ $msg, microtime(true)+$length ];
+				$msg = $this->getMessage($player);
+			}
 		}
 		$player->sendPopup($msg);
 	}
