@@ -67,7 +67,7 @@ class MagicCarpet extends BaseCommand implements Listener {
 		if (version_compare($this->owner->getServer()->getApiVersion(),"1.12.0") >= 0) {
 			$sndblks = [];
 			foreach($blocks as $i=>$block){
-				list($x,$y,$z)=array_map("intval", explode(".", $i));
+				list($x,$y,$z)=array_map("intval", explode(":", $i));
 				$sndblks[] = Block::get($block->getId(),$block->getDamage(),
 												new Position($x,$y,$z,$l));
 			}
@@ -75,7 +75,7 @@ class MagicCarpet extends BaseCommand implements Listener {
 								$sndblks, UpdateBlockPacket::FLAG_ALL_PRIORITY);
 		} else {
 			foreach($blocks as $i=>$block){
-				list($x,$y,$z)=array_map("intval", explode(".", $i));
+				list($x,$y,$z)=array_map("intval", explode(":", $i));
 				$pk = new UpdateBlockPacket();
 				$pk->x = $x;
 				$pk->y = $y;
@@ -102,7 +102,7 @@ class MagicCarpet extends BaseCommand implements Listener {
 		$l = $pl->getLevel();
 		for($x=$startX; $x<$endX;++$x) {
 			for($z=$startZ;$z<$endZ;++$z) {
-				$i = "$x.$y.$z";
+				$i = "$x:$y:$z";
 				if(isset($blocks[$i])){
 					$newBlocks[$i] = $blocks[$i];
 					unset($blocks[$i]);
