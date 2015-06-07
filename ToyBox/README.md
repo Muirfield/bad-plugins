@@ -148,6 +148,8 @@ Todo
 Changes
 -------
 
+* ???
+  * Fixed magic carpet for 1.5
 * 1.1.0 : Next release
   * Added Floating Torch
   * Added magic carpet
