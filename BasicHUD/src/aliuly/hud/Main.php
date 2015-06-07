@@ -64,6 +64,7 @@ class Main extends PluginBase implements Listener,CommandExecutor {
 	protected $format;
 	protected $sendPopup;
 	protected $disabled;
+	protected $perms;
 
 	static public function pickFormatter($format) {
 		if (strpos($format,"<?php") !== false|| strpos($format,"<?=") !== false) {
@@ -112,6 +113,15 @@ class Main extends PluginBase implements Listener,CommandExecutor {
 		$contents = stream_get_contents($fp);
 		fclose($fp);
 		return $contents;
+	}
+
+	private function changePermission($player,$perm,$bool) {
+		$n = strtolower($player->getName());
+		if (!isset($this->perms[$n])) {
+			$this->perms[$n] = $player->addAttachment($this->owner);
+		}
+		$attach = $this->perms[$n];
+		$attach->setPermission($perm,$bool);
 	}
 
 	public function getMessage($player) {
@@ -197,6 +207,7 @@ class Main extends PluginBase implements Listener,CommandExecutor {
 	public function onEnable(){
 		$this->disabled = [];
 		$this->sendPopup = [];
+		$this->perms = [];
 		if (!is_dir($this->getDataFolder())) mkdir($this->getDataFolder());
 		/* Save default resources */
 		$this->saveResource("message-example.php",true);
@@ -246,6 +257,11 @@ class Main extends PluginBase implements Listener,CommandExecutor {
 		$n = strtolower($ev->getPlayer()->getName());
 		if (isset($this->sendPopup[$n])) unset($this->sendPopup[$n]);
 		if (isset($this->disabled[$n])) unset($this->disabled[$n]);
+		if (isset($this->perms[$n])) {
+			$attach = $this->perms[$n];
+			unset($this->perms[$n]);
+			$ev->getPlayer()->removeAttachment($attach);
+		}
 	}
 
 	public function onCommand(CommandSender $sender, Command $cmd, $label, array $args) {
@@ -295,8 +311,10 @@ class Main extends PluginBase implements Listener,CommandExecutor {
 					foreach ($this->format as $rr2) {
 						list($rn,,) = $rr2;
 						if ($rank == $rn) {
+							$this->changePermission($sender,"basichud.rank.".$rn,true);
 							$sender->addAttachment($this,"basichud.rank.".$rn,true);
 						} else {
+							$this->changePermission($sender,"basichud.rank.".$rn,false);
 							$sender->addAttachment($this,"basichud.rank.".$rn,false);
 						}
 					}

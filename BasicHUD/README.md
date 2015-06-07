@@ -148,6 +148,7 @@ if (($hud = $this->getServer()->getPluginManager()->getPlugin("BasicHUD")) !== n
 
 * ???
   * Added a "use" permission.
+  * More correct use of permission
 * 1.0.2: added features
   * command to turn on|off|change HUD
   * supports multiple HUD formats which can be selected based on
