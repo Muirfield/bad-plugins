@@ -18,5 +18,5 @@ permissions:
     default: true
     description: "Broadcast to the level"
   floatchat.spy:
-    default: true
+    default: false
     description: "Grant players the ability to spy on players"
