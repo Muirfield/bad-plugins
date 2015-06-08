@@ -4,7 +4,7 @@ load: POSTWORLD
 
 name: NetherChests
 description: An Ender Chest type plugin
-version: 0.1.0
+version: 1.0.0
 author: aliuly
 
 permissions:
