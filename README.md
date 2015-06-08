@@ -48,25 +48,6 @@ rules) for the PocketMine official
   </td>
 </tr>
 
-<!---------------------------------------------------------------------->
-<tr>
-  <th>
-    <a href="https://github.com/alejandroliu/bad-plugins/tree/master/GoldStd">
-      <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/GoldStd2-icon.png" style="width:64px;height:64px" width="64" height="64"/>
-      <br/>
-      GoldStd
-    </a>
-  </th>
-  <td>
-    A different kind of economy plugin
-    <ul>
-      <li>
-	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/GoldStd-1.0.0" title="Downloads">v1.0.0
-	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
-      </li>
-    </ul>
-  </td>
-</tr>
 
 <!---------------------------------------------------------------------->
 <tr>
@@ -283,6 +264,7 @@ since:
 * [SimpleAuthHelper](https://github.com/alejandroliu/pocketmine-plugins/tree/master/SimpleAuthHelper)
 * [WorldEditor](https://github.com/alejandroliu/plugin-remakes/tree/master/WorldEditor)
 * [RunePvP](https://github.com/alejandroliu/plugin-remakes/tree/master/RunePvP)
+* [GoldStd](https://github.com/alejandroliu/pocketmine-plugins/tree/master/GoldStd)
 
 * * *
 
