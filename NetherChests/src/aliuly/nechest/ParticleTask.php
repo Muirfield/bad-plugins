@@ -12,9 +12,9 @@ class ParticleTask extends PluginTask{
 		return $p+(mt_rand()/mt_getrandmax())*$r+$o;
 	}
 	protected static function randVector(Vector3 $center) {
-		return new Vector3(self::randy($center->getX(),0.6,-0.3),
-								 self::randy($center->getY(),0.2,1),
-								 self::randy($center->getZ(),0.6,-0.3));
+		return new Vector3(self::randy($center->getX(),2,-0.5),
+								 self::randy($center->getY(),0.5,0.5),
+								 self::randy($center->getZ(),2,-0.5));
 	}
 	public function onRun($currentTick){
 		if ($this->owner->isDisabled()) return;
