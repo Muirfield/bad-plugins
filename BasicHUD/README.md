@@ -146,7 +146,7 @@ if (($hud = $this->getServer()->getPluginManager()->getPlugin("BasicHUD")) !== n
 
 # Changes
 
-* ???
+* 1.0.3: First public release
   * Added a "use" permission.
   * More correct use of permission
 * 1.0.2: added features
