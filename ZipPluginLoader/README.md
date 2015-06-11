@@ -45,6 +45,8 @@ loaded.
 Changes
 -------
 
+* 1.1.1: Bug-fix
+  - Fixed some reload related bugs.
 * 1.1.0: Multiple plugins
   * Change the way error reporting is done...
   * Supports for multiple plugins in a zip file.
