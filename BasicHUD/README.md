@@ -134,13 +134,13 @@ it provides a replacement function for it.  To use it you need this
 fragment of code:
 
 ````PHP
-[CODE]
+[PHP]
 if (($hud = $this->getServer()->getPluginManager()->getPlugin("BasicHUD")) !== null) {
   $hud->sendPopup($player,$msg);
 } else {
   $player->sendPopup($msg);
 }
-[/CODE]
+[/PHP]
 
 ````
 
