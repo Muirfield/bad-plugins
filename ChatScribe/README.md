@@ -60,6 +60,9 @@ are **NEVER** stored:
 Changes
 -------
 
+* 1.2.0:
+  * Added in-game logging (remote helpdesk support)
+  * Added a warning that logging is available
 * 1.0.1:
   * Fixed leak
   * Hard-coded some rules to avoid logging SimpleAuth passwords

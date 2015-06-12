@@ -14,6 +14,8 @@ class Main extends PluginBase implements CommandExecutor{
 	protected $logdest;
 	protected $privacy;
 	protected $logging;
+	protected $spySession;
+
 	public function onEnable(){
 		if (!is_dir($this->getDataFolder())) mkdir($this->getDataFolder());
 		$defaults = [
@@ -26,14 +28,18 @@ class Main extends PluginBase implements CommandExecutor{
 				"# default" => "If true, will start logging by default",
 				"default" => false,
 				/*
-				"# listener" => "Set to early or late",
-				"listener" => "late",
+				  "# listener" => "Set to early or late",
+				  "listener" => "late",
 				*/
+				"# spy" => "Allow logging in-game",
+				"spy" => false,
 			],
 			"# privacy" => "regular expressions and replacements used for ensuring privacy",
 			"privacy" => [
 				'/\/login\s*.*/' => '/login **CENSORED**',
 			],
+			"# warning" => "Text to show warning that logging is available",
+			"warning" => ["Activities may be logged on this server"],
 		];
 		if (file_exists($this->getDataFolder()."config.yml")) {
 			$defaults["privacy"] = [];
@@ -58,30 +64,23 @@ class Main extends PluginBase implements CommandExecutor{
 		$this->logging = $cf["settings"]["default"];
 		if ($this->logging) $this->getServer()->getLogger()->info("Logging started");
 		/*
-		switch ($cf["settings"]["listener"]) {
-			case "early":
-				$listener = new EarlyListener($this);
-				break;
-			case "late":
-				$listener = new LateListener($this);
-				break;
-			default:
-				$this->getServer()->getLogger()->error("Invalid listener type");
-				$this->getServer()->getLogger()->error("Defaults to \"late\"");
-				}
+		  switch ($cf["settings"]["listener"]) {
+		  case "early":
+		  $listener = new EarlyListener($this);
+		  break;
+		  case "late":
+		  $listener = new LateListener($this);
+		  break;
+		  default:
+		  $this->getServer()->getLogger()->error("Invalid listener type");
+		  $this->getServer()->getLogger()->error("Defaults to \"late\"");
+		  }
 		*/
 		$listener = new LateListener($this);
 		$this->getServer()->getPluginManager()->registerEvents($listener,$this);
+		$this->spySession = $cf["settings"]["spy"] ? new SpySession($this) : null;
 	}
-	public function logMsg($pl,$msg,$forced = false) {
-		if (!$this->logging) return;
-		if ($forced) {
-			$this->logdest->logMsg($pl,$msg);
-			return;
-		}
-		if ($pl instanceof Player) {
-			if ($pl->hasPermission("chatscribe.privacy")) return;
-		}
+	private function cleanText($msg) {
 		//
 		// First we apply hard-coded white-washing rules
 		//
@@ -98,10 +97,36 @@ class Main extends PluginBase implements CommandExecutor{
 		foreach ($this->privacy as $re => $txt) {
 			$msg = preg_replace($re,$txt,$msg);
 		}
+		return $txt;
+	}
+
+	public function logMsg($pl,$msg,$forced = false) {
+		if (!$this->logging && $this->spySession == null) return;
+		if ($forced) {
+			$msg = $this->cleanTxt($msg);
+			if ($this->spySession) $this->spySession->logMsg($pl,$msg);
+			$this->logdest->logMsg($pl,$msg);
+			return;
+		}
+		if ($pl instanceof Player) {
+			if ($pl->hasPermission("chatscribe.privacy")) return;
+		}
+		$msg = $this->cleanTxt($msg);
+		if ($this->spySession) $this->spySession->logMsg($pl,$msg);
 		$this->logdest->logMsg($pl,$msg);
 	}
 	public function onCommand(CommandSender $sender, Command $cmd, $label, array $args) {
-		if ($cmd->getName() != "log") return false;
+		switch ($cmd->getName()) {
+			case "log":
+				return $this->cmdLog($sender,$args);
+			case "spy":
+				if ($this->spySession) return $this->spySession->onCmd($sender,$args);
+				$sender->sendMessage("That feature is NOT enabled");
+				return true;
+		}
+		return false;
+	}
+	private function cmdLog(CommandSender $sender, array $args) {
 		if (count($args) == 0) {
 			$sender->sendMessage($this->logging ? "Logging ON" : "Logging OFF");
 			return true;
