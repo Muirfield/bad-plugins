@@ -54,6 +54,8 @@ The default variables are:
 * {yaw}
 * {pitch}
 * {bearing}
+* {SPACING}
+* {NL}
 * {BLACK}
 * {DARK_BLUE}
 * {DARK_GREEN}

@@ -141,6 +141,8 @@ class Main extends PluginBase implements Listener,CommandExecutor {
 			"{yaw}" => (int)$player->getYaw(),
 			"{pitch}" => (int)$player->getPitch(),
 			"{bearing}" => self::bearing($player->getYaw()),
+			"{SPACING}" => str_repeat(" ",40),
+			"{NL}" => "\n",
 			"{BLACK}" => TextFormat::BLACK,
 			"{DARK_BLUE}" => TextFormat::DARK_BLUE,
 			"{DARK_GREEN}" => TextFormat::DARK_GREEN,

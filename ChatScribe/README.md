@@ -1,19 +1,17 @@
-<img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/ChatScribe-icon.png" style="width:64px;height:64px" width="64" height="64"/>
+<img src="https://raw.githubusercontent.com/alejandroliu/pocketmine-plugins/master/Media/ChatScribe-icon.png" style="width:64px;height:64px" width="64" height="64"/>
 
-ChatScribe
-==========
+# ChatScribe
 
 * Summary: Logs chat and commands to file
 * Dependency Plugins: n/a
-* PocketMine-MP version: 1.4 - API 1.10.0
+* PocketMine-MP version: 1.5 - API 1.12.0
 * DependencyPlugins: -
 * OptionalPlugins: -
 * Categories: Admin
 * Plugin Access: Commands, Data Saving
-* WebSite: [github](https://github.com/alejandroliu/bad-plugins/tree/master/ChatScribe)
+* WebSite: [github](https://github.com/alejandroliu/pocketmine-plugins/tree/master/ChatScribe)
 
-Overview
---------
+## Overview
 
 Let's you log all commands and chat's to files.  **To ensure user's
 privacy, there is a set of regular expressions that will remove
@@ -40,7 +38,7 @@ are **NEVER** stored:
 * SimpleAuthHelper:
   * /chpwd
 
-### Configuration
+* Configuration
 
 * _log_: Either _server_ or _file_.
 * _dest_: Log destination
@@ -52,15 +50,14 @@ are **NEVER** stored:
 * privacy: Additonal regular expressions and their replacement strings
   to add to clean-up privacy concerns.
 
-### Permissions
+### Permission Nodes
 
 * chatscribe.cmd: Enable logging
 * chatscribe.privacy: No logging
 
-Changes
--------
+## Changes
 
-* 1.2.0:
+* 1.2.0: 
   * Added in-game logging (remote helpdesk support)
   * Added a warning that logging is available
 * 1.0.1:
@@ -69,8 +66,7 @@ Changes
   * Removed the early/later listener option
 * 1.0.0: First release
 
-Copyright
----------
+## Copyright
 
     ChatScribe
     Copyright (C) 2015 Alejandro Liu
