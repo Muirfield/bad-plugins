@@ -111,29 +111,6 @@ rules) for the PocketMine official
 <!---------------------------------------------------------------------->
 <tr>
   <th>
-    <a href="https://github.com/alejandroliu/bad-plugins/tree/master/ZipPluginLoader">
-<img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/ZipPlugin-icon.png" style="width:64px;height:64px" width="64" height="64"/>
-      <br/>
-      ZipPluginLoader
-    </a>
-  </th>
-  <td>
-    Load Zip packed plugins
-    <ul>
-      <li>
-	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/ZipPluginLoader-1.1.0" title="Downloads">v1.1.0
-	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
-      </li>
-      <li>
-	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/ZipPluginLoader-1.0.0" title="Downloads">v1.0.0
-	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
-      </li>
-    </ul>
-  </td>
-</tr>
-<!---------------------------------------------------------------------->
-<tr>
-  <th>
     <a href="https://github.com/alejandroliu/bad-plugins/tree/master/BasicHUD">
 <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/hud.jpg" style="width:64px;height:64px" width="64" height="64"/>
       <br/>
@@ -239,7 +216,8 @@ since:
 * [RunePvP](https://github.com/alejandroliu/plugin-remakes/tree/master/RunePvP)
 * [GoldStd](https://github.com/alejandroliu/pocketmine-plugins/tree/master/GoldStd)
 * [ChatScribe](https://github.com/alejandroliu/pocketmine-plugins/tree/master/ChatScribe)
-* [SpawnMgr](https://github.com/alejandroliu/pocketmine-plugins/tree/master/SpanwMgr)
+* [SpawnMgr](https://github.com/alejandroliu/pocketmine-plugins/tree/master/SpawnMgr)
+* [ZipPluginLoader](https://github.com/alejandroliu/pocketmine-plugins/tree/master/ZipPluginLoader)
 
 * * *
 
