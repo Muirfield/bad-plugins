@@ -200,6 +200,25 @@ rules) for the PocketMine official
     </ul>
   </td>
 </tr>
+<!---------------------------------------------------------------------->
+<tr>
+  <th>
+    <a href="https://github.com/alejandroliu/bad-plugins/tree/master/NotSoFlat">
+<img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/Notsoflat-icon.png" style="width:64px;height:64px" width="64" height="64"/>
+      <br/>
+      NotSoFlat
+    </a>
+  </th>
+  <td>
+    A terrain generator for PM1.4 (with some PM1.5 compatibility)...
+    <ul>
+      <li>
+	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/NotSoFlat-1.1.0" title="Downloads">v1.1.0
+	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
+      </li>
+    </ul>
+  </td>
+</tr>
 
 </table>
 
