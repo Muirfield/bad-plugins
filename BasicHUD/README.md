@@ -46,6 +46,7 @@ The default variables are:
 
 * {BasicHUD}
 * {MOTD}
+* {tps}
 * {player}
 * {world}
 * {x}
@@ -55,6 +56,9 @@ The default variables are:
 * {pitch}
 * {bearing}
 * {SPACING}
+* {10SPACE}
+* {20SPACE}
+* {30SPACE}
 * {NL}
 * {BLACK}
 * {DARK_BLUE}
