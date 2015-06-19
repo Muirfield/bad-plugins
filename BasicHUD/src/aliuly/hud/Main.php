@@ -127,7 +127,7 @@ class Main extends PluginBase implements Listener,CommandExecutor {
 		}
 		$attach = $this->perms[$n];
 		$attach->setPermission($perm,$bool);
-		if (isset($this->perms_cache[$n])) unset($this->perms_cache[$n])
+		if (isset($this->perms_cache[$n])) unset($this->perms_cache[$n]);
 	}
 
 	public function getMessage($player) {
@@ -138,8 +138,8 @@ class Main extends PluginBase implements Listener,CommandExecutor {
 	public function getVars($player) {
 		$vars = $this->consts;
 		foreach ([
-				"{tps}"] => $this->getServer()->getTicksPerSecond(),
-				"{player}"] => $player->getName(),
+				"{tps}" => $this->getServer()->getTicksPerSecond(),
+				"{player}" => $player->getName(),
 				"{world}" => $player->getLevel()->getName(),
 				"{x}" => (int)$player->getX(),
 				"{y}" => (int)$player->getY(),
@@ -281,7 +281,7 @@ class Main extends PluginBase implements Listener,CommandExecutor {
 	// We clear the permissions cache in the event of a command
 	// next time we schedule to fetch the HUD message it will be recomputed
   private function onCmdEvent() {
-		$this->perms_cache = []
+		$this->perms_cache = [];
 	}
 	public function onPlayerCmd(PlayerCommandPreprocessEvent $ev) {
 			$this->onCmdEvent();
@@ -294,7 +294,7 @@ class Main extends PluginBase implements Listener,CommandExecutor {
 	}
 	public function onQuit(PlayerQuitEvent $ev) {
 		$n = strtolower($ev->getPlayer()->getName());
-		if (isset($this->perms_cache[$n])) unset($this->perms_cache[$n])
+		if (isset($this->perms_cache[$n])) unset($this->perms_cache[$n]);
 		if (isset($this->sendPopup[$n])) unset($this->sendPopup[$n]);
 		if (isset($this->disabled[$n])) unset($this->disabled[$n]);
 		if (isset($this->perms[$n])) {

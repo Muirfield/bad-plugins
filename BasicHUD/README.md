@@ -55,10 +55,11 @@ The default variables are:
 * {yaw}
 * {pitch}
 * {bearing}
-* {SPACING}
 * {10SPACE}
 * {20SPACE}
 * {30SPACE}
+* {40SPACE}
+* {50SPACE}
 * {NL}
 * {BLACK}
 * {DARK_BLUE}
@@ -104,7 +105,7 @@ configured, you can configure multiple, like this example:
 
 ````YAML
 [CODE]
-format: 
+format:
  lv3: '{GREEN}{BasicHUD} {YELLOW}Lv3 {WHITE}{world} ({x},{y},{z}) {bearing} {RED}EUR:{money} Pts:{score}'
  lv2: '{GREEN}{BasicHUD} {GREEN}Lv2 {WHITE}{world} ({x},{y},{z}) {bearing} {RED}EUR:{money} Pts:{score}'
  lv1: '{GREEN}{BasicHUD} {BLUE}Lv1 {WHITE}{world} ({x},{y},{z}) {bearing} {RED}EUR:{money} Pts:{score}'
@@ -152,6 +153,10 @@ if (($hud = $this->getServer()->getPluginManager()->getPlugin("BasicHUD")) !== n
 
 # Changes
 
+* 1.0.4: Performance tweaks
+  * Cache permissions for selecting formats
+  * An empty vars.php yields an empty functin (saving a comparison)
+  * Constant vars are calculated once.
 * 1.0.3: First public release
   * Added a "use" permission.
   * More correct use of permission
