@@ -10,6 +10,6 @@
 
 if (($sa = $plugin->getServer()->getPluginManager()->getPlugin("SimpleAuth")) !== null) {
 	// SimpleAuth also has a HUD when not logged in...
-	if (!$sa->isPlayerAuthenticated($player)) return "";
+	if (!$sa->isPlayerAuthenticated($player)) return null;
 }
 return $plugin->defaultGetMessage($player);
