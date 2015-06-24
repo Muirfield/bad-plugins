@@ -33,7 +33,7 @@ namespace aliuly\hack{
 		}
 	}
 	class BrokenPlayer extends Player {
-			protected function processMovement($tickDiff){
+		protected function processMovement($tickDiff){
 			if(!$this->isAlive() or !$this->spawned or $this->newPosition === null or $this->teleportPosition !== null){
 				return;
 			}
