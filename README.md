@@ -180,6 +180,25 @@ rules) for the PocketMine official
 <!---------------------------------------------------------------------->
 <tr>
   <th>
+    <a href="https://github.com/alejandroliu/bad-plugins/tree/master/LocalChat">
+<img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/localchat-icon.jpg" style="width:64px;height:64px" width="64" height="64"/>
+      <br/>
+      LocalChat
+    </a>
+  </th>
+  <td>
+    Localize chat messages
+    <ul>
+      <li>
+	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/LocalChat-1.2.0" title="Downloads">v1.2.0
+	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
+      </li>
+    </ul>
+  </td>
+</tr>
+<!---------------------------------------------------------------------->
+<tr>
+  <th>
     <a href="https://github.com/alejandroliu/bad-plugins/tree/master/NotSoFlat">
 <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/Notsoflat-icon.png" style="width:64px;height:64px" width="64" height="64"/>
       <br/>
@@ -250,4 +269,3 @@ Give/Get items:
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
