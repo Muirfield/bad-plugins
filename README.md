@@ -49,115 +49,7 @@ rules) for the PocketMine official
 </tr>
 
 
-<!---------------------------------------------------------------------->
-<tr>
-  <th>
-    <a href="https://github.com/alejandroliu/bad-plugins/tree/master/FireBlade">
-      <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/FireBlade-icon.png" style="width:64px;height:64px" width="64" height="64"/>
-      <br/>
-      FireBlade
-    </a>
-  </th>
-  <td>
-    A flaming sword
-    <ul>
-      <li>
-	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/FireBlade-1.0.0" title="Downloads">v1.0.0
-	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
-      </li>
-    </ul>
-  </td>
-</tr>
 
-<!---------------------------------------------------------------------->
-<tr>
-  <th>
-    <a href="https://github.com/alejandroliu/bad-plugins/tree/master/ToyBox">
-      <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/icon-toy-box.png" style="width:64px;height:64px" width="64" height="64"/>
-      <br/>
-      ToyBox
-    </a>
-  </th>
-  <td>
-    A collection of toys and useful tool items
-    <ul>
-      <li>
-	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/ToyBox-1.0.0" title="Downloads">v1.0.0
-	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
-      </li>
-    </ul>
-  </td>
-</tr>
-
-<!---------------------------------------------------------------------->
-<tr>
-  <th>
-    <a href="https://github.com/alejandroliu/bad-plugins/tree/master/LIAB">
-      <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/LIAB-icon.png" style="width:64px;height:64px" width="64" height="64"/>
-      <br/>
-      LIAB
-    </a>
-  </th>
-  <td>
-    Leave it all behind
-    <ul>
-      <li>
-	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/LIAB-1.0.0" title="Downloads">v1.0.0
-	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
-      </li>
-    </ul>
-  </td>
-</tr>
-<!---------------------------------------------------------------------->
-<tr>
-  <th>
-    <a href="https://github.com/alejandroliu/bad-plugins/tree/master/BasicHUD">
-<img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/hud.jpg" style="width:64px;height:64px" width="64" height="64"/>
-      <br/>
-      BasicHUD
-    </a>
-  </th>
-  <td>
-    Heads Up Display
-    <ul>
-      <li>
-	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/BasicHUD-1.0.3" title="Downloads">v1.0.3
-	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
-      </li>
-      <li>
-	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/BasicHUD-1.0.2" title="Downloads">v1.0.2
-	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
-      </li>
-      <li>
-	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/BasicHUD-1.0.1" title="Downloads">v1.0.1
-	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
-      </li>
-      <li>
-	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/BasicHUD-1.0.0" title="Downloads">v1.0.0
-	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
-      </li>
-    </ul>
-  </td>
-</tr>
-<!---------------------------------------------------------------------->
-<tr>
-  <th>
-    <a href="https://github.com/alejandroliu/bad-plugins/tree/master/NetherChests">
-<img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/EnderChest.png" style="width:64px;height:64px" width="64" height="64"/>
-      <br/>
-      NetherChests
-    </a>
-  </th>
-  <td>
-    An EnderChest implementation
-    <ul>
-      <li>
-	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/NetherChests-0.1.0" title="Downloads">v0.1.0
-	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
-      </li>
-    </ul>
-  </td>
-</tr>
 <!---------------------------------------------------------------------->
 <tr>
   <th>
@@ -229,14 +121,8 @@ rules) for the PocketMine official
 This plugins used to be hosted in this repository but has then moved
 since:
 
-* [MeTooPortal](https://github.com/alejandroliu/pocketmine-plugins/tree/master/MagicTelePortal)
-* [SimpleAuthHelper](https://github.com/alejandroliu/pocketmine-plugins/tree/master/SimpleAuthHelper)
 * [WorldEditor](https://github.com/alejandroliu/plugin-remakes/tree/master/WorldEditor)
 * [RunePvP](https://github.com/alejandroliu/plugin-remakes/tree/master/RunePvP)
-* [GoldStd](https://github.com/alejandroliu/pocketmine-plugins/tree/master/GoldStd)
-* [ChatScribe](https://github.com/alejandroliu/pocketmine-plugins/tree/master/ChatScribe)
-* [SpawnMgr](https://github.com/alejandroliu/pocketmine-plugins/tree/master/SpawnMgr)
-* [ZipPluginLoader](https://github.com/alejandroliu/pocketmine-plugins/tree/master/ZipPluginLoader)
 
 * * *
 
