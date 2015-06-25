@@ -32,7 +32,7 @@ namespace aliuly\auto{
 				"me has joined.",
 			]);
 			Cmd::console($this->getServer(),[
-				"give ".$player->getName()." gold_ingot",
+				//"give ".$player->getName()." gold_ingot",
 			]);
 
 		}
