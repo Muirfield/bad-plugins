@@ -25,7 +25,8 @@ namespace aliuly\mobsters\idiots;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\item\Item as Item;
-use pocketmine\network\protocol\AddMobPacket;
+use pocketmine\network\protocol\AddEntityPacket;
+use pocketmine\network\Network;
 use pocketmine\network\protocol\MovePlayerPacket;
 use pocketmine\network\protocol\MoveEntityPacket;
 use pocketmine\math\AxisAlignedBB;
@@ -54,22 +55,22 @@ class Zombie extends Monster{
 
 	public function spawnTo(Player $player){
 
-		$pk = new AddMobPacket();
+		$pk = new AddEntityPacket();
 		$pk->eid = $this->getId();
-		$pk->type = Zombie::NETWORK_ID;
+		$pk->type = self::NETWORK_ID;
 		$pk->x = $this->x;
 		$pk->y = $this->y;
 		$pk->z = $this->z;
+		$pk->speedX = $this->motionX;
+		$pk->speedY = $this->motionY;
+		$pk->speedZ = $this->motionZ;
 		$pk->yaw = $this->yaw;
 		$pk->pitch = $this->pitch;
-		$pk->metadata = $this->getData();
-		$player->dataPacket($pk);
-
-		$player->addEntityMotion($this->getId(), $this->motionX, $this->motionY, $this->motionZ);
-
+		$pk->metadata = $this->dataProperties;
+		$player->dataPacket($pk->setChannel(Network::CHANNEL_ENTITY_SPAWNING));
 		parent::spawnTo($player);
 	}
-
+	/*
 	public function getData(){ //TODO
 		$flags = 0;
 		$flags |= $this->fireTicks > 0 ? 1 : 0;
@@ -84,7 +85,7 @@ class Zombie extends Monster{
 
 		return $d;
 	}
-
+*/
 	public function getDrops(){
 		$drops = [];
 		$rnd = mt_rand(0,1);

@@ -35,9 +35,9 @@ class Main extends PluginBase implements Listener{
 			Cow::NETWORK_ID, Mooshroom::NETWORK_ID, Wolf::NETWORK_ID,
 			Enderman::NETWORK_ID, Spider::NETWORK_ID, Skeleton::NETWORK_ID,
 			PigZombie::NETWORK_ID, Creeper::NETWORK_ID, Slime::NETWORK_ID,
-			Silverfish::NETWORK_ID, Villager::NETWORK_ID, Zombie::NETWORK_ID
+			Silverfish::NETWORK_ID
 		] as $type){
-			Block::$creative[] = [ Item::SPAWN_EGG, $type ];
+			Item::addCreativeItem(Item::get(Item::SPAWN_EGG, $type));
 		}
 		Entity::registerEntity(Chicken::class);
 		Entity::registerEntity(Pig::class);
