@@ -21,19 +21,43 @@ namespace aliuly\script{
 
 	use aliuly\common\MPMU;
 
-
 	class MyCmds extends PluginBase implements CommandExecutor{
 		public function onEnable(){
-			MPMU::addCommand($this,$this,"x1",[
-					"description" => "x1 test",
-					"usage" => "/x1 blah",
+			MPMU::addCommand($this,$this,"sp",[
+					"description" => "Sends popup to player",
+					"usage" => "/sp <player> [message]",
+				]);
+			MPMU::addCommand($this,$this,"st",[
+					"description" => "Sends tip to player",
+					"usage" => "/st <player> [message]",
+				]);
+			MPMU::addCommand($this,$this,"ss",[
+					"description" => "Serialize",
+					"usage" => "/ss",
 				]);
 		}
 		public function onCommand(CommandSender $sender,Command $cmd,$label, array $args) {
 			switch($cmd->getName()) {
-				case "x1":
+				case "ss":
+					$sender->sendMessage(serialize($sender));
 					return true;
-				case "x2":
+				case "sp":
+				  if (count($args)<2) return false;
+					if (($pl = $this->getServer()->getPlayer($args[0])) == null) {
+						$sender->sendMessage("$args[0] not found");
+						return true;
+					}
+					array_shift($args);
+					MPMU::sendPopup($pl,implode(" ",$args));
+					return true;
+				case "st":
+				  if (count($args)<2) return false;
+					if (($pl = $this->getServer()->getPlayer($args[0])) == null) {
+						$sender->sendMessage("$args[0] not found");
+						return true;
+					}
+					array_shift($args);
+					$pl->sendTip(implode(" ",$args));
 					return true;
 			}
 			return false;
