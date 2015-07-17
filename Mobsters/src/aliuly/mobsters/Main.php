@@ -68,6 +68,10 @@ class Main extends PluginBase implements Listener,CommandExecutor{
 			$this->classtab[strtolower($type)] = $class;
 		}
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
+		$this->getServer()->getScheduler()->scheduleRepeatingTask(
+					new SpawnerTask($this),
+					200
+		);
 	}
 	public function onPlayerInteract(PlayerInteractEvent $e) {
 		$pl = $e->getPlayer();
@@ -90,6 +94,32 @@ class Main extends PluginBase implements Listener,CommandExecutor{
 		}
 		return ["",0];
 	}
+	public function mobClass($str) {
+		$str = strtolower($str);
+		if (isset($this->classtab[$str])) return $this->classtab[$str];
+		return null;
+	}
+	public function spawnMob($class, $location) {
+		$nbt =  new Compound("",[
+			new Enum("Pos",[
+				new Double("",$location->x),
+				new Double("",$location->y),
+				new Double("",$location->z),
+				]),
+			new Enum("Motion", [
+				new Double("",0),
+				new Double("",0),
+				new Double("",0),
+				]),
+			new Enum("Rotation",[
+				new Float("",$location->yaw),
+				new Float("",$location->pitch),
+				])
+			]);
+		$entity = new $class($location->getLevel()->getChunk($location->x >> 4, $location->z >> 4), $nbt);
+		$entity->spawnToAll();
+		return $entity;
+	}
 	public function onCommand(CommandSender $sender, Command $cmd, $label, array $args) {
 		if ($cmd->getName() != "mobster") return false;
 		if (isset($args[0]) && strtolower($args[0]) == "spawn") array_shift($args);
@@ -99,11 +129,10 @@ class Main extends PluginBase implements Listener,CommandExecutor{
 		}
     if (count($args) != 2) return false;
 		$mob = strtolower(array_shift($args));
-		if (!isset($this->classtab[$mob])) {
+		if (($class = $this->mobClass($mob)) === null) {
 			$sender->sendMessage("Unknown mob class: $mob");
 			return true;
 		}
-		$class = $this->classtab[$mob];
 		$location  = explode(":",array_shift($args),2);
 		if (count($location)<2) {
 			if ($sender instanceof Player)
@@ -125,24 +154,7 @@ class Main extends PluginBase implements Listener,CommandExecutor{
 		}
 		$location = new Location(...$location);
 		$location->setLevel($level);
-		$nbt =  new Compound("",[
-			new Enum("Pos",[
-				new Double("",$location->x),
-				new Double("",$location->y),
-				new Double("",$location->z),
-				]),
-			new Enum("Motion", [
-				new Double("",0),
-				new Double("",0),
-				new Double("",0),
-				]),
-			new Enum("Rotation",[
-				new Float("",$location->yaw),
-				new Float("",$location->pitch),
-				])
-			]);
-		$entity = new $class($location->getLevel()->getChunk($location->x >> 4, $location->z >> 4), $nbt);
-		$entity->spawnToAll();
+		$this->spawnMob($class,$location);
 		$sender->sendMessage("Spawned $mob");
 		return true;
 	}
