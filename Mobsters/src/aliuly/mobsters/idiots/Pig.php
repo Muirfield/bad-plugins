@@ -8,6 +8,8 @@ use pocketmine\network\Network;
 use pocketmine\Player;
 use pocketmine\entity\Rideable;
 use pocketmine\entity\Animal;
+use pocketmine\entity\Entity;
+
 
 use pocketmine\network\protocol\MovePlayerPacket;
 use pocketmine\math\AxisAlignedBB;
@@ -21,6 +23,7 @@ class Pig extends Animal implements Rideable{
 	public $length = 1.3;
 	public $height = 0.875;
 	public $stepHeight = 0.2;
+	public $knockback = 0;
 
 	public function getName(){
 		return "Porky";
@@ -51,7 +54,7 @@ class Pig extends Animal implements Rideable{
 		return  [Item::get($this->fireTicks > 0 ? Item::COOKED_PORKCHOP : Item::RAW_PORKCHOP, 0, mt_rand(1, 3))];
 	}
 
-	public function updateMovement(){
+	public function noupdateMovement(){
 		if($this->x !== $this->lastX or $this->y !== $this->lastY or $this->z !== $this->lastZ or $this->yaw !== $this->lastYaw or $this->pitch !== $this->lastPitch){
 			$this->lastX = $this->x;
 			$this->lastY = $this->y;
@@ -122,6 +125,12 @@ class Pig extends Animal implements Rideable{
 	}
 
 	public function onUpdate($currentTick){
+		if ($this->knockback) {
+			if (time() < $this->knockback) {
+				return  parent::onUpdate($currentTick);
+			}
+			$this->knockback = 0;
+		}
 		$hasUpdate = false;
 		$this->timings->startTiming();
 
@@ -197,6 +206,10 @@ class Pig extends Animal implements Rideable{
 		$this->timings->stopTiming();
 		$hasUpdate = parent::onUpdate($currentTick) || $hasUpdate;
 		return $hasUpdate;
+	}
+	public function knockBack(Entity $attacker, $damage, $x, $z, $base = 0.4){
+		parent::knockBack($attacker,$damage,$x,$z,$base);
+		$this->knockback = time() + 1;// Stunned for 1 second...
 	}
 
 }

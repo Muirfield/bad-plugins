@@ -48,6 +48,7 @@ class Zombie extends Monster{
 	public $length = 0.6;
 	public $height = 1.8;
 	public $stepHeight = 0.5;
+	public $knockback = 0;
 
 	public function getName(){
 		return "ZombieIdiot";
@@ -110,8 +111,7 @@ class Zombie extends Monster{
 
 		return $drops;
 	}
-
-	public function updateMovement(){
+	public function zupdateMovement(){
 		if($this->x !== $this->lastX or $this->y !== $this->lastY or $this->z !== $this->lastZ or $this->yaw !== $this->lastYaw or $this->pitch !== $this->lastPitch){
 
 			$this->lastX = $this->x;
@@ -181,6 +181,12 @@ class Zombie extends Monster{
 	}
 
 	public function onUpdate($currentTick){
+		if ($this->knockback) {
+			if (time() < $this->knockback) {
+				return  parent::onUpdate($currentTick);
+			}
+			$this->knockback = 0;
+		}
 		$hasUpdate = false;
 		$this->timings->startTiming();
 
@@ -257,9 +263,10 @@ class Zombie extends Monster{
 		$hasUpdate = parent::onUpdate($currentTick) || $hasUpdate;
 		return $hasUpdate;
 	}
-	public function knockBack(Entity $attacker, $damage, $x, $z, $base = 0.4){
-		//echo __METHOD__.",".__LINE__."\n"; //##DEBUG
-		parent::knockBack($attacker,$damage,$x,$z,2.5);
+	public function knockBack(Entity $attacker, $damage, $x, $z, $base = 2){
+		echo __METHOD__.",".__LINE__."\n"; //##DEBUG
+		parent::knockBack($attacker,$damage,$x,$z,$base);
+		$this->knockback = time() + 1;// Stunned for 1 second...
 	}
 
 }

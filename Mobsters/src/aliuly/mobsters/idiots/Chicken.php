@@ -7,6 +7,7 @@ use pocketmine\network\protocol\AddEntityPacket;
 use pocketmine\network\Network;
 use pocketmine\Player;
 use pocketmine\entity\Animal;
+use pocketmine\entity\Entity;
 
 use pocketmine\network\protocol\MovePlayerPacket;
 use pocketmine\math\AxisAlignedBB;
@@ -24,6 +25,7 @@ class Chicken extends Animal{
 	public $width = 0.5;
 	public $length = 0.8125;
 	public $height = 0.875;
+	public $knockback = 0;
 
 	public static $range = 16;
 	public static $speed = 0.05;
@@ -64,7 +66,7 @@ class Chicken extends Animal{
 		return $drops;
 	}
 
-	public function updateMovement(){
+	public function zupdateMovement(){
 		if($this->x !== $this->lastX or $this->y !== $this->lastY or $this->z !== $this->lastZ or $this->yaw !== $this->lastYaw or $this->pitch !== $this->lastPitch){
 			$this->lastX = $this->x;
 			$this->lastY = $this->y;
@@ -136,6 +138,12 @@ class Chicken extends Animal{
 	}
 
 	public function onUpdate($currentTick){
+		if ($this->knockback) {
+			if (time() < $this->knockback) {
+				return  parent::onUpdate($currentTick);
+			}
+			$this->knockback = 0;
+		}
 		$hasUpdate = false;
 		$this->timings->startTiming();
 
@@ -205,6 +213,10 @@ class Chicken extends Animal{
 		$this->timings->stopTiming();
 		$hasUpdate = parent::onUpdate($currentTick) || $hasUpdate;
 		return $hasUpdate;
+	}
+	public function knockBack(Entity $attacker, $damage, $x, $z, $base = 0.4){
+		parent::knockBack($attacker,$damage,$x,$z,$base);
+		$this->knockback = time() + 1;// Stunned for 1 second...
 	}
 
 }

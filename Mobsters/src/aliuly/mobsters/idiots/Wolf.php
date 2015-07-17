@@ -9,6 +9,8 @@ use pocketmine\network\Network;
 
 use pocketmine\Player;
 use pocketmine\entity\Animal;
+use pocketmine\entity\Entity;
+
 use pocketmine\entity\Tameable;
 use pocketmine\nbt\tag\String;
 use pocketmine\math\AxisAlignedBB;
@@ -25,6 +27,7 @@ class Wolf extends Animal implements Tameable{
 	public $length = 1.4375;
 	public $height = 1.25;
 	public $owner = null;
+	public $knockback = 0;
 
 	public function getName(){
 		return "LameWolf";
@@ -91,7 +94,7 @@ class Wolf extends Animal implements Tameable{
 		);
 		return $this->boundingBox;
 	}
-	public function updateMovement(){
+	public function noupdateMovement(){
 		if($this->x !== $this->lastX or $this->y !== $this->lastY or $this->z !== $this->lastZ or $this->yaw !== $this->lastYaw or $this->pitch !== $this->lastPitch){
 			$event = new \pocketmine\event\entity\EntityMoveEvent($this,new \pocketmine\math\Vector3($this->x - $this->lastX,$this->y - $this->lastY,$this->z - $this->lastZ));
 			$this->server->getPluginManager()->callEvent($event);
@@ -130,6 +133,12 @@ class Wolf extends Animal implements Tameable{
 	}
 
 	public function onUpdate($currentTick){
+		if ($this->knockback) {
+			if (time() < $this->knockback) {
+				return  parent::onUpdate($currentTick);
+			}
+			$this->knockback = 0;
+		}
 		$hasUpdate = false;
 		$this->timings->startTiming();
 
@@ -209,6 +218,10 @@ class Wolf extends Animal implements Tameable{
 		$this->timings->stopTiming();
 		$hasUpdate = parent::onUpdate($currentTick) || $hasUpdate;
 		return $hasUpdate;
+	}
+	public function knockBack(Entity $attacker, $damage, $x, $z, $base = 0.4){
+		parent::knockBack($attacker,$damage,$x,$z,$base);
+		$this->knockback = time() + 1;// Stunned for 1 second...
 	}
 
 }
