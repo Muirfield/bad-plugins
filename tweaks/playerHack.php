@@ -19,6 +19,7 @@ namespace aliuly\hack{
 	use pocketmine\plugin\PluginBase;
 	use pocketmine\event\Listener;
 	use pocketmine\event\player\PlayerCreationEvent;
+	use pocketmine\event\block\BlockBreakEvent;
 	use pocketmine\Player;
 	use pocketmine\level\Location;
 	use pocketmine\event\player\PlayerMoveEvent;
@@ -30,6 +31,9 @@ namespace aliuly\hack{
 		}
 		public function newPlayerFactory(PlayerCreationEvent $ev){
 			$ev->setPlayerClass(BrokenPlayer::class);
+		}
+		public function onBreak(BlockBreakEvent $ev) {
+			$ev->setInstaBreak(true);
 		}
 	}
 	class BrokenPlayer extends Player {
