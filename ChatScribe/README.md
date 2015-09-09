@@ -13,16 +13,6 @@
 
 ## Overview
 
-<!-- php: $v_forum_thread = "http://forums.pocketmine.net/threads/chatscribe.8922/"; -->
-<!-- template: prologue.md -->
-
-**DO NOT POST QUESTION/BUG-REPORTS/REQUESTS IN THE REVIEWS**
-
-It is difficult to carry a conversation in the reviews.  If you
-have a question/bug-report/request please use the
-[Thread](http://forums.pocketmine.net/threads/chatscribe.8922/) for
-that.  You are more likely to get a response and help that way.
-
 _NOTE:_
 
 This documentation was last updated for version **1.2.0**.
@@ -32,8 +22,6 @@ Please go to
 for the most up-to-date documentation.
 
 You can also download this plugin from this [page](https://github.com/alejandroliu/pocketmine-plugins/releases/tag/ChatScribe-1.2.0).
-
-<!-- template-end -->
 
 Let's you log all commands and chat's to files.
 
@@ -141,4 +129,3 @@ created in the default PocketMine location (usually the same folder as
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
