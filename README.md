@@ -130,6 +130,33 @@ rules) for the PocketMine official
     </ul>
   </td>
 </tr>
+<!---------------------------------------------------------------------->
+<tr>
+  <th>
+    <a href="https://github.com/alejandroliu/bad-plugins/tree/master/ChatScribe">
+<img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/ChatScribe-icon.png" style="width:64px;height:64px" width="64" height="64"/>
+      <br/>
+      ChatScribe
+    </a>
+  </th>
+  <td>
+    Logs chat and commands to file
+    <ul>
+    <li>
+<a href="https://github.com/alejandroliu/pocketmine-plugins/releases/tag/ChatScribe-1.2.0" title="Downloads">v1.2.0
+  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
+    </li>
+      <li>
+	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/ChatScribe-1.1.0" title="Downloads">v1.1.0
+	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
+      </li>
+      <li>
+	<a href="https://github.com/alejandroliu/bad-plugins/releases/tag/ChatScribe-1.0.0" title="Downloads">v1.0.0
+	  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
+      </li>
+    </ul>
+  </td>
+</tr>
 
 </table>
 
