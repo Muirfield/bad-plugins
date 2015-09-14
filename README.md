@@ -162,8 +162,6 @@ rules) for the PocketMine official
 
 # Other tools
 
-* [RCON](https://github.com/alejandroliu/bad-plugins/tree/master/rcon) -
-  an rcon client
 * pmptemplate - A PocketMine Plugin Template
 
 * * *
