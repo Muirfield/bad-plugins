@@ -157,6 +157,25 @@ rules) for the PocketMine official
     </ul>
   </td>
 </tr>
+<!---------------------------------------------------------------------->
+<tr>
+  <th>
+    <a href="https://github.com/alejandroliu/bad-plugins/tree/master/SpawnMgr">
+      <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/spawnicon.png" style="width:64px;height:64px" width="64" height="64"/>
+      <br/>
+      SpawnMgr
+    </a>
+  </th>
+  <td>
+    control how players spawn
+    <ul>
+    <li>
+<a href="https://github.com/alejandroliu/pocketmine-plugins/releases/tag/SpawnMgr-1.3.0" title="Downloads">v132.0
+  <img src="https://raw.githubusercontent.com/alejandroliu/bad-plugins/master/Media/download-icon.png" alt="Downloads"/></a>
+    </li>
+    </ul>
+  </td>
+</tr>
 
 </table>
 
