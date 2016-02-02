@@ -17,6 +17,7 @@ use pocketmine\scheduler\CallbackTask;
 
 
 class Main extends PluginBase implements Listener {
+	
 	public function onEnable(){
 		if (!is_dir($this->getDataFolder())) mkdir($this->getDataFolder());
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
@@ -36,9 +37,7 @@ class Main extends PluginBase implements Listener {
 		$yaml[$ln] = [];
 
 		foreach ($player->getInventory()->getContents() as $slot=>&$item) {
-			$yaml[$ln][$slot] = implode(":",[ $item->getId(),
-														 $item->getDamage(),
-														 $item->getCount() ]);
+			$yaml[$ln][$slot] = implode(":",[ $item->getId(), $item->getDamage(), $item->getCount() ]);
 		}
 		$cfg->setAll($yaml);
 		$cfg->save();
