@@ -36,8 +36,10 @@ class Minecart extends Vehicle {
     //$pk->speedZ = $this->motionZ;
     $player->dataPacket($pk);
 
-    $player->addEntityMotion($this->getId(), $this->motionX, $this->motionY, $this->motionZ);
-
+   // $player->addEntityMotion($this->getId(), $this->motionX, $this->motionY, $this->motionZ);
+    if ($this->chunk != null) {
+      $this->level->addEntityMotion($this->chunk->getX(), $this->chunk->getZ(), $this->getId(), $this->motionX, $this->motionY, $this->motionZ);
+    }
     parent::spawnTo($player);
   }
 

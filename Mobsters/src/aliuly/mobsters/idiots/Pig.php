@@ -83,7 +83,10 @@ class Pig extends Animal implements Rideable{
 			$this->lastMotionZ = $this->motionZ;
 
 			foreach($this->hasSpawned as $player){
-				$player->addEntityMotion($this->id, $this->motionX, $this->motionY, $this->motionZ);
+				//$player->addEntityMotion($this->id, $this->motionX, $this->motionY, $this->motionZ);
+				if ($this->chunk != null) {
+					$this->level->addEntityMotion($this->chunk->getX(), $this->chunk->getZ(), $this->getId(), $this->motionX, $this->motionY, $this->motionZ);
+				}
 			}
 		}
 	}
